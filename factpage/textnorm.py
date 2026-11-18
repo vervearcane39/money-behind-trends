@@ -71,6 +71,11 @@ def numbers(text: str) -> set[tuple[Decimal, str]]:
     return {_canon(m) for m in _matches(text)}
 
 
+def missing_numbers(claim_nums, text_nums) -> list:
+    """A claim number is supported if the text has the same value and kind (a bare claim number matches any kind)."""
+    return [(v, k) for v, k in claim_nums if (v, k) not in text_nums and not (k == "" and any(v == tv for tv, _ in text_nums))]
+
+
 def number_spans(text: str) -> list[str]:
     """Numbers exactly as written (with currency and unit), in order."""
     return [m.group(0).strip() for m in _matches(text)]

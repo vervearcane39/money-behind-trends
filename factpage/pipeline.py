@@ -20,6 +20,7 @@ from .verify import verify
 
 
 MAX_TOPIC_TRIES = 3
+MAX_CITED_FETCHES = 15  # extra pages per slot fetched by following Wikipedia citations
 
 
 def _slides(label, facts, photo, cfg):
@@ -60,8 +61,14 @@ def publish_pending(cfg: dict, root: Path, pending_path: Path, base_url: str, pu
     return media_id
 
 
+def _source_row(d) -> dict:
+    return {"url": d.url, "name": d.name, "domain": d.domain, "words": len(d.text.split()),
+            "wiki_revid": d.wiki_revid, "fetched_at": d.fetched_at}
+
+
 def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, collect=trends.collect,
-             gather=research.gather, find_photo=images.find_photo, render=render.render_slides) -> dict:
+             gather=research.gather, find_photo=images.find_photo, render=render.render_slides,
+             cite=research.cited_docs) -> dict:
     tz = ZoneInfo(cfg["timezone"])
     live = bool(cfg["publishing_enabled"]) and not dry_run
     run_id = now.astimezone(tz).strftime("%Y%m%d-%H%M")
@@ -108,11 +115,12 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         rec.update(topic=label, trend_title=trend.title, trend_source=trend.source, geo=trend.geo,
                    topic_key=topic_key(trend.title), topic_keys=sorted({topic_key(trend.title), topic_key(label)}),
                    fallback=trend.source == "evergreen", angle=asdict(angle))
-        rec["sources"] = [{"url": d.url, "name": d.name, "domain": d.domain, "words": len(d.text.split()),
-                           "wiki_revid": d.wiki_revid, "fetched_at": d.fetched_at} for d in docs]
+        rec["sources"] = [_source_row(d) for d in docs]
 
         facts, keys = [], set()
-        for doc in docs:
+        wiki = next((d for d in docs if d.wiki_revid), None)
+        tried = {d.url for d in docs}
+        for doc in list(docs):  # extraction reads the gathered pages; cited pages only corroborate
             for cand in extract_candidates(llm, doc, label, angle.angle, cfg):
                 if len(facts) >= cfg["copy"]["max_facts"]:
                     break
@@ -121,6 +129,14 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
                     rec["checks"].append({"claim": cand.claim, "skipped": "fact already used"})
                     continue
                 fact, log = verify(cand, docs, llm, cfg)
+                only_c_failed = log.results.get("c_corroborated", (True,))[0] is False
+                if only_c_failed and wiki and len(tried) < len(docs) + MAX_CITED_FETCHES:
+                    # follow the source Wikipedia cites for this exact figure, then re-run every check
+                    extra = [d for d in cite(wiki, cand.claim, cfg, tried) if all(d.url != x.url for x in docs)]
+                    if extra:
+                        docs = docs + extra
+                        rec["sources"] += [_source_row(d) for d in extra]
+                        fact, log = verify(cand, docs, llm, cfg)
                 rec["checks"].append({"claim": cand.claim, "quote": cand.quote, "source_url": cand.source_url,
                                       "results": log.results})
                 if fact:

@@ -195,6 +195,34 @@ def test_tries_runner_up_when_top_topic_has_too_few_sources(tmp_path):
     assert any(d["title"] == "Empty topic" and "sources" in d["reason"] for d in rec["decisions"])
 
 
+def test_failed_corroboration_follows_wikipedia_citation(tmp_path):
+    no_number = SourceDoc("https://www.cnn.com/z", "cnn.com", "CNN", "Ramayana: Part 1 opened to crowds in 2024.", "t")
+    wiki = SourceDoc("https://en.wikipedia.org/w/index.php?oldid=7", "wikipedia.org", "Wikipedia",
+                     "Ramayana: Part 1 cost ₹550 crore in 2024.", "t", 7)
+    calls = []
+
+    def cite(w, claim, cfg, tried):
+        calls.append(claim)
+        return [BBC]
+    rec = run_slot(load_config(), dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+                   collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                   gather=lambda t, c: [HINDU, no_number, wiki], find_photo=lambda q, c, o: None,
+                   render=fake_render, cite=cite)
+    assert rec["status"] == "dry_run", rec["reason"]
+    assert rec["facts"][0]["corroborator_url"] == BBC.url
+    assert calls == [GOOD["claim"]]
+    assert any(s["url"] == BBC.url for s in rec["sources"])
+
+
+def test_citation_not_followed_when_already_corroborated(tmp_path):
+    calls = []
+    rec = run_slot(load_config(), dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+                   collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                   gather=lambda t, c: [HINDU, BBC], find_photo=lambda q, c, o: None, render=fake_render,
+                   cite=lambda *a: calls.append(a) or [])
+    assert rec["status"] == "dry_run" and calls == []
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)

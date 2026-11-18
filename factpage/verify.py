@@ -13,7 +13,7 @@ from decimal import Decimal
 
 from .caption import copy_ok
 from .research import SourceDoc
-from .textnorm import norm, number_positions, number_spans, numbers, prep, proper_nouns, years
+from .textnorm import missing_numbers, norm, number_positions, number_spans, numbers, prep, proper_nouns, years
 
 SUPERLATIVES = re.compile(r"\b(largest|biggest|highest|lowest|smallest|most|least|first|only|record|richest|"
                           r"fastest|best|worst|top|ever|costliest|cheapest|oldest|youngest)\b", re.I)
@@ -49,11 +49,6 @@ class VerifiedFact:
 class CheckLog:
     claim: str
     results: dict[str, tuple[bool, str]] = field(default_factory=dict)
-
-
-def _missing_numbers(claim_nums, text_nums) -> list:
-    """A claim number is supported if the text has the same value and kind (a bare claim number matches any kind)."""
-    return [(v, k) for v, k in claim_nums if (v, k) not in text_nums and not (k == "" and any(v == tv for tv, _ in text_nums))]
 
 
 def _has_words(phrase: str, text_norm: str) -> bool:
@@ -105,7 +100,7 @@ def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[Verifie
 
     # b — claim tokens contained in quote
     qn = norm(c.quote)
-    missing = _missing_numbers(numbers(c.claim), numbers(c.quote))
+    missing = missing_numbers(numbers(c.claim), numbers(c.quote))
     if missing:
         return fail("b_claim_in_quote", f"numbers not in quote: {[f'{v:f}{k}' for v, k in missing]}")
     nouns = [n for n in proper_nouns(c.claim) if not _has_words(n, qn)]
@@ -139,7 +134,7 @@ def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[Verifie
 
     # c — corroboration on a second, different, non-Wikipedia domain
     corr = next((d for d in docs if d.domain not in (primary.domain, "wikipedia.org")
-                 and not _missing_numbers(numbers(c.claim), numbers(d.text))
+                 and not missing_numbers(numbers(c.claim), numbers(d.text))
                  and all(_has_words(n, norm(d.text)) for n in proper_nouns(c.claim))), None)
     if corr is None:
         return fail("c_corroborated", "no second non-Wikipedia domain contains the same numbers and names")
