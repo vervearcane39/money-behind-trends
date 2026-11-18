@@ -185,6 +185,18 @@ blocklist:
   - caste
   - dalit
   - communal
+  # gambling (Instagram restricts gambling promotion; remove these lines if you disagree)
+  - lottery
+  - lotto
+  - jackpot
+  - mega millions
+  - powerball
+  - betting
+  - bet
+  - casino
+  - gambling
+  - satta
+  - dream11
   # health / medical
   - covid
   - virus
@@ -315,13 +327,21 @@ sources:
 
 # ── AI ──────────────────────────────────────────────────────────────────────
 # Any OpenAI-compatible provider works: change base_url/model/key_env.
-# `extra` is passed straight to the provider (Groq: hide the model's reasoning text from the reply).
+# `extra` is passed straight to the provider. Groq notes (tested 2026-11-18):
+# - hidden "reasoning" tokens count toward the answer budget; with default effort, gpt-oss ran out
+#   mid-answer, so effort is set low and the budget explicit.
+# - qwen3.8-27b has only 1,000 output tokens/minute on the free plan: the classifier runs with reasoning
+#   off (labels only); the verifier keeps low reasoning and simply waits when limited.
 llm:
-  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
-  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
-  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
-  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
-  max_retries: 3
+  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY,
+               extra: {reasoning_effort: none, max_completion_tokens: 2000}}
+  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 3000}}
+  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 2500}}
+  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 1000}}
+  max_retries: 6
 
 # ── Images ──────────────────────────────────────────────────────────────────
 images:

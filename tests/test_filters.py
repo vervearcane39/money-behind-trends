@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timedelta, timezone
 
 from factpage.config import load_config
@@ -104,6 +105,41 @@ def test_shortlist_drops_blocklisted_caps_and_prefers_trends():
     assert len(out) == CFG["max_candidates"]
     assert out[0].title == "Nvidia"
     assert all(t.title != "Stadium stampede" for t in out)
+
+
+def test_shortlist_drops_non_latin_titles():
+    trends = [Trend("ബോക്സ് ഓഫീസ്", "google_trends", "IN", [], 900), Trend("भारत बनाम", "google_trends", "IN", [], 800),
+              Trend("Nvidia", "wikipedia", "", [], 5), Trend("Moussa Diabaté", "google_trends", "US", [], 4)]
+    assert [t.title for t in shortlist(trends, CFG)] == ["Nvidia", "Moussa Diabaté"]
+
+
+def test_gambling_topics_blocked():
+    assert blocklist_hit("mega millions numbers", CFG["blocklist"])
+    assert blocklist_hit("Powerball jackpot", CFG["blocklist"])
+
+
+def test_safety_is_asked_in_batches_so_none_go_unanswered():
+    llm = FakeLLM(lambda user: {"results": [{"title": t, "label": "SAFE", "reason": "ok"} for t in json.loads(user)]})
+    trends = [T(f"Company {i}") for i in range(45)]
+    out = classify_safety(llm, trends)
+    assert len(llm.calls) == 3 and all(len(json.loads(u)) <= 20 for _, u in llm.calls)
+    assert {v[0] for v in out.values()} == {"SAFE"} and len(out) == 45
+
+
+def test_angles_are_asked_in_batches():
+    llm = FakeLLM(lambda user: {"results": [{"title": t, "score": 7, "angle": "a", "photo_query": "q", "tags": [],
+                                             "name": ""} for t in json.loads(user)]})
+    out = score_angles(llm, [T(f"Company {i}") for i in range(25)])
+    assert len(llm.calls) == 2 and len(out) == 25
+
+
+def test_pick_skips_excluded_titles(tmp_path):
+    trends = [T("Nvidia"), T("IPL auction")]
+    angles = {"Nvidia": Angle(9, "a", "chips", []), "IPL auction": Angle(7, "b", "stadium", [])}
+    trend, _, decisions = pick(trends, _safe("Nvidia", "IPL auction"), angles, History(tmp_path / "h.jsonl"), CFG, NOW,
+                               exclude={"Nvidia"})
+    assert trend.title == "IPL auction"
+    assert any(d.title == "Nvidia" and not d.kept for d in decisions)
 
 
 def test_pick_non_latin_title_without_angle_is_dropped(tmp_path):

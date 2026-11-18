@@ -29,6 +29,13 @@ def test_fact_slide_photo_fills_full_width(tmp_path):
     assert r > 80, "right edge shows background instead of the photo"
 
 
+def test_renders_into_relative_folder(tmp_path, monkeypatch):
+    from pathlib import Path
+    monkeypatch.chdir(tmp_path)
+    [p] = render_slides([Slide("hook", "T", "Behind the numbers", "", None, [], "@h", None)], Path("rel/out"), CFG)
+    assert p.exists()
+
+
 def test_renders_baseline_jpegs_at_1080x1350(tmp_path):
     slides = [Slide("hook", "Sample", "The money behind Sample", "", None, [], "@handle", None),
               Slide("fact", "Sample", "", "Placeholder fact text for layout only, not a real claim.",

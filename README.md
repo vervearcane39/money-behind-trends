@@ -42,7 +42,7 @@ what breaks first if one changes.
 
 ## Setup (about 45 minutes, once)
 
-You will collect five secret values and paste them into GitHub. Keep a text file open while you go,
+You will collect four secret values (five if you have a Pexels key) and paste them into GitHub. Keep a text file open while you go,
 and delete it at the end.
 
 ### 1. Put this code on GitHub
@@ -69,11 +69,16 @@ and delete it at the end.
 2. Left menu: **API Keys** → **Create API Key** → name it `money-behind-trends` → **Submit**.
 3. Copy the key (it starts with `gsk_`). Groq shows it only once.
 
-### 4. Get a free Pexels photo key → secret `PEXELS_API_KEY`
+### 4. (Optional) Pexels photo key → secret `PEXELS_API_KEY`
 
-1. Go to <https://www.pexels.com/api/> and click **Your API Key** (create a free account if asked).
+**You can skip this step.** As of November 2026, Pexels has paused new API keys. Without a Pexels key the
+system uses photos from Wikimedia Commons (public domain, CC0 or CC BY only). If no suitable photo is found,
+it uses a plain background in the brand colour.
+
+If Pexels starts issuing keys again:
+1. Go to <https://www.pexels.com/api/> and click **Your API Key**.
 2. Fill in the short form (description: "Automated Instagram page that credits Pexels photographers").
-3. Copy the key.
+3. Copy the key and add it as a secret in step 8.
 
 ### 5. Make your Instagram account a professional account
 
@@ -129,7 +134,7 @@ In your repo: **Settings → Secrets and variables → Actions → New repositor
 | Name | Value |
 |---|---|
 | `GROQ_API_KEY` | from step 3 |
-| `PEXELS_API_KEY` | from step 4 |
+| `PEXELS_API_KEY` | from step 4 (optional; leave it out if you have no key) |
 | `IG_ACCESS_TOKEN` | from step 6.10 |
 | `IG_USER_ID` | from step 6.11 |
 | `GH_SECRETS_PAT` | from step 7 |

@@ -70,7 +70,7 @@ def render_slides(slides: list[Slide], out_dir: Path, cfg: dict) -> list[Path]:
         for i, s in enumerate(slides, 1):
             src = out_dir / f"slide_{i}.html"
             src.write_text(_html(s, cfg), encoding="utf-8")
-            page.goto(src.as_uri())
+            page.goto(src.resolve().as_uri())
             page.wait_for_selector("body[data-ready='1']", timeout=15000)
             png = page.screenshot(type="png")
             jpg = out_dir / f"slide_{i}.jpg"

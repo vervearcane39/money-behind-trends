@@ -177,6 +177,24 @@ def test_same_subject_via_different_trend_title_is_on_cooldown(tmp_path):
                for d in rec["decisions"])
 
 
+def test_tries_runner_up_when_top_topic_has_too_few_sources(tmp_path):
+    cfg = load_config()
+
+    class TwoLLM(FakeLLM):
+        def json(self, role, system, user):
+            if role == "angle":
+                return {"results": [{"title": t, "score": 9 if t == "Empty topic" else 8, "angle": "budget",
+                                     "photo_query": "cinema", "tags": [], "name": ""} for t in json.loads(user)]}
+            return super().json(role, system, user)
+    rec = run_slot(cfg, dry_run=True, root=tmp_path, now=NOW, llm=TwoLLM(),
+                   collect=lambda c, n: [Trend("Empty topic", "google_trends", "IN", [], 900),
+                                         Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                   gather=lambda t, c: [] if t.title == "Empty topic" else [HINDU, BBC],
+                   find_photo=lambda q, c, o: None, render=fake_render)
+    assert rec["status"] == "dry_run" and rec["topic"] == "Ramayana: Part 1"
+    assert any(d["title"] == "Empty topic" and "sources" in d["reason"] for d in rec["decisions"])
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)

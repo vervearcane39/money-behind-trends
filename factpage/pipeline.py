@@ -19,6 +19,9 @@ from .trends import Trend
 from .verify import verify
 
 
+MAX_TOPIC_TRIES = 3
+
+
 def _slides(label, facts, photo, cfg):
     head, handle = headline_for(label, cfg), cfg["handle"]
     if len(facts) == 1:
@@ -80,27 +83,33 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         safety = classify_safety(llm, pool)
         safe = [t for t in pool if safety[t.title][0] == "SAFE"]
         angles = score_angles(llm, safe) if safe else {}
-        trend, angle, decisions = pick(pool, safety, angles, hist, cfg, now)
-        rec["decisions"] = [asdict(d) for d in decisions]
-        if trend is None:
-            return skip("no eligible topic")
-        if angle is None:  # evergreen fallback
-            angle = score_angles(llm, [trend]).get(trend.title)
-            if angle is None:
-                return skip("no angle for fallback topic")
-        label = topic_label(trend, angle)
-        if not label:
-            return skip("no clean topic name for a news-headline topic")
+        tried: dict[str, str] = {}
+        for _ in range(MAX_TOPIC_TRIES):  # research costs no AI calls, so try the runner-up if sources are thin
+            trend, angle, decisions = pick(pool, safety, angles, hist, cfg, now, exclude=tried)
+            rec["decisions"] = [asdict(d) for d in decisions]
+            if trend is None:
+                return skip("no eligible topic")
+            if angle is None:  # evergreen fallback
+                angle = score_angles(llm, [trend]).get(trend.title)
+                if angle is None:
+                    return skip("no angle for fallback topic")
+            label = topic_label(trend, angle)
+            if not label:
+                tried[trend.title] = "no clean topic name for a news headline"
+                continue
+            docs = gather(Trend(label if trend.source == "feed" else trend.title, trend.source, trend.geo,
+                                trend.urls, trend.signal), cfg)
+            if len(docs) >= 2:
+                break
+            tried[trend.title] = f"only {len(docs)} usable sources"
+        else:
+            rec["decisions"] = [asdict(d) for d in pick(pool, safety, angles, hist, cfg, now, exclude=tried)[2]]
+            return skip(f"fewer than two usable sources for the top {MAX_TOPIC_TRIES} topics")
         rec.update(topic=label, trend_title=trend.title, trend_source=trend.source, geo=trend.geo,
                    topic_key=topic_key(trend.title), topic_keys=sorted({topic_key(trend.title), topic_key(label)}),
                    fallback=trend.source == "evergreen", angle=asdict(angle))
-
-        docs = gather(Trend(label if trend.source == "feed" else trend.title, trend.source, trend.geo,
-                            trend.urls, trend.signal), cfg)
         rec["sources"] = [{"url": d.url, "name": d.name, "domain": d.domain, "words": len(d.text.split()),
                            "wiki_revid": d.wiki_revid, "fetched_at": d.fetched_at} for d in docs]
-        if len(docs) < 2:
-            return skip("fewer than two usable sources")
 
         facts, keys = [], set()
         for doc in docs:
@@ -154,7 +163,7 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         rec["status"], rec["reason"] = "error", f"unexpected {type(e).__name__}: {e}"[:300]
         raise
     finally:
-        slug = re.sub(r"[^a-z0-9]+", "-", (rec["topic"] or "skipped").lower()).strip("-")[:40]
+        slug = re.sub(r"[^a-z0-9]+", "-", (rec["topic"] or "skipped").lower()).strip("-")[:40] or "topic"
         local = now.astimezone(tz)
         report = root / "reports" / local.strftime("%Y/%m") / f"{local:%d-%H%M}-{slug}.md"
         report.parent.mkdir(parents=True, exist_ok=True)
