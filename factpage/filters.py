@@ -138,6 +138,10 @@ def pick(trends: list[Trend], safety: dict, angles: dict[str, Angle], history: H
         elif any(history.topic_used_within(topic_key(k), cfg["topic_cooldown_days"], now)
                  for k in (t.title, a.name if a else "") if k):
             decisions.append(Decision(t.title, False, f"used in the last {cfg['topic_cooldown_days']} days"))
+        elif any(history.topic_failed_within(topic_key(k), cfg["failed_topic_rest_hours"], now)
+                 for k in (t.title, a.name if a else "") if k):
+            decisions.append(Decision(t.title, False,
+                                      f"no verifiable fact in the last {cfg['failed_topic_rest_hours']} h; resting"))
         elif a is None:
             decisions.append(Decision(t.title, False, "no business angle returned"))
         elif a.score < cfg["min_angle_score"]:

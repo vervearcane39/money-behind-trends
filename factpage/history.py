@@ -40,6 +40,12 @@ class History:
         return any((r.get("topic_key") == key or key in r.get("topic_keys", []))
                    and datetime.fromisoformat(r["at"]) >= since for r in self._used())
 
+    def topic_failed_within(self, key: str, hours: int, now: datetime) -> bool:
+        """A slot already researched this topic and no fact passed: let it rest instead of retrying every slot."""
+        since = now - timedelta(hours=hours)
+        return any(r.get("status") == "skipped" and key in r.get("topic_keys", [])
+                   and datetime.fromisoformat(r["at"]) >= since for r in self.records())
+
     def fact_seen(self, key: str) -> bool:
         return any(key in r.get("fact_keys", []) for r in self._used())
 

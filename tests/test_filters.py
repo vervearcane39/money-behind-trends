@@ -133,6 +133,19 @@ def test_angles_are_asked_in_batches():
     assert len(llm.calls) == 2 and len(out) == 25
 
 
+def test_topic_that_failed_verification_rests_for_24_hours(tmp_path):
+    h = History(tmp_path / "h.jsonl")
+    h.append({"status": "skipped", "reason": "no fact passed verification", "topic_keys": [topic_key("Nvidia")],
+              "at": (NOW - timedelta(hours=3)).isoformat()})
+    trends = [T("Nvidia"), T("IPL auction")]
+    angles = {"Nvidia": Angle(9, "a", "chips", []), "IPL auction": Angle(7, "b", "stadium", [])}
+    trend, _, decisions = pick(trends, _safe("Nvidia", "IPL auction"), angles, h, CFG, NOW)
+    assert trend.title == "IPL auction"
+    assert any(d.title == "Nvidia" and "24" in d.reason for d in decisions)
+    trend, _, _ = pick(trends, _safe("Nvidia", "IPL auction"), angles, h, CFG, NOW + timedelta(hours=25))
+    assert trend.title == "Nvidia"
+
+
 def test_pick_skips_excluded_titles(tmp_path):
     trends = [T("Nvidia"), T("IPL auction")]
     angles = {"Nvidia": Angle(9, "a", "chips", []), "IPL auction": Angle(7, "b", "stadium", [])}

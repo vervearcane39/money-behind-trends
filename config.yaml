@@ -46,6 +46,8 @@ alert_after_skipped_runs: 12
 
 # How many days before a topic may be used again. Facts are never repeated.
 topic_cooldown_days: 7
+# A topic where no fact passed verification rests this long, so the next slot tries something else.
+failed_topic_rest_hours: 24
 # A topic needs at least this business-angle score (0-10) to be used.
 min_angle_score: 6
 # Used at most once per day when nothing trending has a clear money angle.
