@@ -37,7 +37,8 @@ class History:
 
     def topic_used_within(self, key: str, days: int, now: datetime) -> bool:
         since = now - timedelta(days=days)
-        return any(r.get("topic_key") == key and datetime.fromisoformat(r["at"]) >= since for r in self._used())
+        return any((r.get("topic_key") == key or key in r.get("topic_keys", []))
+                   and datetime.fromisoformat(r["at"]) >= since for r in self._used())
 
     def fact_seen(self, key: str) -> bool:
         return any(key in r.get("fact_keys", []) for r in self._used())

@@ -50,7 +50,8 @@ def publish_pending(cfg: dict, root: Path, pending_path: Path, base_url: str, pu
     media_id = publisher.publish(urls, p["caption"], p["alt_texts"])
     History(root / "data/history.jsonl").append({
         "run_id": p["run_id"], "at": now.isoformat(), "status": "published", "media_id": media_id,
-        "topic_key": p["topic_key"], "fact_keys": p["fact_keys"], "fallback": p["fallback"], "report": p["report"]})
+        "topic_key": p["topic_key"], "topic_keys": p["topic_keys"], "fact_keys": p["fact_keys"],
+        "fallback": p["fallback"], "report": p["report"]})
     with (root / p["report"]).open("a", encoding="utf-8") as f:
         f.write(f"\n## Published\n- Instagram media ID: {media_id}\n- Time (UTC): {now.isoformat()}\n")
     return media_id
@@ -91,7 +92,8 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         if not label:
             return skip("no clean topic name for a news-headline topic")
         rec.update(topic=label, trend_title=trend.title, trend_source=trend.source, geo=trend.geo,
-                   topic_key=topic_key(trend.title), fallback=trend.source == "evergreen", angle=asdict(angle))
+                   topic_key=topic_key(trend.title), topic_keys=sorted({topic_key(trend.title), topic_key(label)}),
+                   fallback=trend.source == "evergreen", angle=asdict(angle))
 
         docs = gather(Trend(label if trend.source == "feed" else trend.title, trend.source, trend.geo,
                             trend.urls, trend.signal), cfg)
@@ -148,6 +150,9 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
     except MissingKey as e:
         rec["status"], rec["reason"] = "error", f"AI key problem: {e}"
         raise  # configuration errors fail the run so GitHub emails the owner
+    except Exception as e:
+        rec["status"], rec["reason"] = "error", f"unexpected {type(e).__name__}: {e}"[:300]
+        raise
     finally:
         slug = re.sub(r"[^a-z0-9]+", "-", (rec["topic"] or "skipped").lower()).strip("-")[:40]
         local = now.astimezone(tz)
@@ -160,5 +165,6 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
             (root / "out" / "pending.json").write_text(json.dumps({
                 "run_id": run_id, "images": [f"{run_id}/{n}" for n in rec["images"]], "caption": rec["caption"],
                 "alt_texts": [_alt(s) for s in slides], "report": rec["report"], "topic_key": rec["topic_key"],
-                "fact_keys": rec["fact_keys"], "fallback": rec["fallback"]}, ensure_ascii=False, indent=1),
+                "topic_keys": rec["topic_keys"], "fact_keys": rec["fact_keys"], "fallback": rec["fallback"]},
+                ensure_ascii=False, indent=1),
                 encoding="utf-8")

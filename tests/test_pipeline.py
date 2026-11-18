@@ -155,6 +155,28 @@ def test_missing_or_rejected_key_fails_loudly_but_still_logs(tmp_path):
     assert history(tmp_path)[-1]["status"] == "error"
 
 
+def test_unexpected_crash_is_logged_as_error_with_cause(tmp_path):
+    import pytest
+    cfg = load_config()
+
+    def boom(t, c):
+        raise RuntimeError("browser died")
+    with pytest.raises(RuntimeError):
+        run_slot(cfg, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+                 collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                 gather=boom, find_photo=lambda q, c, o: None, render=fake_render)
+    last = history(tmp_path)[-1]
+    assert last["status"] == "error" and "browser died" in last["reason"]
+
+
+def test_same_subject_via_different_trend_title_is_on_cooldown(tmp_path):
+    assert run(tmp_path)["status"] == "dry_run"  # posts about "Ramayana: Part 1"
+    rec = run(tmp_path, trends=[Trend("ramayana part 1 collection", "google_trends", "IN", [HINDU.url], 500)])
+    assert rec["topic"] != "Ramayana: Part 1"  # fell back to an evergreen topic instead
+    assert any(d["title"] == "ramayana part 1 collection" and not d["kept"] and "7 days" in d["reason"]
+               for d in rec["decisions"])
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)
