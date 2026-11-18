@@ -33,6 +33,25 @@ def cmd_candidates(args, cfg):
     return 0
 
 
+def cmd_sample_render(args, cfg):
+    """Layout samples with obvious placeholder text (never real facts) for reviewing the design."""
+    from .images import find_photo
+    from .render import Slide, headline_for, render_slides
+
+    out = ROOT / "samples"
+    photo = find_photo(args.photo_query, cfg, out / "photos")
+    print("photo:", f"{photo.credit} ({photo.licence}) {photo.source_url}" if photo else "none found → plain background")
+    topic, handle = "Sample Topic", cfg["handle"] or "@yourhandle"
+    fact = "Placeholder text showing where one verified fact goes, up to twenty-five words, with its year."
+    slides = [Slide("hook", topic, headline_for(topic, cfg), "", None, [], handle, photo, "1/3"),
+              Slide("fact", topic, "", fact, "₹1,234 crore", ["Source A", "Source B"], handle, photo, "2/3"),
+              Slide("fact", topic, "", fact, "48%", ["Source A", "Source B"], handle, None, "3/3"),
+              Slide("single", topic, headline_for(topic, cfg), fact, "US$2.9 billion", ["Source A", "Source B"], handle, photo)]
+    for p in render_slides(slides, out, cfg):
+        print(p.relative_to(ROOT))
+    return 0
+
+
 def main(argv=None) -> int:
     for stream in (sys.stdout, sys.stderr):  # Windows consoles crash on non-English trend titles otherwise
         stream.reconfigure(encoding="utf-8", errors="replace")
@@ -41,9 +60,11 @@ def main(argv=None) -> int:
     sub = p.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("candidates", help="print today's trending candidates and why each was kept or dropped")
     c.add_argument("--no-llm", action="store_true", help="blocklist only, no AI calls")
+    s = sub.add_parser("sample-render", help="render layout samples (placeholder text) into samples/")
+    s.add_argument("--photo-query", default="cinema hall")
     args = p.parse_args(argv)
     cfg = load_config()
-    return {"candidates": cmd_candidates}[args.cmd](args, cfg)
+    return {"candidates": cmd_candidates, "sample-render": cmd_sample_render}[args.cmd](args, cfg)
 
 
 if __name__ == "__main__":
