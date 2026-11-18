@@ -52,6 +52,65 @@ def cmd_sample_render(args, cfg):
     return 0
 
 
+def cmd_run(args, cfg):
+    from .pipeline import run_slot
+
+    rec = run_slot(cfg, dry_run=args.dry_run, root=ROOT, now=datetime.now(timezone.utc))
+    print(f"status: {rec['status']}" + (f" — {rec['reason']}" if rec["reason"] else ""))
+    print(f"topic: {rec['topic']}\nreport: {rec.get('report')}")
+    for f in rec["facts"]:
+        print(f"fact: {f['claim']}")
+    return 0  # a skipped slot is a normal outcome, not a failure
+
+
+def _token_file():
+    import os
+    from pathlib import Path
+    return Path(os.environ["RUNNER_TEMP"]) / "ig_token" if os.environ.get("RUNNER_TEMP") else None
+
+
+def cmd_publish(args, cfg):
+    import os
+    from .pipeline import publish_pending
+    from .publish import InstagramPublisher, check_urls
+
+    tf = _token_file()
+    token = tf.read_text().strip() if tf and tf.exists() else os.environ.get("IG_ACCESS_TOKEN", "")
+    if not token or not os.environ.get("IG_USER_ID"):
+        raise SystemExit("IG_ACCESS_TOKEN and IG_USER_ID must be set to publish")
+    pub = InstagramPublisher(token, os.environ["IG_USER_ID"], cfg["instagram"]["api_version"])
+    media_id = publish_pending(cfg, ROOT, args.pending, args.base_url, pub, check_urls, datetime.now(timezone.utc))
+    print(f"published: media id {media_id}")
+    return 0
+
+
+def cmd_refresh_token(args, cfg):
+    import json
+    import os
+    from .token import mask, refresh, refresh_due, store_secret
+
+    token = os.environ.get("IG_ACCESS_TOKEN")
+    if not token:
+        print("no IG_ACCESS_TOKEN configured — skipping token refresh (fine during dry-run setup)")
+        return 0
+    state_path = ROOT / "data/state.json"
+    state = json.loads(state_path.read_text(encoding="utf-8") or "{}")
+    now = datetime.now(timezone.utc)
+    if not refresh_due(state, now):
+        print(f"token refreshed at {state['token_refreshed_at']}; not due yet")
+        return 0
+    new = refresh(token)
+    mask(new)
+    store_secret(os.environ["GITHUB_REPOSITORY"], "IG_ACCESS_TOKEN", new, os.environ["GH_SECRETS_PAT"])
+    tf = _token_file()
+    if tf:
+        tf.write_text(new)  # later steps in this run use the fresh token
+    state["token_refreshed_at"] = now.isoformat()
+    state_path.write_text(json.dumps(state, indent=1), encoding="utf-8")
+    print("token refreshed and saved to the IG_ACCESS_TOKEN secret")
+    return 0
+
+
 def main(argv=None) -> int:
     for stream in (sys.stdout, sys.stderr):  # Windows consoles crash on non-English trend titles otherwise
         stream.reconfigure(encoding="utf-8", errors="replace")
@@ -62,9 +121,16 @@ def main(argv=None) -> int:
     c.add_argument("--no-llm", action="store_true", help="blocklist only, no AI calls")
     s = sub.add_parser("sample-render", help="render layout samples (placeholder text) into samples/")
     s.add_argument("--photo-query", default="cinema hall")
+    r = sub.add_parser("run", help="run one posting slot (writes out/, reports/, data/history.jsonl)")
+    r.add_argument("--dry-run", action="store_true", help="never prepare anything for publishing")
+    pb = sub.add_parser("publish", help="publish the images prepared by `run` (needs IG secrets)")
+    pb.add_argument("pending", help="path to out/pending.json")
+    pb.add_argument("--base-url", required=True, help="public URL where out/site is served (GitHub Pages)")
+    sub.add_parser("refresh-token", help="refresh the Instagram token if 7+ days old and save it to GitHub secrets")
     args = p.parse_args(argv)
     cfg = load_config()
-    return {"candidates": cmd_candidates, "sample-render": cmd_sample_render}[args.cmd](args, cfg)
+    return {"candidates": cmd_candidates, "sample-render": cmd_sample_render, "run": cmd_run,
+            "publish": cmd_publish, "refresh-token": cmd_refresh_token}[args.cmd](args, cfg)
 
 
 if __name__ == "__main__":
