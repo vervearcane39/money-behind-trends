@@ -365,4 +365,4 @@ copy:
 user_agent: "MoneyBehindTrends/0.1 (https://github.com/vervearcane39)"
 
 instagram:
-  api_version: v24.0   # VERIFIED in build step 4 against Meta's changelog
+  api_version: v27.0   # latest Graph API version per Meta changelog, checked 2026-11-18

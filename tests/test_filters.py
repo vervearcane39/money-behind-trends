@@ -49,10 +49,17 @@ def test_safety_missing_title_is_unsure():
 
 
 def test_score_angles_parses_and_sanitises():
-    llm = FakeLLM({"results": [{"title": "Nvidia", "score": 9, "angle": "market value",
+    llm = FakeLLM({"results": [{"title": "Nvidia", "score": 9, "angle": "market value", "name": "Nvidia",
                                 "photo_query": "computer chips", "tags": ["#Chips!", "AI", "x y z", "3rd"]}]})
     a = score_angles(llm, [T("Nvidia")])["Nvidia"]
-    assert a == Angle(9, "market value", "computer chips", ["chips", "ai"])
+    assert a == Angle(9, "market value", "computer chips", ["chips", "ai"], "Nvidia")
+
+
+def test_angle_name_rejected_if_claim_like():
+    headline = "Nvidia says it won't reinstate Huang as firm reports bumper results"
+    llm = FakeLLM({"results": [{"title": headline, "score": 8, "angle": "a", "photo_query": "chips", "tags": [],
+                                "name": "Nvidia profit up 20 percent in 2026"}]})
+    assert score_angles(llm, [T(headline)])[headline].name == ""
 
 
 def test_score_angles_malformed_is_empty():

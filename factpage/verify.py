@@ -11,12 +11,12 @@ import re
 from dataclasses import dataclass, field
 from decimal import Decimal
 
+from .caption import copy_ok
 from .research import SourceDoc
 from .textnorm import norm, number_positions, number_spans, numbers, prep, proper_nouns, years
 
 SUPERLATIVES = re.compile(r"\b(largest|biggest|highest|lowest|smallest|most|least|first|only|record|richest|"
                           r"fastest|best|worst|top|ever|costliest|cheapest|oldest|youngest)\b", re.I)
-_EMOJI = re.compile("[\U0001F300-\U0001FAFF☀-➿]")
 
 VERIFY_SYSTEM = """You are a strict fact-checker. You get a CLAIM and two EXCERPTS from two different publications.
 Answer SUPPORTED only if Excerpt A fully supports every part of the claim (every number, name, date and its
@@ -117,13 +117,14 @@ def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[Verifie
     log.results["e_dated"] = (True, "dated" if years(c.claim) else "no numbers to date")
 
     # style — copy rules, no predictions or advice
-    low = c.claim.lower()
     if len(c.claim.split()) > cfg["copy"]["max_fact_words"]:
         return fail("style", f"claim longer than {cfg['copy']['max_fact_words']} words")
-    hits = [p for p in cfg["copy"]["banned_phrases"] if p in low]
-    hits += [w for w in cfg["copy"]["banned_claim_words"] if _has_words(w, cn)]
-    if hits or len(_EMOJI.findall(c.claim)) > cfg["copy"]["max_emoji"]:
-        return fail("style", f"banned wording: {hits or 'emoji'}")
+    ok, why = copy_ok(c.claim, cfg)
+    if not ok:
+        return fail("style", why)
+    hits = [w for w in cfg["copy"]["banned_claim_words"] if _has_words(w, cn)]
+    if hits:
+        return fail("style", f"prediction/advice wording: {hits}")
     log.results["style"] = (True, "ok")
 
     # c — corroboration on a second, different, non-Wikipedia domain
