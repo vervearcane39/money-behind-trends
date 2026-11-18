@@ -19,12 +19,13 @@ def render(rec: dict) -> str:
     if rec.get("facts"):
         out += ["", "## Published facts (verbatim)"]
         for i, f in enumerate(rec["facts"], 1):
-            out += [f"### {i}. {f['claim']}",
-                    f"- Primary: {f['primary_url']}", f"  > {f['primary_quote']}",
-                    f"- Corroboration: {f['corroborator_url']}"
-                    + (f" (published {f['corroborator_published']})" if f.get("corroborator_published") else ""),
-                    f"  > {f['corroborator_excerpt']}",
-                    f"- Verifier model: {f['verifier']}"]
+            out += [f"### {i}. {f['claim']}", f"- Source: {f['primary_url']}", f"  > {f['primary_quote']}"]
+            if f.get("corroborator_url"):
+                pub = f" (published {f['corroborator_published']})" if f.get("corroborator_published") else ""
+                out += [f"- Second source: {f['corroborator_url']}{pub}", f"  > {f['corroborator_excerpt']}"]
+            else:
+                out.append("- Second source: none required (one allowlisted news source is enough)")
+            out.append(f"- Verifier model: {f['verifier']}")
     if rec.get("photo"):
         p = rec["photo"]
         out += ["", "## Image credit", f"{p['credit']} — {p['licence']} — {p['source_url']}"]

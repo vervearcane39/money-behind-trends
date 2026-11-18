@@ -39,7 +39,8 @@ def build(trend, facts, photo, angle, cfg: dict) -> str:
     lines = [context, ""]
     for i, f in enumerate(facts, 1):
         lines.append(f"{i}. {f.claim}" if len(facts) > 1 else f.claim)
-        lines.append(f"Sources: {f.primary.name}, {f.corroborator.name}")
+        names = [f.primary.name] + ([f.corroborator.name] if f.corroborator else [])
+        lines.append(("Sources: " if len(names) > 1 else "Source: ") + ", ".join(names))
         lines.append("")
     if photo:
         extra = " (pexels.com)" if photo.provider == "Pexels" else (

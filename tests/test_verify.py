@@ -4,6 +4,7 @@ from factpage.research import SourceDoc
 from factpage.verify import Candidate, verify
 
 CFG = load_config()
+STRICT = {**CFG, "require_second_source": True}  # the two-source rule, still available as a setting
 
 HINDU = SourceDoc("https://www.thehindu.com/a", "thehindu.com", "The Hindu",
                   "Producers said Ramayana: Part 1 was made on a budget of ₹550 crore in 2024, making it "
@@ -79,26 +80,62 @@ def _bbc(published):
 
 
 def test_publication_date_confirms_year_missing_from_corroborator_text():
-    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2025-03-04")], OK, CFG)
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2025-03-04")], OK, STRICT)
     assert fact is not None, log.results
     assert "publication date" in log.results["c_corroborated"][1]
 
 
 def test_publication_date_from_another_year_does_not_confirm():
-    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2024-11-01")], OK, CFG)
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2024-11-01")], OK, STRICT)
     assert fact is None and failed_at(log) == "c_corroborated"
 
 
 def test_no_publication_date_and_no_year_in_text_does_not_confirm():
-    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc(None)], OK, CFG)
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc(None)], OK, STRICT)
     assert fact is None and failed_at(log) == "c_corroborated"
 
 
 def test_publication_date_never_replaces_the_figures():
     bbc = SourceDoc("https://www.bbc.com/oval", "bbc.com", "BBC",
                     "Surrey sold a stake in Oval Invincibles to the owners of Mumbai Indians.", "t", None, "2025-03-04")
-    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, bbc], OK, CFG)
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, bbc], OK, STRICT)
     assert fact is None and failed_at(log) == "c_corroborated"
+
+
+# ── owner-approved rule (2026-11-19): one allowlisted news source is enough; Wikipedia never alone ──
+
+def test_single_news_source_is_enough_by_default():
+    assert CFG["require_second_source"] is False
+    seen = {}
+
+    class Spy(Verdict):
+        def json(self, role, system, user):
+            seen["user"] = user
+            return {"verdict": "SUPPORTED", "reason": "excerpt states it"}
+    fact, log = verify(Candidate(CLAIM, HINDU.url, QUOTE), [HINDU], Spy(None), CFG)
+    assert fact is not None, log.results
+    assert fact.corroborator is None and fact.primary is HINDU
+    assert "single news source" in log.results["c_corroborated"][1]
+    assert "EXCERPT_B" not in seen["user"]
+
+
+def test_single_source_still_needs_every_other_check():
+    fact, log = verify(Candidate(CLAIM.replace("550", "560"), HINDU.url, QUOTE), [HINDU], OK, CFG)
+    assert fact is None and failed_at(log) == "b_claim_in_quote"
+    fact, log = verify(Candidate(CLAIM, HINDU.url, QUOTE), [HINDU], Verdict({"verdict": "UNCLEAR"}), CFG)
+    assert fact is None and failed_at(log) == "d_verifier"
+
+
+def test_wikipedia_alone_is_still_never_enough_in_single_source_mode():
+    wq = "Ramayana: Part 1 is an Indian epic film. Its production budget was ₹550 crore in 2024."
+    fact, log = verify(Candidate("Ramayana: Part 1 had a production budget of ₹550 crore in 2024.", WIKI.url, wq),
+                       [WIKI], OK, CFG)
+    assert fact is None and failed_at(log) == "c_corroborated"
+
+
+def test_a_second_source_already_fetched_is_still_recorded():
+    fact, _ = verify(Candidate(CLAIM, HINDU.url, QUOTE), [HINDU, BBC], OK, CFG)
+    assert fact.corroborator is BBC
 
 
 def test_verifier_is_told_the_corroborator_publication_date():

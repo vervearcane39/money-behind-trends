@@ -16,7 +16,7 @@ from .llm import LLM, MissingKey, RateLimited
 from .render import Slide, headline_for
 from .report import render as render_report
 from .trends import Trend
-from .verify import verify
+from .verify import source_names, verify
 
 
 MAX_TOPIC_TRIES = 3
@@ -27,10 +27,10 @@ def _slides(label, facts, photo, cfg):
     head, handle = headline_for(label, cfg), cfg["handle"]
     if len(facts) == 1:
         f = facts[0]
-        return [Slide("single", label, head, f.claim, f.key_number, [f.primary.name, f.corroborator.name], handle, photo)]
+        return [Slide("single", label, head, f.claim, f.key_number, source_names(f), handle, photo)]
     n = len(facts) + 1
     return [Slide("hook", label, head, "", None, [], handle, photo, f"1/{n}")] + [
-        Slide("fact", label, "", f.claim, f.key_number, [f.primary.name, f.corroborator.name], handle, photo, f"{i}/{n}")
+        Slide("fact", label, "", f.claim, f.key_number, source_names(f), handle, photo, f"{i}/{n}")
         for i, f in enumerate(facts, 2)]
 
 
@@ -154,9 +154,11 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         paths = render(slides, out, cfg)
         rec.update(caption=caption, images=[p.name for p in paths], fact_keys=sorted(keys),
                    facts=[{"claim": f.claim, "key_number": f.key_number, "primary_url": f.primary.url,
-                           "primary_quote": f.primary_quote, "corroborator_url": f.corroborator.url,
+                           "primary_quote": f.primary_quote,
+                           "corroborator_url": f.corroborator.url if f.corroborator else None,
                            "corroborator_excerpt": f.corroborator_excerpt,
-                           "corroborator_published": f.corroborator.published, "verifier": f.verifier_reason}
+                           "corroborator_published": f.corroborator.published if f.corroborator else None,
+                           "verifier": f.verifier_reason}
                           for f in facts],
                    photo={"credit": photo.credit, "licence": photo.licence, "source_url": photo.source_url,
                           "provider": photo.provider} if photo else None)

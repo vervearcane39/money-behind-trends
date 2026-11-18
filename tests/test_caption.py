@@ -27,6 +27,12 @@ def test_caption_contains_claim_verbatim_sources_credit_and_hashtags():
     assert copy_ok(cap, CFG)[0]
 
 
+def test_single_source_fact_credits_its_one_outlet():
+    single = VerifiedFact(FACT.claim, FACT.key_number, A, "q", None, "", "ok")
+    cap = build(Trend("ramayana part 1", "google_trends", "IN", [], 1), [single], None, ANGLE, CFG)
+    assert FACT.claim in cap and "Source: The Hindu" in cap and "BBC" not in cap
+
+
 def test_caption_without_photo_has_no_credit_line():
     cap = build(Trend("Nvidia", "wikipedia", "", [], 1), [FACT], None, Angle(9, "a", "b", [], "Nvidia"), CFG)
     assert "Photo:" not in cap

@@ -204,7 +204,7 @@ def test_failed_corroboration_follows_wikipedia_citation(tmp_path):
     def cite(w, claim, cfg, tried):
         calls.append(claim)
         return [BBC]
-    rec = run_slot(load_config(), dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+    rec = run_slot({**load_config(), "require_second_source": True}, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
                    collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
                    gather=lambda t, c: [HINDU, no_number, wiki], find_photo=lambda q, c, o: None,
                    render=fake_render, cite=cite)

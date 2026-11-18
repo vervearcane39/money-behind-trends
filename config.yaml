@@ -44,6 +44,11 @@ max_candidates: 60
 # If this many slots in a row are skipped (12 = 3 days), the run fails so GitHub emails you.
 alert_after_skipped_runs: 12
 
+# Second-source rule. false = one allowlisted NEWS site is enough for a fact (your decision, 2026-11-19).
+# true = every fact also needs a second, different news site with the same figures.
+# Either way, a fact taken only from Wikipedia is never enough on its own.
+require_second_source: false
+
 # How many days before a topic may be used again. Facts are never repeated.
 topic_cooldown_days: 7
 # A topic where no fact passed verification rests this long, so the next slot tries something else.

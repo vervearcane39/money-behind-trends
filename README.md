@@ -1,8 +1,9 @@
 # Money Behind Trends
 
 An automatic Instagram page. Four times a day it picks a topic that is trending right now. It finds
-1–3 facts about the money or numbers behind the topic and **checks every fact against two independent
-sources**. Then it designs the post and publishes it through Instagram's official API.
+1–3 facts about the money or numbers behind the topic and **checks every fact word-for-word against an
+established news source** (never Wikipedia alone). Then it designs the post and publishes it through
+Instagram's official API.
 
 If no fact passes every check, it posts nothing and writes down why. That is on purpose: the page is
 only worth anything if every fact is true.
@@ -25,7 +26,9 @@ Google Trends + Wikipedia + business news feeds
    b. every number, name, date in the fact is in quote  (code)
    e. dated ("in 2024"), never "currently"              (code)
       no predictions / advice, ≤25 words                (code)
-   c. a second, different, non-Wikipedia site has the same numbers (code)
+   c. the source is an allowlisted news site; Wikipedia alone   (code)
+      is never enough. A second site is optional:
+      `require_second_source` in config.yaml
    d. a separate AI model says SUPPORTED                (AI)
         │
         ▼
