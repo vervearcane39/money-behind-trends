@@ -23,11 +23,12 @@ geos:
 wikipedia_top: 25
 # Business-section RSS feeds of established outlets. Each was checked against the
 # outlet's robots.txt on 2026-11-18; re-check before adding new ones.
-# (Business Standard was dropped: it returns 403 to bots. Google News: robots.txt forbids /rss.)
+# Dropped: Business Standard (403 to bots), Google News (robots.txt forbids /rss), The Hindu Business and
+# Deadline (articles marked subscriber-only, so skipped as paywalled), NDTV Profit (robots.txt disallows).
 # limit = newest N headlines taken from each feed per run.
 feeds:
   - {name: BBC Business, url: "https://feeds.bbci.co.uk/news/business/rss.xml", limit: 5}
-  - {name: The Hindu Business, url: "https://www.thehindu.com/business/feeder/default.rss", limit: 5}
+  - {name: Moneycontrol Business, url: "https://www.moneycontrol.com/rss/business.xml", limit: 5}
   - {name: BusinessLine, url: "https://www.thehindubusinessline.com/feeder/default.rss", limit: 5}
   - {name: Mint Companies, url: "https://www.livemint.com/rss/companies", limit: 5}
   - {name: ET Industry, url: "https://economictimes.indiatimes.com/industry/rssfeeds/13352306.cms", limit: 5}
@@ -36,7 +37,7 @@ feeds:
   - {name: Indian Express Business, url: "https://indianexpress.com/section/business/feed/", limit: 5}
   - {name: HT Business, url: "https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml", limit: 5}
   - {name: Variety Biz, url: "https://variety.com/v/biz/feed/", limit: 5}
-  - {name: Deadline, url: "https://deadline.com/feed/", limit: 5}
+  - {name: Times of India Business, url: "https://timesofindia.indiatimes.com/rssfeeds/1898055.cms", limit: 5}
   - {name: TechCrunch, url: "https://techcrunch.com/feed/", limit: 5}
 # At most this many candidates are sent to the AI per run (keeps within free-tier token limits).
 max_candidates: 60
