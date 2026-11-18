@@ -37,8 +37,17 @@ def norm(text: str) -> str:
     return re.sub(r"\s+", " ", t).strip()
 
 
+def prep(text: str) -> str:
+    """NFKC + unified quotes/dashes; positions from number_positions() index into this string."""
+    return unicodedata.normalize("NFKC", text).translate(_QUOTES)
+
+
+def number_positions(text: str) -> list[tuple[int, tuple[Decimal, str]]]:
+    return [(m.start(), _canon(m)) for m in _matches(text)]
+
+
 def _matches(text: str):
-    text = unicodedata.normalize("NFKC", text).translate(_QUOTES)
+    text = prep(text)
     for m in _NUM_RE.finditer(text):
         nxt = text[m.end():m.end() + 1]
         if not m.group("unit") and nxt.isalpha():  # "5G", "3rd": not a quantity we can verify

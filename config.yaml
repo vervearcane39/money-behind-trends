@@ -355,6 +355,9 @@ copy:
     - "🤯"
     - "!!"
   banned_time_words: [currently, now, today, this year, latest, recently, so far, right now, at present]
+  # No predictions, forecasts or investment advice in any fact.
+  banned_claim_words: [will, expected to, forecast, forecasts, projected, predicts, predicted, should,
+                       buy, sell, target price, price target, invest, investors should, could, might]
   base_hashtags: ["#business", "#money"]
   max_hashtags: 5
 
