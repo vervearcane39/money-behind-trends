@@ -15,6 +15,10 @@ def test_headline_never_has_digits_and_fits():
         assert not re.search(r"\d", h)
 
 
+def test_list_of_prefix_dropped_from_headline():
+    assert headline_for("List of highest-grossing Indian films", CFG) == "The money behind Highest-grossing Indian films"
+
+
 def test_lowercase_search_query_is_title_cased():
     assert headline_for("mcx gold", CFG) == "The money behind Mcx Gold"
 

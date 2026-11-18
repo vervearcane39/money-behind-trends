@@ -46,6 +46,13 @@ def test_feed_headline_never_used_as_label():
     assert topic_label(t, Angle(8, "a", "b", [], "")) is None
 
 
+def test_list_of_pages_get_a_clean_label_and_no_giant_hashtag():
+    t = Trend("List of highest-grossing Indian films", "wikipedia", "", [], 1)
+    assert topic_label(t, Angle(9, "a", "b", [], "")) == "Highest-grossing Indian films"
+    cap = build(t, [FACT], None, Angle(9, "a", "b", ["films"], ""), CFG)
+    assert all(len(w) <= 21 for w in cap.split() if w.startswith("#"))
+
+
 def test_copy_rules():
     assert not copy_ok("Did you know this?", CFG)[0]
     assert not copy_ok("Wow!! big", CFG)[0]

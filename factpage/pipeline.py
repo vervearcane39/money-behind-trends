@@ -121,14 +121,14 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         wiki = next((d for d in docs if d.wiki_revid), None)
         tried = {d.url for d in docs}
         for doc in list(docs):  # extraction reads the gathered pages; cited pages only corroborate
-            for cand in extract_candidates(llm, doc, label, angle.angle, cfg):
+            for cand in extract_candidates(llm, doc, label, angle.angle, cfg, year=now.astimezone(tz).year):
                 if len(facts) >= cfg["copy"]["max_facts"]:
                     break
                 k = fact_key(cand.claim)
                 if k in keys or hist.fact_seen(k):
                     rec["checks"].append({"claim": cand.claim, "skipped": "fact already used"})
                     continue
-                fact, log = verify(cand, docs, llm, cfg)
+                fact, log = verify(cand, docs, llm, cfg, today=now.astimezone(tz).date())
                 only_c_failed = log.results.get("c_corroborated", (True,))[0] is False
                 if only_c_failed and wiki and len(tried) < len(docs) + MAX_CITED_FETCHES:
                     # follow the source Wikipedia cites for this exact figure, then re-run every check
@@ -136,7 +136,7 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
                     if extra:
                         docs = docs + extra
                         rec["sources"] += [_source_row(d) for d in extra]
-                        fact, log = verify(cand, docs, llm, cfg)
+                        fact, log = verify(cand, docs, llm, cfg, today=now.astimezone(tz).date())
                 rec["checks"].append({"claim": cand.claim, "quote": cand.quote, "source_url": cand.source_url,
                                       "results": log.results})
                 if fact:

@@ -9,6 +9,7 @@ The text that passes is the text that gets published; nothing downstream may alt
 import json
 import re
 from dataclasses import dataclass, field
+from datetime import date
 from decimal import Decimal
 
 from .caption import copy_ok
@@ -95,7 +96,8 @@ def key_number(claim: str) -> str | None:
     return max(spans, key=score, default=None)
 
 
-def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[VerifiedFact | None, CheckLog]:
+def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict,
+           today: date | None = None) -> tuple[VerifiedFact | None, CheckLog]:
     log = CheckLog(c.claim)
 
     def fail(check, why):
@@ -134,6 +136,17 @@ def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[Verifie
     if non_year and not years(c.claim):
         return fail("e_dated", "claim has a number but no year")
     log.results["e_dated"] = (True, "dated" if years(c.claim) else "no numbers to date")
+
+    # f — fresh (owner-approved, 2026-11-19): only facts about this year or the last `max_fact_age_years`
+    max_age = cfg.get("max_fact_age_years")
+    if max_age is not None:
+        oldest = (today or date.today()).year - max_age
+        ys = years(c.claim)
+        if ys and min(ys) < oldest:
+            return fail("f_fresh", f"fact is about {min(ys)}; only facts from {oldest} or later are posted")
+        if not ys and not (primary.published and int(primary.published[:4]) >= oldest):
+            return fail("f_fresh", f"fact has no year and its source is undated or older than {oldest}")
+        log.results["f_fresh"] = (True, f"from {min(ys)}" if ys else f"source published {primary.published}")
 
     # style — copy rules, no predictions or advice
     if len(c.claim.split()) > cfg["copy"]["max_fact_words"]:

@@ -49,7 +49,7 @@ def fake_render(slides, out_dir, cfg):
 
 
 def run(tmp_path, *, cfg_over=None, dry_run=True, trends=None, llm=None):
-    cfg = {**load_config(), **(cfg_over or {})}
+    cfg = {**load_config(), "max_fact_age_years": None, **(cfg_over or {})}
     return run_slot(cfg, dry_run=dry_run, root=tmp_path, now=NOW, llm=llm or FakeLLM(),
                     collect=lambda c, n: trends if trends is not None else [Trend("Ramayana: Part 1", "google_trends", "IN", [HINDU.url, BBC.url], 500)],
                     gather=lambda t, c: [HINDU, BBC], find_photo=lambda q, c, o: None, render=fake_render)
@@ -157,7 +157,7 @@ def test_missing_or_rejected_key_fails_loudly_but_still_logs(tmp_path):
 
 def test_unexpected_crash_is_logged_as_error_with_cause(tmp_path):
     import pytest
-    cfg = load_config()
+    cfg = {**load_config(), "max_fact_age_years": None}
 
     def boom(t, c):
         raise RuntimeError("browser died")
@@ -178,7 +178,7 @@ def test_same_subject_via_different_trend_title_is_on_cooldown(tmp_path):
 
 
 def test_tries_runner_up_when_top_topic_has_too_few_sources(tmp_path):
-    cfg = load_config()
+    cfg = {**load_config(), "max_fact_age_years": None}
 
     class TwoLLM(FakeLLM):
         def json(self, role, system, user):
@@ -204,7 +204,7 @@ def test_failed_corroboration_follows_wikipedia_citation(tmp_path):
     def cite(w, claim, cfg, tried):
         calls.append(claim)
         return [BBC]
-    rec = run_slot({**load_config(), "require_second_source": True}, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+    rec = run_slot({**load_config(), "max_fact_age_years": None, "require_second_source": True}, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
                    collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
                    gather=lambda t, c: [HINDU, no_number, wiki], find_photo=lambda q, c, o: None,
                    render=fake_render, cite=cite)
@@ -216,7 +216,7 @@ def test_failed_corroboration_follows_wikipedia_citation(tmp_path):
 
 def test_citation_not_followed_when_already_corroborated(tmp_path):
     calls = []
-    rec = run_slot(load_config(), dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+    rec = run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
                    collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
                    gather=lambda t, c: [HINDU, BBC], find_photo=lambda q, c, o: None, render=fake_render,
                    cite=lambda *a: calls.append(a) or [])

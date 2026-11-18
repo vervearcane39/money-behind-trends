@@ -146,6 +146,15 @@ def test_topic_that_failed_verification_rests_for_24_hours(tmp_path):
     assert trend.title == "Nvidia"
 
 
+def test_topics_with_fresh_news_coverage_rank_above_wikipedia_only_pages(tmp_path):
+    wiki_only = Trend("List of highest-grossing Indian films", "wikipedia", "", [], 900000)
+    newsy = Trend("Ramayana: Part 1", "google_trends", "IN", ["https://www.thehindu.com/r"], 500)
+    angles = {wiki_only.title: Angle(9, "box office", "cinema", []), newsy.title: Angle(7, "box office", "cinema", [])}
+    trend, _, _ = pick([wiki_only, newsy], _safe(wiki_only.title, newsy.title), angles,
+                       History(tmp_path / "h.jsonl"), CFG, NOW)
+    assert trend.title == "Ramayana: Part 1"
+
+
 def test_pick_skips_excluded_titles(tmp_path):
     trends = [T("Nvidia"), T("IPL auction")]
     angles = {"Nvidia": Angle(9, "a", "chips", []), "IPL auction": Angle(7, "b", "stadium", [])}

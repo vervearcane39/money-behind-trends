@@ -10,6 +10,7 @@ from string import Template
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
+from .caption import display_topic
 from .images import Photo
 
 PKG = Path(__file__).resolve().parent
@@ -27,10 +28,6 @@ class Slide:
     handle: str = ""
     photo: Photo | None = None
     index: str = ""  # e.g. "2/3"
-
-
-def display_topic(topic: str) -> str:
-    return topic if any(c.isupper() for c in topic) else topic.title()
 
 
 def headline_for(topic: str, cfg: dict) -> str:

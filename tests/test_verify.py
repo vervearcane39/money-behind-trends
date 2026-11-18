@@ -3,7 +3,8 @@ from factpage.config import load_config
 from factpage.research import SourceDoc
 from factpage.verify import Candidate, verify
 
-CFG = load_config()
+CFG = {**load_config(), "max_fact_age_years": None}  # freshness has its own tests below (FRESH)
+FRESH = load_config()
 STRICT = {**CFG, "require_second_source": True}  # the two-source rule, still available as a setting
 
 HINDU = SourceDoc("https://www.thehindu.com/a", "thehindu.com", "The Hindu",
@@ -147,6 +148,48 @@ def test_verifier_is_told_the_corroborator_publication_date():
             return {"verdict": "SUPPORTED", "reason": "ok"}
     verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2025-03-04")], Spy(None), CFG)
     assert "2025-03-04" in seen["user"]
+
+
+# ── owner-approved rules (2026-11-19): facts must be recent; no hype words ──
+
+def test_old_fact_is_rejected():
+    from datetime import date
+    old = SourceDoc("https://www.financialexpress.com/a", "financialexpress.com", "Financial Express",
+                    "For instance, January 2019 saw Vicky Kaushal's Uri raking in Rs 244 crore at the box office.", "t")
+    q = "January 2019 saw Vicky Kaushal's Uri raking in Rs 244 crore at the box office"
+    fact, log = verify(Candidate("Vicky Kaushal's Uri earned Rs 244 crore at the box office in January 2019.", old.url, q),
+                       [old], OK, FRESH, today=date(2026, 11, 19))
+    assert fact is None and failed_at(log) == "f_fresh"
+
+
+def test_recent_fact_passes_freshness():
+    from datetime import date
+    fact, log = verify(Candidate(CLAIM, HINDU.url, QUOTE), [HINDU], OK, FRESH, today=date(2025, 6, 1))
+    assert fact is not None, log.results
+    fact, log = verify(Candidate(CLAIM, HINDU.url, QUOTE), [HINDU], OK, FRESH, today=date(2026, 11, 19))
+    assert fact is None and failed_at(log) == "f_fresh"  # 2024 is more than one year before 2026
+
+
+def test_fact_without_a_year_needs_a_recent_source():
+    from datetime import date
+    page = "The film opened to packed theatres across the country, distributors said on Friday."
+    q = "The film opened to packed theatres across the country, distributors said"
+    claim = "The film opened to packed theatres across the country."
+    recent = SourceDoc("https://www.bbc.com/r", "bbc.com", "BBC", page, "t", None, "2026-11-14")
+    stale = SourceDoc("https://www.bbc.com/r", "bbc.com", "BBC", page, "t", None, "2019-03-01")
+    undated = SourceDoc("https://www.bbc.com/r", "bbc.com", "BBC", page, "t")
+    assert verify(Candidate(claim, recent.url, q), [recent], OK, FRESH, today=date(2026, 11, 19))[0] is not None
+    for doc in (stale, undated):
+        fact, log = verify(Candidate(claim, doc.url, q), [doc], OK, FRESH, today=date(2026, 11, 19))
+        assert fact is None and failed_at(log) == "f_fresh"
+
+
+def test_hype_words_rejected():
+    from datetime import date
+    q = "Producers said Ramayana: Part 1 was made on a budget of ₹550 crore in 2024"
+    fact, log = verify(Candidate("Ramayana: Part 1 had a whopping ₹550 crore budget in 2024.", HINDU.url, q),
+                       [HINDU], OK, FRESH, today=date(2025, 1, 1))
+    assert fact is None and failed_at(log) == "style"
 
 
 # ── the big number shown on the image ───────────────────────────────────────

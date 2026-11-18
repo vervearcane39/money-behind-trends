@@ -15,8 +15,14 @@ def copy_ok(text: str, cfg: dict) -> tuple[bool, str]:
     return True, "ok"
 
 
-def _display(title: str) -> str:
+def display_topic(title: str) -> str:
+    """How a topic is shown: Wikipedia's 'List of …' prefix dropped, lowercase search queries title-cased."""
+    if title.startswith("List of ") and len(title) > 8:
+        title = title[8].upper() + title[9:]
     return title if any(c.isupper() for c in title) else title.title()
+
+
+_display = display_topic
 
 
 def topic_label(trend, angle) -> str | None:
@@ -48,7 +54,7 @@ def build(trend, facts, photo, angle, cfg: dict) -> str:
         lines.append(f"Photo: {photo.credit}{extra}")
     tags = []
     for t in cfg["copy"]["base_hashtags"] + [_hashtag(label)] + [f"#{t}" for t in (angle.tags if angle else [])]:
-        if t.lower() not in (x.lower() for x in tags) and len(t) > 1:
+        if t.lower() not in (x.lower() for x in tags) and 1 < len(t) <= 21:  # skip unreadable giant hashtags
             tags.append(t)
     lines.append(" ".join(tags[: cfg["copy"]["max_hashtags"]]))
     return "\n".join(lines).strip()
