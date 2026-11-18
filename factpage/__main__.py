@@ -90,29 +90,21 @@ def cmd_publish(args, cfg):
 
 
 def cmd_refresh_token(args, cfg):
-    import json
     import os
-    from .token import mask, refresh, refresh_due, store_secret
+    from .token import refresh, refresh_if_due, store_secret
 
     token = os.environ.get("IG_ACCESS_TOKEN")
     if not token:
         print("no IG_ACCESS_TOKEN configured — skipping token refresh (fine during dry-run setup)")
         return 0
-    state_path = ROOT / "data/state.json"
-    state = json.loads(state_path.read_text(encoding="utf-8") or "{}")
-    now = datetime.now(timezone.utc)
-    if not refresh_due(state, now):
-        print(f"token refreshed at {state['token_refreshed_at']}; not due yet")
-        return 0
-    new = refresh(token)
-    mask(new)
-    store_secret(os.environ["GITHUB_REPOSITORY"], "IG_ACCESS_TOKEN", new, os.environ["GH_SECRETS_PAT"])
-    tf = _token_file()
-    if tf:
-        tf.write_text(new)  # later steps in this run use the fresh token
-    state["token_refreshed_at"] = now.isoformat()
-    state_path.write_text(json.dumps(state, indent=1), encoding="utf-8")
-    print("token refreshed and saved to the IG_ACCESS_TOKEN secret")
+
+    def store(new):
+        store_secret(os.environ["GITHUB_REPOSITORY"], "IG_ACCESS_TOKEN", new, os.environ["GH_SECRETS_PAT"])
+        tf = _token_file()
+        if tf:
+            tf.write_text(new)  # later steps in this run use the fresh token
+
+    print(refresh_if_due(ROOT / "data/state.json", token, datetime.now(timezone.utc), refresh, store))
     return 0
 
 

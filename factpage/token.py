@@ -1,5 +1,6 @@
 """Long-lived Instagram token refresh, persisted back into the repo's GitHub Actions secret."""
 import base64
+import json
 import os
 from datetime import datetime, timedelta
 
@@ -17,7 +18,25 @@ def mask(value: str) -> None:
 
 def refresh_due(state: dict, now: datetime, days: int = 7) -> bool:
     ts = state.get("token_refreshed_at")
-    return not ts or now - datetime.fromisoformat(ts) >= timedelta(days=days)
+    return bool(ts) and now - datetime.fromisoformat(ts) >= timedelta(days=days)
+
+
+def refresh_if_due(state_path, token: str, now: datetime, refresh_fn, store_fn) -> str:
+    """First run only records today's date (Meta refuses to refresh tokens younger than 24 h);
+    after that, refresh every 7 days and save the new token via store_fn."""
+    state = json.loads(state_path.read_text(encoding="utf-8") or "{}")
+    if not state.get("token_refreshed_at"):
+        msg = "first run with this token: recorded today's date, will refresh in 7 days"
+    elif not refresh_due(state, now):
+        return f"token refreshed at {state['token_refreshed_at']}; not due yet"
+    else:
+        new = refresh_fn(token)
+        mask(new)
+        store_fn(new)
+        msg = "token refreshed and saved to the IG_ACCESS_TOKEN secret"
+    state["token_refreshed_at"] = now.isoformat()
+    state_path.write_text(json.dumps(state, indent=1), encoding="utf-8")
+    return msg
 
 
 def refresh(token: str, session=requests) -> str:
