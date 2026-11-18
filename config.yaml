@@ -1,0 +1,347 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Money Behind Trends — all settings live here. Edit on GitHub, commit, done.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# KILL SWITCH. false = dry-run only (images + reports, nothing posted).
+# Flip to true only after you have reviewed at least 20 dry-run posts.
+publishing_enabled: false
+
+# Your Instagram handle, shown in each image footer (e.g. "@moneybehindtrends").
+# Live publishing refuses to run while this is empty.
+handle: ""
+
+# Posting slots (India time). Change these AND the cron lines in
+# .github/workflows/post.yml together. Minute :07 avoids GitHub's busy top-of-hour.
+timezone: Asia/Kolkata
+slots: ["09:07", "13:07", "18:07", "21:07"]
+
+# Where trends come from.
+geos:
+  IN: India
+  US: the US
+wikipedia_top: true
+# Business-section RSS feeds of established outlets. Each was checked against the
+# outlet's robots.txt on 2026-11-18; re-check before adding new ones.
+feeds: []
+
+# How many days before a topic may be used again. Facts are never repeated.
+topic_cooldown_days: 7
+# A topic needs at least this business-angle score (0-10) to be used.
+min_angle_score: 6
+# Used at most once per day when nothing trending has a clear money angle.
+evergreen_topics:
+  - Panama Canal
+  - Suez Canal
+  - Burj Khalifa
+  - Indian Railways
+  - Tata Group
+  - The Lego Group
+  - IKEA
+  - Amul
+  - Indian Premier League
+  - FIFA World Cup
+  - Rolex
+  - Airbus A380
+  - Concorde
+  - Infosys
+  - Maruti Suzuki
+  - Netflix
+  - Coca-Cola
+  - Eiffel Tower
+
+# ── Safety ──────────────────────────────────────────────────────────────────
+# A topic is skipped if its title contains any of these words (whole-word,
+# case-insensitive) OR the AI classifier says UNSAFE/UNSURE.
+blocklist:
+  # death / harm
+  - death
+  - dead
+  - dies
+  - died
+  - killed
+  - kills
+  - murder
+  - suicide
+  - funeral
+  - obituary
+  - passes away
+  - passed away
+  - rip
+  - accident
+  - crash
+  - collision
+  - derail
+  - derailment
+  - stampede
+  - injured
+  - injury
+  - injuries
+  # disaster
+  - earthquake
+  - flood
+  - floods
+  - cyclone
+  - hurricane
+  - tsunami
+  - wildfire
+  - landslide
+  - explosion
+  - blast
+  - fire
+  # violence / crime / terror / war
+  - attack
+  - shooting
+  - shot
+  - gun
+  - stabbing
+  - assault
+  - rape
+  - abuse
+  - kidnap
+  - kidnapping
+  - arrest
+  - arrested
+  - police
+  - crime
+  - fraud
+  - scam
+  - terror
+  - terrorist
+  - terrorism
+  - bomb
+  - war
+  - military
+  - army
+  - missile
+  - airstrike
+  - ceasefire
+  - hostage
+  - riot
+  - protest
+  # politics / elections
+  - election
+  - elections
+  - vote
+  - voting
+  - poll
+  - polls
+  - bjp
+  - congress
+  - aap
+  - tmc
+  - democrat
+  - democrats
+  - republican
+  - republicans
+  - modi
+  - trump
+  - biden
+  - harris
+  - rahul gandhi
+  - minister
+  - president
+  - prime minister
+  - parliament
+  - senate
+  - mla
+  - mp
+  - government
+  - pakistan
+  - israel
+  - gaza
+  - ukraine
+  - russia
+  - iran
+  # religion / communal / caste
+  - temple
+  - mosque
+  - church
+  - hindu
+  - muslim
+  - christian
+  - sikh
+  - religion
+  - religious
+  - caste
+  - dalit
+  - communal
+  # health / medical
+  - covid
+  - virus
+  - vaccine
+  - cancer
+  - disease
+  - outbreak
+  - hospital
+  - health
+  - medical
+  - drug
+  - drugs
+  # adult / minors
+  - sex
+  - porn
+  - nude
+  - onlyfans
+  - xxx
+  - child
+  - children
+  - minor
+  - teen
+  - school
+  - student
+  # legal
+  - court
+  - lawsuit
+  - verdict
+  - trial
+  - bail
+  - case
+  - fir
+  - judge
+  - supreme court
+  - high court
+
+# ── Sources ─────────────────────────────────────────────────────────────────
+# Only pages on these domains (or their subdomains) are ever read.
+# Format: domain: Display name used in the image footer and caption.
+sources:
+  allow:
+    # wire services
+    reuters.com: Reuters
+    apnews.com: AP
+    afp.com: AFP
+    ptinews.com: PTI
+    # established news (India)
+    thehindu.com: The Hindu
+    thehindubusinessline.com: BusinessLine
+    indianexpress.com: The Indian Express
+    hindustantimes.com: Hindustan Times
+    livemint.com: Mint
+    economictimes.indiatimes.com: The Economic Times
+    timesofindia.indiatimes.com: The Times of India
+    business-standard.com: Business Standard
+    moneycontrol.com: Moneycontrol
+    ndtv.com: NDTV
+    ndtvprofit.com: NDTV Profit
+    financialexpress.com: Financial Express
+    deccanherald.com: Deccan Herald
+    espncricinfo.com: ESPNcricinfo
+    # established news (international)
+    bbc.com: BBC
+    bbc.co.uk: BBC
+    theguardian.com: The Guardian
+    cnbc.com: CNBC
+    cnn.com: CNN
+    npr.org: NPR
+    aljazeera.com: Al Jazeera
+    variety.com: Variety
+    hollywoodreporter.com: The Hollywood Reporter
+    deadline.com: Deadline
+    techcrunch.com: TechCrunch
+    theverge.com: The Verge
+    arstechnica.com: Ars Technica
+    espn.com: ESPN
+    the-numbers.com: The Numbers
+    # reference (never enough on its own for a number)
+    wikipedia.org: Wikipedia
+    # regulators / official
+    sec.gov: US SEC
+    sebi.gov.in: SEBI
+    rbi.org.in: RBI
+    pib.gov.in: PIB
+    bseindia.com: BSE
+    nseindia.com: NSE
+  # Any domain ending in one of these is treated as official government.
+  allow_suffixes: [".gov", ".gov.in", ".nic.in", ".gov.uk", ".europa.eu"]
+  # Never read, even if listed above by mistake.
+  deny:
+    - news.google.com
+    - msn.com
+    - yahoo.com
+    - medium.com
+    - substack.com
+    - quora.com
+    - reddit.com
+    - facebook.com
+    - instagram.com
+    - x.com
+    - twitter.com
+    - youtube.com
+    - tiktok.com
+    - linkedin.com
+    - pinterest.com
+    - wikihow.com
+    - thefactsite.com
+    - factretriever.com
+    - ranker.com
+    - listverse.com
+    - boredpanda.com
+    - buzzfeed.com
+    - forbes.com          # contributor network mixes unvetted posts with reporting
+  # Paywalled — skipped. Matched against "host/path" prefixes.
+  paywall:
+    - nytimes.com
+    - wsj.com
+    - ft.com
+    - bloomberg.com
+    - economist.com
+    - washingtonpost.com
+    - barrons.com
+    - theinformation.com
+    - businessinsider.com
+    - economictimes.indiatimes.com/prime
+    - livemint.com/premium
+    - the-ken.com
+
+# ── AI ──────────────────────────────────────────────────────────────────────
+# Any OpenAI-compatible provider works: change base_url/model/key_env.
+llm:
+  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY}
+  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY}
+  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY}
+  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY}
+  max_retries: 3
+
+# ── Images ──────────────────────────────────────────────────────────────────
+images:
+  avoid_faces: true
+  # Photos whose tags/description mention these are rejected (logo risk).
+  reject_tags: [logo, brand, sign, signage, billboard, advertisement, poster]
+  commons_licences: ["public domain", "pd", "cc0", "cc by"]   # "cc by" = CC BY x.x only (no SA/NC/ND)
+
+# ── Brand ───────────────────────────────────────────────────────────────────
+brand:
+  headline_font: Archivo
+  body_font: Inter
+  accent: "#FFB020"
+  text: "#FFFFFF"
+  background: "#111418"     # used when no licensed photo is found
+  margin_px: 72
+  headlines:                 # hook headline templates; {topic} is filled in; ≤8 words, no digits
+    - "The money behind {topic}"
+    - "{topic}, by the numbers"
+    - "Behind the numbers"
+
+# ── Writing rules (checked in code) ─────────────────────────────────────────
+copy:
+  max_headline_words: 8
+  max_fact_words: 25
+  max_facts: 3
+  max_emoji: 1
+  banned_phrases:
+    - did you know
+    - fun fact
+    - mind-blowing
+    - mind blowing
+    - you won't believe
+    - "🤯"
+    - "!!"
+  banned_time_words: [currently, now, today, this year, latest, recently, so far, right now, at present]
+  base_hashtags: ["#business", "#money"]
+  max_hashtags: 5
+
+# Contact info Wikimedia requires in the User-Agent.
+user_agent: "MoneyBehindTrends/0.1 (https://github.com/vervearcane39)"
+
+instagram:
+  api_version: v24.0   # VERIFIED in build step 4 against Meta's changelog
