@@ -34,6 +34,12 @@ def _alt(slide: Slide) -> str:
     return " ".join(x for x in (slide.headline, slide.fact) if x)
 
 
+def silent_too_long(hist: History, runs: int) -> bool:
+    """True if each of the last `runs` slot records was a skip/error (the page has gone quiet)."""
+    slots = [r for r in hist.records() if r.get("status") in ("skipped", "error", "dry_run", "ready")]
+    return len(slots) >= runs and all(r["status"] in ("skipped", "error") for r in slots[-runs:])
+
+
 def publish_pending(cfg: dict, root: Path, pending_path: Path, base_url: str, publisher, check, now: datetime) -> str:
     """Publish what run_slot prepared. Kill switch is re-checked here; success is logged to history + report."""
     if not cfg["publishing_enabled"]:
@@ -140,7 +146,8 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
     except RateLimited:
         return skip("rate limited by AI provider (checks never loosened; slot skipped)")
     except MissingKey as e:
-        return skip(f"missing {e} environment variable")
+        rec["status"], rec["reason"] = "error", f"AI key problem: {e}"
+        raise  # configuration errors fail the run so GitHub emails the owner
     finally:
         slug = re.sub(r"[^a-z0-9]+", "-", (rec["topic"] or "skipped").lower()).strip("-")[:40]
         local = now.astimezone(tz)

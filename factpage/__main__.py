@@ -53,14 +53,19 @@ def cmd_sample_render(args, cfg):
 
 
 def cmd_run(args, cfg):
-    from .pipeline import run_slot
+    from .history import History
+    from .pipeline import run_slot, silent_too_long
 
     rec = run_slot(cfg, dry_run=args.dry_run, root=ROOT, now=datetime.now(timezone.utc))
     print(f"status: {rec['status']}" + (f" — {rec['reason']}" if rec["reason"] else ""))
     print(f"topic: {rec['topic']}\nreport: {rec.get('report')}")
     for f in rec["facts"]:
         print(f"fact: {f['claim']}")
-    return 0  # a skipped slot is a normal outcome, not a failure
+    n = cfg["alert_after_skipped_runs"]
+    if silent_too_long(History(ROOT / "data/history.jsonl"), n):
+        print(f"ALERT: the last {n} slots were all skipped. Open reports/ to see why.", file=sys.stderr)
+        return 1  # fails the workflow → GitHub emails you
+    return 0  # an occasional skipped slot is normal, not a failure
 
 
 def _token_file():

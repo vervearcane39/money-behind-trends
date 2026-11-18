@@ -143,6 +143,28 @@ def test_publish_pending_refuses_when_kill_switch_off(tmp_path):
     assert pub.args is None
 
 
+def test_missing_or_rejected_key_fails_loudly_but_still_logs(tmp_path):
+    import pytest
+    from factpage.llm import MissingKey
+
+    class NoKey(FakeLLM):
+        def json(self, role, system, user):
+            raise MissingKey("GROQ_API_KEY")
+    with pytest.raises(MissingKey):
+        run(tmp_path, llm=NoKey())
+    assert history(tmp_path)[-1]["status"] == "error"
+
+
+def test_silence_watchdog(tmp_path):
+    from factpage.pipeline import silent_too_long
+    h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)
+    for _ in range(12):
+        h.append({"status": "skipped", "at": NOW.isoformat()})
+    assert silent_too_long(h, 12)
+    h.append({"status": "dry_run", "at": NOW.isoformat()})
+    assert not silent_too_long(h, 12)
+
+
 def test_history_line_omits_topic_decisions(tmp_path):
     run(tmp_path)
     assert "decisions" not in history(tmp_path)[-1]

@@ -41,6 +41,9 @@ feeds:
 # At most this many candidates are sent to the AI per run (keeps within free-tier token limits).
 max_candidates: 60
 
+# If this many slots in a row are skipped (12 = 3 days), the run fails so GitHub emails you.
+alert_after_skipped_runs: 12
+
 # How many days before a topic may be used again. Facts are never repeated.
 topic_cooldown_days: 7
 # A topic needs at least this business-angle score (0-10) to be used.

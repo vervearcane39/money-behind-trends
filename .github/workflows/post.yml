@@ -1,0 +1,103 @@
+# One posting slot per run. Times are India time. Keep these in sync with `slots` in config.yaml.
+# Whether anything is published is decided by `publishing_enabled` in config.yaml (false = dry run).
+name: post
+
+on:
+  schedule:
+    - cron: "7 9 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "7 13 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "7 18 * * *"
+      timezone: "Asia/Kolkata"
+    - cron: "7 21 * * *"
+      timezone: "Asia/Kolkata"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — make images and a report but never publish"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write   # commit data/history.jsonl and reports/
+  pages: write      # host the images Meta downloads
+  id-token: write   # required by deploy-pages
+
+concurrency:
+  group: post
+  cancel-in-progress: false
+
+jobs:
+  slot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+    env:
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Refresh Instagram token (weekly; no-op until you add the token)
+        run: python -m factpage refresh-token
+
+      - name: Run slot
+        run: python -m factpage run ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
+
+      - name: Save images and report for review
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: run-${{ github.run_id }}
+          path: out/
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Anything to publish?
+        id: pending
+        run: |
+          if [ -f out/pending.json ]; then echo "yes=true" >> "$GITHUB_OUTPUT"; else echo "yes=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Upload images to GitHub Pages
+        if: steps.pending.outputs.yes == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: out/site
+
+      - name: Deploy GitHub Pages
+        if: steps.pending.outputs.yes == 'true'
+        id: deploy
+        uses: actions/deploy-pages@v5
+
+      - name: Publish to Instagram
+        if: steps.pending.outputs.yes == 'true'
+        run: python -m factpage publish out/pending.json --base-url "${{ steps.deploy.outputs.page_url }}"
+
+      - name: Commit history and reports
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data reports
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "log: slot run ${{ github.run_id }}"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep 5
+          done
+          exit 1

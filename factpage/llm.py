@@ -46,6 +46,8 @@ class LLM:
                 log.info("LLM %s rate limited, waiting %.0fs", role, wait)
                 time.sleep(min(wait, 120))
                 continue
+            if resp.status_code in (401, 403):
+                raise MissingKey(f"{r['key_env']} was rejected (HTTP {resp.status_code})")
             if not resp.ok:
                 log.info("LLM %s HTTP %s: %s", role, resp.status_code, resp.text[:200])
                 return None
