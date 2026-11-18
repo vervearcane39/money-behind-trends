@@ -17,6 +17,7 @@ class Trend:
     geo: str
     urls: list[str] = field(default_factory=list)
     signal: int = 0
+    news: list[str] = field(default_factory=list)  # today's headlines about it (context for the AI)
 
 
 _HT = {"ht": "https://trends.google.com/trending/rss"}
@@ -35,8 +36,9 @@ def parse_google_trends(xml: bytes, geo: str) -> list[Trend]:
         title = (item.findtext("title") or "").strip()
         traffic = int(re.sub(r"\D", "", item.findtext("ht:approx_traffic", "0", _HT)) or 0)
         urls = [u.text.strip() for u in item.iterfind("ht:news_item/ht:news_item_url", _HT) if u.text]
+        news = [h.text.strip() for h in item.iterfind("ht:news_item/ht:news_item_title", _HT) if h.text]
         if title:
-            out.append(Trend(title, "google_trends", geo, urls, traffic))
+            out.append(Trend(title, "google_trends", geo, urls, traffic, news))
     return out
 
 
@@ -69,10 +71,11 @@ def merge(trends: list[Trend]) -> list[Trend]:
     for t in trends:
         k = topic_key(t.title)
         if k not in by_key:
-            by_key[k] = Trend(t.title, t.source, t.geo, list(t.urls), t.signal)
+            by_key[k] = Trend(t.title, t.source, t.geo, list(t.urls), t.signal, list(t.news))
         else:
             m = by_key[k]
             m.urls += [u for u in t.urls if u not in m.urls]
+            m.news += [h for h in t.news if h not in m.news]
             m.signal = max(m.signal, t.signal)
     return list(by_key.values())
 

@@ -106,12 +106,14 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
                 continue
             docs = gather(Trend(label if trend.source == "feed" else trend.title, trend.source, trend.geo,
                                 trend.urls, trend.signal), cfg)
-            if len(docs) >= 2:
+            news = [d for d in docs if d.domain != "wikipedia.org"]  # Wikipedia alone can never support a fact
+            enough = len(news) >= 1 and (len(docs) >= 2 or not cfg.get("require_second_source", True))
+            if enough:
                 break
-            tried[trend.title] = f"only {len(docs)} usable sources"
+            tried[trend.title] = f"only {len(news)} usable news source(s)"
         else:
             rec["decisions"] = [asdict(d) for d in pick(pool, safety, angles, hist, cfg, now, exclude=tried)[2]]
-            return skip(f"fewer than two usable sources for the top {MAX_TOPIC_TRIES} topics")
+            return skip(f"not enough usable news source for the top {MAX_TOPIC_TRIES} topics")
         rec.update(topic=label, trend_title=trend.title, trend_source=trend.source, geo=trend.geo,
                    topic_key=topic_key(trend.title), topic_keys=sorted({topic_key(trend.title), topic_key(label)}),
                    fallback=trend.source == "evergreen", angle=asdict(angle))

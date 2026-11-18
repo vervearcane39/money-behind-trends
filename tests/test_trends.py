@@ -14,6 +14,12 @@ def test_google_trends_fixture_parses_all_news_urls():
     assert trends[0].signal >= 100
 
 
+def test_google_trends_keeps_todays_headlines_as_context():
+    trends = parse_google_trends((FIX / "trends_in.xml").read_bytes(), "IN")
+    assert sum(len(t.news) for t in trends) == 30
+    assert all(isinstance(h, str) and h for t in trends for h in t.news)
+
+
 def test_wiki_top_drops_non_articles():
     titles = [t.title for t in parse_wiki_top(json.loads((FIX / "wiki_top.json").read_text()))]
     assert "Main Page" not in titles

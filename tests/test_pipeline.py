@@ -29,10 +29,10 @@ class FakeLLM:
         if self.rate_limited:
             raise RateLimited("429")
         if role == "classifier":
-            return {"results": [{"title": t, "label": "SAFE", "reason": "film"} for t in json.loads(user)]}
+            return {"results": [{"title": t, "label": "SAFE", "reason": "film"} for t in [i["title"] for i in json.loads(user)]]}
         if role == "angle":
             return {"results": [{"title": t, "score": 9, "angle": "budget", "photo_query": "cinema hall",
-                                 "tags": ["film"], "name": "Ramayana: Part 1"} for t in json.loads(user)]}
+                                 "tags": ["film"], "name": "Ramayana: Part 1"} for t in [i["title"] for i in json.loads(user)]]}
         if role == "extractor":
             return {"facts": [self.fact]} if "thehindu" in user or "The Hindu" in user else {"facts": []}
         return {"verdict": self.verdict, "reason": "ok"}
@@ -184,7 +184,7 @@ def test_tries_runner_up_when_top_topic_has_too_few_sources(tmp_path):
         def json(self, role, system, user):
             if role == "angle":
                 return {"results": [{"title": t, "score": 9 if t == "Empty topic" else 8, "angle": "budget",
-                                     "photo_query": "cinema", "tags": [], "name": ""} for t in json.loads(user)]}
+                                     "photo_query": "cinema", "tags": [], "name": ""} for t in [i["title"] for i in json.loads(user)]]}
             return super().json(role, system, user)
     rec = run_slot(cfg, dry_run=True, root=tmp_path, now=NOW, llm=TwoLLM(),
                    collect=lambda c, n: [Trend("Empty topic", "google_trends", "IN", [], 900),
@@ -192,7 +192,7 @@ def test_tries_runner_up_when_top_topic_has_too_few_sources(tmp_path):
                    gather=lambda t, c: [] if t.title == "Empty topic" else [HINDU, BBC],
                    find_photo=lambda q, c, o: None, render=fake_render)
     assert rec["status"] == "dry_run" and rec["topic"] == "Ramayana: Part 1"
-    assert any(d["title"] == "Empty topic" and "sources" in d["reason"] for d in rec["decisions"])
+    assert any(d["title"] == "Empty topic" and "source" in d["reason"] for d in rec["decisions"])
 
 
 def test_failed_corroboration_follows_wikipedia_citation(tmp_path):
@@ -221,6 +221,23 @@ def test_citation_not_followed_when_already_corroborated(tmp_path):
                    gather=lambda t, c: [HINDU, BBC], find_photo=lambda q, c, o: None, render=fake_render,
                    cite=lambda *a: calls.append(a) or [])
     assert rec["status"] == "dry_run" and calls == []
+
+
+def test_one_news_article_is_enough_to_try_a_topic(tmp_path):
+    rec = run(tmp_path, cfg_over={"require_second_source": False})
+    assert rec["status"] == "dry_run"
+    rec = run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path / "b", now=NOW,
+                   llm=FakeLLM(), collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                   gather=lambda t, c: [HINDU], find_photo=lambda q, c, o: None, render=fake_render)
+    assert rec["status"] == "dry_run", rec["reason"]
+
+
+def test_wikipedia_alone_is_not_enough_to_try_a_topic(tmp_path):
+    wiki = SourceDoc("https://en.wikipedia.org/w/index.php?oldid=7", "wikipedia.org", "Wikipedia", "x", "t", 7)
+    rec = run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW,
+                   llm=FakeLLM(), collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+                   gather=lambda t, c: [wiki], find_photo=lambda q, c, o: None, render=fake_render)
+    assert rec["status"] == "skipped" and "news source" in rec["reason"]
 
 
 def test_silence_watchdog(tmp_path):

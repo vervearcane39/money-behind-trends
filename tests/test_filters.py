@@ -60,7 +60,27 @@ def test_angle_name_rejected_if_claim_like():
     headline = "Nvidia says it won't reinstate Huang as firm reports bumper results"
     llm = FakeLLM({"results": [{"title": headline, "score": 8, "angle": "a", "photo_query": "chips", "tags": [],
                                 "name": "Nvidia profit up 20 percent in 2026"}]})
-    assert score_angles(llm, [T(headline)])[headline].name == ""
+    # trimmed to the words the headline itself contains; model-written claim text never survives
+    assert score_angles(llm, [T(headline)])[headline].name == "Nvidia"
+
+
+def test_ai_sees_todays_headlines_for_each_trend():
+    t = Trend("Ramayana: Part 1", "google_trends", "IN", ["https://x.com/1"], 500,
+              ["Ramayana: Part 1 box office day 5: film crosses ₹300 crore"])
+    llm = FakeLLM({"results": []})
+    score_angles(llm, [t])
+    classify_safety(llm, [t])
+    for role, user in llm.calls:
+        items = json.loads(user)
+        assert items == [{"title": "Ramayana: Part 1",
+                          "news": ["Ramayana: Part 1 box office day 5: film crosses ₹300 crore"]}], role
+
+
+def test_angle_name_trimmed_to_the_part_in_the_title():
+    headline = "Nvidia says it won't reinstate Huang as it reports soaring sales"
+    llm = FakeLLM({"results": [{"title": headline, "score": 8, "angle": "a", "photo_query": "chips", "tags": [],
+                                "name": "Nvidia Corporation"}]})
+    assert score_angles(llm, [T(headline)])[headline].name == "Nvidia"
 
 
 def test_score_angles_malformed_is_empty():
@@ -119,7 +139,7 @@ def test_gambling_topics_blocked():
 
 
 def test_safety_is_asked_in_batches_so_none_go_unanswered():
-    llm = FakeLLM(lambda user: {"results": [{"title": t, "label": "SAFE", "reason": "ok"} for t in json.loads(user)]})
+    llm = FakeLLM(lambda user: {"results": [{"title": t, "label": "SAFE", "reason": "ok"} for t in [i["title"] for i in json.loads(user)]]})
     trends = [T(f"Company {i}") for i in range(45)]
     out = classify_safety(llm, trends)
     assert len(llm.calls) == 3 and all(len(json.loads(u)) <= 20 for _, u in llm.calls)
@@ -128,7 +148,7 @@ def test_safety_is_asked_in_batches_so_none_go_unanswered():
 
 def test_angles_are_asked_in_batches():
     llm = FakeLLM(lambda user: {"results": [{"title": t, "score": 7, "angle": "a", "photo_query": "q", "tags": [],
-                                             "name": ""} for t in json.loads(user)]})
+                                             "name": ""} for t in [i["title"] for i in json.loads(user)]]})
     out = score_angles(llm, [T(f"Company {i}") for i in range(25)])
     assert len(llm.calls) == 2 and len(out) == 25
 
