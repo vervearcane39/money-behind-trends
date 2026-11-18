@@ -122,7 +122,10 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         facts, keys = [], set()
         wiki = next((d for d in docs if d.wiki_revid), None)
         tried = {d.url for d in docs}
-        for doc in list(docs):  # extraction reads the gathered pages; cited pages only corroborate
+        # Read the newest news first, undated news next, Wikipedia last (it can never support a fact alone).
+        # Cited pages fetched later only corroborate; they are never extracted from.
+        reading_order = sorted(docs, key=lambda d: (d.domain == "wikipedia.org", -int((d.published or "0").replace("-", ""))))
+        for doc in reading_order:
             for cand in extract_candidates(llm, doc, label, angle.angle, cfg, year=now.astimezone(tz).year):
                 if len(facts) >= cfg["copy"]["max_facts"]:
                     break

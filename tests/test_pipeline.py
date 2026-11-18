@@ -240,6 +240,25 @@ def test_wikipedia_alone_is_not_enough_to_try_a_topic(tmp_path):
     assert rec["status"] == "skipped" and "news source" in rec["reason"]
 
 
+def test_newest_news_is_read_first_and_wikipedia_last(tmp_path):
+    page = "Ramayana film budget news.\n" * 5
+    wiki = SourceDoc("https://en.wikipedia.org/w/index.php?oldid=7", "wikipedia.org", "Wikipedia", page, "t", 7)
+    old = SourceDoc("https://www.cnn.com/old", "cnn.com", "CNN", page, "t", None, "2016-04-05")
+    new = SourceDoc("https://www.bbc.com/new", "bbc.com", "BBC", page, "t", None, "2026-11-18")
+    order = []
+
+    class Order(FakeLLM):
+        def json(self, role, system, user):
+            if role == "extractor":
+                order.append(json.loads(user)["SOURCE"])
+                return {"facts": []}
+            return super().json(role, system, user)
+    run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW, llm=Order(),
+             collect=lambda c, n: [Trend("Ramayana: Part 1", "google_trends", "IN", [], 500)],
+             gather=lambda t, c: [wiki, old, new], find_photo=lambda q, c, o: None, render=fake_render)
+    assert order[0] == "BBC" and order[-1] == "Wikipedia", order
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)
