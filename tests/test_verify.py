@@ -64,6 +64,22 @@ def test_rejects_number_only_on_wikipedia():
     assert len(wiki_quote.split()) >= 8
 
 
+# ── the big number shown on the image ───────────────────────────────────────
+
+def test_key_number_prefers_money_with_unit():
+    from factpage.verify import key_number
+    assert key_number("Ramayana: Part 1 cost ₹550 crore in 2024.") == "₹550 crore"
+    assert key_number("Revenue rose 12% to $3 billion in 2024.") == "$3 billion"
+    assert key_number("The stadium seats 50,000 people since 2019.") == "50,000"
+    assert key_number("Founded in 1937.") is None
+
+
+def test_key_number_none_for_ranges():
+    from factpage.verify import key_number
+    assert key_number("It would cost about £75 to £90 million to develop in 1962.") is None
+    assert key_number("Costs rose to £1.5–2.1 billion in 1976.") is None
+
+
 # ── the rest of the gate ────────────────────────────────────────────────────
 
 def test_accepts_fully_supported_claim():

@@ -69,11 +69,21 @@ def _excerpt(text: str, claim: str, width: int = 300) -> str:
     return text[max(0, pos - width): pos + width].strip()
 
 
-def _key_number(claim: str) -> str | None:
+_RANGE = re.compile(r"\d\s*(?:to|–|-|and)\s*(?:₹|rs\.?|inr|us\$|\$|€|£)?\s?\d", re.I)
+_MAGNITUDE = ("crore", "lakh", "thousand", "million", "billion", "trillion", "bn", "mn", "%", "per cent", "percent")
+
+
+def key_number(claim: str) -> str | None:
+    """The figure drawn large on the image. None for ranges, where any single figure would mislead."""
+    if _RANGE.search(prep(claim)):
+        return None
     ys = {str(y) for y in years(claim)}
     spans = [s for s in number_spans(claim) if s not in ys]
-    return max(spans, key=lambda s: any(c in s for c in "₹$€£%") or any(u in s.lower() for u in
-               ("crore", "lakh", "million", "billion", "trillion", "bn", "mn")), default=None)
+
+    def score(s):
+        money, mag = any(c in s for c in "₹$€£") or s.lower().startswith(("rs", "inr", "usd")), any(u in s.lower() for u in _MAGNITUDE)
+        return 2 * money + 2 * mag - (money and not mag)  # "$3 billion" > "12%" > "£75" > "150"
+    return max(spans, key=score, default=None)
 
 
 def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[VerifiedFact | None, CheckLog]:
@@ -145,4 +155,4 @@ def verify(c: Candidate, docs: list[SourceDoc], llm, cfg: dict) -> tuple[Verifie
         return fail("d_verifier", f"verdict {verdict!r}: {reason}")
     log.results["d_verifier"] = (True, reason)
 
-    return VerifiedFact(c.claim, _key_number(c.claim), primary, c.quote, corr, ex_b, reason), log
+    return VerifiedFact(c.claim, key_number(c.claim), primary, c.quote, corr, ex_b, reason), log
