@@ -19,10 +19,27 @@ slots: ["09:07", "13:07", "18:07", "21:07"]
 geos:
   IN: India
   US: the US
-wikipedia_top: true
+# How many of English Wikipedia's most-read articles (yesterday) to consider. 0 = off.
+wikipedia_top: 25
 # Business-section RSS feeds of established outlets. Each was checked against the
 # outlet's robots.txt on 2026-11-18; re-check before adding new ones.
-feeds: []
+# (Business Standard was dropped: it returns 403 to bots. Google News: robots.txt forbids /rss.)
+# limit = newest N headlines taken from each feed per run.
+feeds:
+  - {name: BBC Business, url: "https://feeds.bbci.co.uk/news/business/rss.xml", limit: 5}
+  - {name: The Hindu Business, url: "https://www.thehindu.com/business/feeder/default.rss", limit: 5}
+  - {name: BusinessLine, url: "https://www.thehindubusinessline.com/feeder/default.rss", limit: 5}
+  - {name: Mint Companies, url: "https://www.livemint.com/rss/companies", limit: 5}
+  - {name: ET Industry, url: "https://economictimes.indiatimes.com/industry/rssfeeds/13352306.cms", limit: 5}
+  - {name: CNBC Business, url: "https://www.cnbc.com/id/10001147/device/rss/rss.html", limit: 5}
+  - {name: Guardian Business, url: "https://www.theguardian.com/uk/business/rss", limit: 5}
+  - {name: Indian Express Business, url: "https://indianexpress.com/section/business/feed/", limit: 5}
+  - {name: HT Business, url: "https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml", limit: 5}
+  - {name: Variety Biz, url: "https://variety.com/v/biz/feed/", limit: 5}
+  - {name: Deadline, url: "https://deadline.com/feed/", limit: 5}
+  - {name: TechCrunch, url: "https://techcrunch.com/feed/", limit: 5}
+# At most this many candidates are sent to the AI per run (keeps within free-tier token limits).
+max_candidates: 60
 
 # How many days before a topic may be used again. Facts are never repeated.
 topic_cooldown_days: 7
@@ -295,11 +312,12 @@ sources:
 
 # ── AI ──────────────────────────────────────────────────────────────────────
 # Any OpenAI-compatible provider works: change base_url/model/key_env.
+# `extra` is passed straight to the provider (Groq: hide the model's reasoning text from the reply).
 llm:
-  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY}
-  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY}
-  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY}
-  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY}
+  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
+  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
+  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
+  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY, extra: {include_reasoning: false}}
   max_retries: 3
 
 # ── Images ──────────────────────────────────────────────────────────────────

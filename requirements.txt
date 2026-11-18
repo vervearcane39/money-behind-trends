@@ -8,3 +8,4 @@ Pillow>=11.0
 opencv-python-headless>=4.10
 PyNaCl>=1.5
 pytest>=8.3
+tzdata>=2024.1
