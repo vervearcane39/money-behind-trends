@@ -129,6 +129,23 @@ def test_pages_without_declared_charset_are_read_as_utf8(monkeypatch):
     assert "£60m" in doc.text and "Â" not in doc.text
 
 
+def _page(head=""):
+    body = "".join(f"<p>Part {i}: Surrey agreed a £60m price for a 49% stake, sources in city {i} said.</p>"
+                   for i in range(30))
+    return f"<html><head>{head}</head><body><article>{body}</article></body></html>"
+
+
+def test_fetch_doc_records_publication_date(monkeypatch):
+    head = '<meta property="article:published_time" content="2025-03-04T10:00:00Z">'
+    monkeypatch.setattr(research.http, "get", lambda u, **kw: SimpleNamespace(url=u, text=_page(head)))
+    assert research.fetch_doc("https://www.bbc.com/sport/x", CFG).published == "2025-03-04"
+
+
+def test_fetch_doc_never_invents_a_publication_date(monkeypatch):
+    monkeypatch.setattr(research.http, "get", lambda u, **kw: SimpleNamespace(url=u, text=_page()))
+    assert research.fetch_doc("https://www.bbc.com/sport/x", CFG).published is None
+
+
 def test_cited_urls_need_a_non_year_number():
     assert research.cited_urls(WIKI_HTML, "Dangal was released in 2016.") == []
     assert research.cited_urls("<p>broken", "It cost ₹550 crore in 2024.") == []

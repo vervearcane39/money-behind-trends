@@ -155,7 +155,8 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
         rec.update(caption=caption, images=[p.name for p in paths], fact_keys=sorted(keys),
                    facts=[{"claim": f.claim, "key_number": f.key_number, "primary_url": f.primary.url,
                            "primary_quote": f.primary_quote, "corroborator_url": f.corroborator.url,
-                           "corroborator_excerpt": f.corroborator_excerpt, "verifier": f.verifier_reason}
+                           "corroborator_excerpt": f.corroborator_excerpt,
+                           "corroborator_published": f.corroborator.published, "verifier": f.verifier_reason}
                           for f in facts],
                    photo={"credit": photo.credit, "licence": photo.licence, "source_url": photo.source_url,
                           "provider": photo.provider} if photo else None)

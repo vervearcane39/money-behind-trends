@@ -21,7 +21,9 @@ def render(rec: dict) -> str:
         for i, f in enumerate(rec["facts"], 1):
             out += [f"### {i}. {f['claim']}",
                     f"- Primary: {f['primary_url']}", f"  > {f['primary_quote']}",
-                    f"- Corroboration: {f['corroborator_url']}", f"  > {f['corroborator_excerpt']}",
+                    f"- Corroboration: {f['corroborator_url']}"
+                    + (f" (published {f['corroborator_published']})" if f.get("corroborator_published") else ""),
+                    f"  > {f['corroborator_excerpt']}",
                     f"- Verifier model: {f['verifier']}"]
     if rec.get("photo"):
         p = rec["photo"]

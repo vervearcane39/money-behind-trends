@@ -64,6 +64,54 @@ def test_rejects_number_only_on_wikipedia():
     assert len(wiki_quote.split()) >= 8
 
 
+# ── owner-approved rule (2026-11-18): a corroborator's publication date may confirm the claim's year ──
+
+OVAL_QUOTE = "In 2025, the owners of Mumbai Indians bought a 49% stake in the Oval Invincibles for £60 million"
+OVAL_PRIMARY = SourceDoc("https://www.thehindu.com/oval", "thehindu.com", "The Hindu",
+                         OVAL_QUOTE + ", officials confirmed on Tuesday.", "t")
+OVAL_CLAIM = "In 2025, the owners of Mumbai Indians bought a 49% stake in the Oval Invincibles for £60 million."
+
+
+def _bbc(published):
+    return SourceDoc("https://www.bbc.com/oval", "bbc.com", "BBC",
+                     "Last week, Surrey negotiated a £60m price with the owners of Mumbai Indians for a 49% stake "
+                     "in Oval Invincibles.", "t", None, published)
+
+
+def test_publication_date_confirms_year_missing_from_corroborator_text():
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2025-03-04")], OK, CFG)
+    assert fact is not None, log.results
+    assert "publication date" in log.results["c_corroborated"][1]
+
+
+def test_publication_date_from_another_year_does_not_confirm():
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2024-11-01")], OK, CFG)
+    assert fact is None and failed_at(log) == "c_corroborated"
+
+
+def test_no_publication_date_and_no_year_in_text_does_not_confirm():
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc(None)], OK, CFG)
+    assert fact is None and failed_at(log) == "c_corroborated"
+
+
+def test_publication_date_never_replaces_the_figures():
+    bbc = SourceDoc("https://www.bbc.com/oval", "bbc.com", "BBC",
+                    "Surrey sold a stake in Oval Invincibles to the owners of Mumbai Indians.", "t", None, "2025-03-04")
+    fact, log = verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, bbc], OK, CFG)
+    assert fact is None and failed_at(log) == "c_corroborated"
+
+
+def test_verifier_is_told_the_corroborator_publication_date():
+    seen = {}
+
+    class Spy(Verdict):
+        def json(self, role, system, user):
+            seen["user"] = user
+            return {"verdict": "SUPPORTED", "reason": "ok"}
+    verify(Candidate(OVAL_CLAIM, OVAL_PRIMARY.url, OVAL_QUOTE), [OVAL_PRIMARY, _bbc("2025-03-04")], Spy(None), CFG)
+    assert "2025-03-04" in seen["user"]
+
+
 # ── the big number shown on the image ───────────────────────────────────────
 
 def test_key_number_prefers_money_with_unit():

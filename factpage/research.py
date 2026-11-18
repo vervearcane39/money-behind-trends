@@ -29,6 +29,7 @@ class SourceDoc:
     text: str
     fetched_at: str
     wiki_revid: int | None = None
+    published: str | None = None  # YYYY-MM-DD from the page's own metadata; None if the page states none
 
 
 _ARCHIVE = re.compile(r"^https?://web\.archive\.org/web/(\d+)(?:[a-z]{2}_)?/(.+)$")
@@ -121,7 +122,14 @@ def fetch_doc(url: str, cfg: dict) -> SourceDoc | None:
         log.info("skip (paywalled/too short): %s", r.url)
         return None
     return SourceDoc(r.url, registrable_domain(original_url(r.url)), source_name(r.url, cfg), text,
-                     datetime.now(timezone.utc).isoformat())
+                     datetime.now(timezone.utc).isoformat(), published=_published(page))
+
+
+def _published(page: str) -> str | None:
+    """Original publication date from the page's metadata, never a guess (strict htmldate settings)."""
+    meta = trafilatura.extract_metadata(page, date_config={"original_date": True, "extensive_search": False})
+    date = meta.date if meta else None
+    return date if date and re.fullmatch(r"\d{4}-\d{2}-\d{2}", date) else None
 
 
 def _wiki(params: dict) -> dict | None:
