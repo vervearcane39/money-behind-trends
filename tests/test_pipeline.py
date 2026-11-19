@@ -273,6 +273,45 @@ def test_todays_coverage_of_the_same_story_is_researched_first(tmp_path):
     assert seen["urls"] == ["https://www.thehindu.com/a", "https://www.bbc.com/b"]
 
 
+def test_same_story_matching_needs_the_name_not_the_plain_word(tmp_path):
+    seen = {}
+
+    def gather(t, c):
+        seen["urls"] = list(t.urls)
+        return [HINDU, BBC]
+
+    class TargetLLM(FakeLLM):
+        def json(self, role, system, user):
+            if role == "angle":
+                return {"results": [{"title": t, "score": 9, "angle": "sales", "photo_query": "store", "tags": [],
+                                     "name": "Target"} for t in [i["title"] for i in json.loads(user)]]}
+            return super().json(role, system, user)
+    trends = [Trend("Target shares rise 7% as retailer posts best sales growth", "feed", "", ["https://www.cnbc.com/t"], 0),
+              Trend("Anthropic prices IPO at $83, beating target range", "feed", "", ["https://www.bbc.com/a"], 0),
+              Trend("Target to open 20 new stores", "feed", "", ["https://www.bbc.com/t2"], 0)]
+    run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW, llm=TargetLLM(),
+             collect=lambda c, n: trends, gather=gather, find_photo=lambda q, c, o: None, render=fake_render)
+    assert "https://www.bbc.com/a" not in seen["urls"] and "https://www.bbc.com/t2" in seen["urls"]
+
+
+def test_off_topic_fact_is_rejected_before_verification(tmp_path):
+    calls = []
+
+    class OffTopic(FakeLLM):
+        def json(self, role, system, user):
+            if role == "verifier":
+                calls.append(1)
+            if role == "angle":
+                return {"results": [{"title": t, "score": 9, "angle": "a", "photo_query": "q", "tags": [],
+                                     "name": "Nvidia"} for t in [i["title"] for i in json.loads(user)]]}
+            return super().json(role, system, user)
+    rec = run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW, llm=OffTopic(),
+                   collect=lambda c, n: [Trend("Nvidia results", "google_trends", "US", [HINDU.url], 500)],
+                   gather=lambda t, c: [HINDU, BBC], find_photo=lambda q, c, o: None, render=fake_render)
+    assert rec["status"] == "skipped" and calls == []
+    assert any("g_on_topic" in json.dumps(c) for c in rec["checks"])
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)

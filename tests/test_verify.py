@@ -192,6 +192,17 @@ def test_hype_words_rejected():
     assert fact is None and failed_at(log) == "style"
 
 
+# ── a fact must name its topic (live bug 2026-11-19: an Anthropic fact under a "Target" label) ──
+
+def test_fact_must_name_the_topic():
+    from factpage.verify import on_topic
+    assert not on_topic("Anthropic spent nearly $9 billion on computing in the first half of 2026.", "Target")
+    assert on_topic("Target's comparable sales rose 2.7% in the third quarter of 2026.", "Target")
+    assert not on_topic("The firm beat its revenue target in 2026.", "Target")  # the plain word is not the name
+    assert on_topic("Ramayana: Part 1 earned ₹300 crore in its first week in 2026.", "Ramayana: Part 1")
+    assert on_topic("Nvidia's revenue more than doubled in 2026.", "Nvidia")
+
+
 # ── the big number shown on the image ───────────────────────────────────────
 
 def test_key_number_prefers_money_with_unit():

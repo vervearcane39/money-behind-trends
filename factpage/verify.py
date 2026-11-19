@@ -56,6 +56,29 @@ class VerifiedFact:
     verifier_reason: str
 
 
+_NAME_WORD = re.compile(r"\b[A-Z][\w&'.-]*|\b[a-z]+[A-Z]\w*")
+_NOT_NAMES = {"The", "A", "An", "Of", "And", "In", "On", "For", "To", "At", "By", "With", "From", "Part", "List"}
+
+
+def name_words(label: str) -> list[str]:
+    """The capitalised name words of a topic ('Ramayana: Part 1' -> ['Ramayana'], 'Target' -> ['Target'])."""
+    words = [w.rstrip(".-'") for w in _NAME_WORD.findall(label)]
+    return [w for w in words if w and w not in _NOT_NAMES] or [label]
+
+
+def _has_name(text: str, word: str) -> bool:
+    return re.search(rf"(?<!\w){re.escape(word)}(?!\w)", text) is not None  # case-sensitive: 'target' isn't Target
+
+
+def on_topic(claim: str, label: str) -> bool:
+    """A fact must name its topic: at least one of the topic's name words, capitalised, as a whole word."""
+    return any(_has_name(claim, w) for w in name_words(label))
+
+
+def mentions_all_names(text: str, label: str) -> bool:
+    return all(_has_name(text, w) for w in name_words(label))
+
+
 def source_names(f: "VerifiedFact") -> list[str]:
     return [f.primary.name] + ([f.corroborator.name] if f.corroborator else [])
 

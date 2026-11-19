@@ -15,9 +15,8 @@ from .history import History, fact_key, topic_key
 from .llm import LLM, MissingKey, RateLimited
 from .render import Slide, headline_for
 from .report import render as render_report
-from .textnorm import norm
 from .trends import Trend
-from .verify import source_names, verify
+from .verify import mentions_all_names, on_topic, source_names, verify
 
 
 MAX_TOPIC_TRIES = 3
@@ -38,14 +37,13 @@ def _slides(label, facts, photo, cfg):
 def _same_story_urls(found: list[Trend], trend: Trend, label: str) -> list[str]:
     """Today's coverage of the same subject from other outlets: links of every other collected headline or
     trend that names it. Read before Wikipedia's (mostly old) references."""
-    key = norm(label)
-    if len(key) < 3:
+    if len(label) < 3:
         return []
     urls = []
     for t in found:
         if t is trend or t.title == trend.title:
             continue
-        if f" {key} " in f" {norm(t.title + ' ' + ' '.join(t.news))} ":
+        if mentions_all_names(t.title + " " + " ".join(t.news), label):  # "Target", not "beating target range"
             urls += [u for u in t.urls if u not in urls]
     return urls
 
@@ -146,6 +144,10 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
             for cand in extract_candidates(llm, doc, label, angle.angle, cfg, year=now.astimezone(tz).year):
                 if len(facts) >= cfg["copy"]["max_facts"]:
                     break
+                if not on_topic(cand.claim, label):  # e.g. an Anthropic fact must never appear on a Target post
+                    rec["checks"].append({"claim": cand.claim, "quote": cand.quote, "source_url": cand.source_url,
+                                          "results": {"g_on_topic": (False, f"fact does not name the topic '{label}'")}})
+                    continue
                 k = fact_key(cand.claim)
                 if k in keys or hist.fact_seen(k):
                     rec["checks"].append({"claim": cand.claim, "skipped": "fact already used"})
