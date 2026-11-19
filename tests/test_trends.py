@@ -50,6 +50,20 @@ def test_feed_items_become_trends_with_link():
     assert trends[0].urls and trends[0].urls[0].startswith("https://")
 
 
+def test_old_feed_items_are_dropped():
+    from datetime import datetime, timezone
+    xml = b"""<?xml version="1.0"?><rss version="2.0"><channel><title>x</title>
+    <item><title>SpiceJet approves Rs 5,500 crore raise</title><link>https://www.bbc.com/new</link>
+      <pubDate>Wed, 18 Nov 2026 10:00:00 GMT</pubDate></item>
+    <item><title>ICICI Pru Life Q4 net profit falls 26%</title><link>https://www.bbc.com/old</link>
+      <pubDate>Tue, 24 Apr 2018 10:00:00 GMT</pubDate></item>
+    <item><title>Undated item</title><link>https://www.bbc.com/undated</link></item>
+    </channel></rss>"""
+    now = datetime(2026, 11, 19, 6, 0, tzinfo=timezone.utc)
+    titles = [t.title for t in parse_feed(xml, "X", limit=5, max_age_days=2, now=now)]
+    assert titles == ["SpiceJet approves Rs 5,500 crore raise", "Undated item"]
+
+
 def test_merge_combines_same_topic_across_sources():
     a = Trend("Jensen Huang", "google_trends", "US", ["https://a.com/1"], 500)
     b = Trend("jensen huang", "wikipedia", "", ["https://b.com/2"], 900)

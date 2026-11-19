@@ -60,10 +60,20 @@ def parse_wiki_top(all_access: dict, desktop: dict | None = None) -> list[Trend]
     return out
 
 
-def parse_feed(xml: bytes, name: str, limit: int = 5) -> list[Trend]:
-    d = feedparser.parse(xml)
-    return [Trend(e.title.strip(), "feed", "", [e.link], 0)
-            for e in d.entries[:limit] if e.get("title") and e.get("link", "").startswith("https://")]
+def parse_feed(xml: bytes, name: str, limit: int = 5, max_age_days: int | None = None,
+               now: datetime | None = None) -> list[Trend]:
+    """Newest `limit` items; items older than `max_age_days` are dropped (some feeds carry stale archive items)."""
+    now, out = now or datetime.now(timezone.utc), []
+    for e in feedparser.parse(xml).entries:
+        if len(out) >= limit:
+            break
+        if not (e.get("title") and e.get("link", "").startswith("https://")):
+            continue
+        when = e.get("published_parsed") or e.get("updated_parsed")
+        if max_age_days is not None and when and now - datetime(*when[:6], tzinfo=timezone.utc) > timedelta(days=max_age_days):
+            continue
+        out.append(Trend(e.title.strip(), "feed", "", [e.link], 0))
+    return out
 
 
 def merge(trends: list[Trend]) -> list[Trend]:
@@ -99,5 +109,5 @@ def collect(cfg: dict, now: datetime | None = None) -> list[Trend]:
     for f in cfg.get("feeds") or []:
         r = http.get(f["url"])
         if r:
-            out += parse_feed(r.content, f["name"], f.get("limit", 5))
+            out += parse_feed(r.content, f["name"], f.get("limit", 5), cfg.get("feed_max_age_days"), now)
     return merge(out)

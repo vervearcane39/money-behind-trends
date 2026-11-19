@@ -15,6 +15,7 @@ from .history import History, fact_key, topic_key
 from .llm import LLM, MissingKey, RateLimited
 from .render import Slide, headline_for
 from .report import render as render_report
+from .textnorm import norm
 from .trends import Trend
 from .verify import source_names, verify
 
@@ -32,6 +33,21 @@ def _slides(label, facts, photo, cfg):
     return [Slide("hook", label, head, "", None, [], handle, photo, f"1/{n}")] + [
         Slide("fact", label, "", f.claim, f.key_number, source_names(f), handle, photo, f"{i}/{n}")
         for i, f in enumerate(facts, 2)]
+
+
+def _same_story_urls(found: list[Trend], trend: Trend, label: str) -> list[str]:
+    """Today's coverage of the same subject from other outlets: links of every other collected headline or
+    trend that names it. Read before Wikipedia's (mostly old) references."""
+    key = norm(label)
+    if len(key) < 3:
+        return []
+    urls = []
+    for t in found:
+        if t is trend or t.title == trend.title:
+            continue
+        if f" {key} " in f" {norm(t.title + ' ' + ' '.join(t.news))} ":
+            urls += [u for u in t.urls if u not in urls]
+    return urls
 
 
 def _alt(slide: Slide) -> str:
@@ -104,8 +120,9 @@ def run_slot(cfg: dict, *, dry_run: bool, root: Path, now: datetime, llm=None, c
             if not label:
                 tried[trend.title] = "no clean topic name for a news headline"
                 continue
+            urls = trend.urls + [u for u in _same_story_urls(found, trend, label) if u not in trend.urls]
             docs = gather(Trend(label if trend.source == "feed" else trend.title, trend.source, trend.geo,
-                                trend.urls, trend.signal), cfg)
+                                urls, trend.signal), cfg)
             news = [d for d in docs if d.domain != "wikipedia.org"]  # Wikipedia alone can never support a fact
             enough = len(news) >= 1 and (len(docs) >= 2 or not cfg.get("require_second_source", True))
             if enough:

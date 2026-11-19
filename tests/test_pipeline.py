@@ -259,6 +259,20 @@ def test_newest_news_is_read_first_and_wikipedia_last(tmp_path):
     assert order[0] == "BBC" and order[-1] == "Wikipedia", order
 
 
+def test_todays_coverage_of_the_same_story_is_researched_first(tmp_path):
+    seen = {}
+
+    def gather(t, c):
+        seen["urls"] = list(t.urls)
+        return [HINDU, BBC]
+    trends = [Trend("Ramayana: Part 1", "google_trends", "IN", ["https://www.thehindu.com/a"], 500),
+              Trend("Ramayana: Part 1 box office crosses Rs 300 crore", "feed", "", ["https://www.bbc.com/b"], 0),
+              Trend("Sensex falls 450 points", "feed", "", ["https://www.cnbc.com/c"], 0)]
+    run_slot({**load_config(), "max_fact_age_years": None}, dry_run=True, root=tmp_path, now=NOW, llm=FakeLLM(),
+             collect=lambda c, n: trends, gather=gather, find_photo=lambda q, c, o: None, render=fake_render)
+    assert seen["urls"] == ["https://www.thehindu.com/a", "https://www.bbc.com/b"]
+
+
 def test_silence_watchdog(tmp_path):
     from factpage.pipeline import silent_too_long
     h = History(tmp_path / "data/history.jsonl", count_dry_runs=True)
