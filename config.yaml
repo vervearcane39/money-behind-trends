@@ -411,3 +411,5 @@ user_agent: "Trendonomics/0.1 (https://github.com/vervearcane39)"
 
 instagram:
   api_version: v27.0   # latest Graph API version per Meta changelog, checked 2026-11-18
+  login: facebook      # facebook = post via the Facebook Page linked to the account (graph.facebook.com, Page
+                       # token never expires); instagram = Instagram Login token (IGAA..., refreshed weekly)

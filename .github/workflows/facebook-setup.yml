@@ -1,0 +1,27 @@
+# Manual, one-time: swaps the Facebook user token in IG_ACCESS_TOKEN for the Facebook Page token (never expires)
+# and saves it plus IG_USER_ID as secrets, then checks publishing permission. Never posts, never prints tokens.
+name: facebook-setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pip install requests PyYAML PyNaCl
+      - name: Save Page token and Instagram user id
+        run: python -m factpage facebook-setup
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          FB_APP_ID: ${{ secrets.FB_APP_ID }}
+          FB_APP_SECRET: ${{ secrets.FB_APP_SECRET }}
+          GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}

@@ -74,6 +74,14 @@ def _token_file():
     return Path(os.environ["RUNNER_TEMP"]) / "ig_token" if os.environ.get("RUNNER_TEMP") else None
 
 
+def _login(cfg) -> str:
+    return cfg["instagram"].get("login", "instagram")
+
+
+def _host(cfg) -> str:
+    return "graph.facebook.com" if _login(cfg) == "facebook" else "graph.instagram.com"
+
+
 def cmd_publish(args, cfg):
     import os
     from .pipeline import publish_pending
@@ -83,9 +91,59 @@ def cmd_publish(args, cfg):
     token = tf.read_text().strip() if tf and tf.exists() else os.environ.get("IG_ACCESS_TOKEN", "")
     if not token or not os.environ.get("IG_USER_ID"):
         raise SystemExit("IG_ACCESS_TOKEN and IG_USER_ID must be set to publish")
-    pub = InstagramPublisher(token, os.environ["IG_USER_ID"], cfg["instagram"]["api_version"])
+    pub = InstagramPublisher(token, os.environ["IG_USER_ID"], cfg["instagram"]["api_version"], host=_host(cfg))
     media_id = publish_pending(cfg, ROOT, args.pending, args.base_url, pub, check_urls, datetime.now(timezone.utc))
     print(f"published: media id {media_id}")
+    return 0
+
+
+def cmd_check_instagram(args, cfg):
+    import os
+    from .publish import PublishError, check_instagram
+
+    token = os.environ.get("IG_ACCESS_TOKEN", "")
+    if not token:
+        print("IG_ACCESS_TOKEN is not set")
+        return 1
+    try:
+        for line in check_instagram(token, os.environ.get("IG_USER_ID", ""), cfg["instagram"]["api_version"],
+                                    login=_login(cfg), handle=cfg["handle"]):
+            print(line)
+    except PublishError as e:
+        print(f"PROBLEM: {e}")
+        return 1
+    return 0
+
+
+def cmd_facebook_setup(args, cfg):
+    """One-time: turn the Facebook user token in IG_ACCESS_TOKEN into the Page token + IG_USER_ID secrets."""
+    import os
+    from .publish import PublishError, check_instagram, facebook_setup
+    from .token import mask, store_secret
+
+    need = ["IG_ACCESS_TOKEN", "FB_APP_ID", "FB_APP_SECRET", "GH_SECRETS_PAT", "GITHUB_REPOSITORY"]
+    missing = [n for n in need if not os.environ.get(n)]
+    if missing:
+        print(f"PROBLEM: these secrets are not set: {', '.join(missing)}")
+        return 1
+    saved = {}
+
+    def store(name, value):
+        mask(value)
+        store_secret(os.environ["GITHUB_REPOSITORY"], name, value, os.environ["GH_SECRETS_PAT"])
+        saved[name] = value
+
+    v = cfg["instagram"]["api_version"]
+    try:
+        for line in facebook_setup(os.environ["IG_ACCESS_TOKEN"], os.environ["FB_APP_ID"], os.environ["FB_APP_SECRET"],
+                                   cfg["handle"], v, store):
+            print(line)
+        for line in check_instagram(saved["IG_ACCESS_TOKEN"], saved["IG_USER_ID"], v, login="facebook",
+                                    handle=cfg["handle"]):
+            print(line)
+    except PublishError as e:
+        print(f"PROBLEM: {e}")
+        return 1
     return 0
 
 
@@ -93,6 +151,9 @@ def cmd_refresh_token(args, cfg):
     import os
     from .token import refresh, refresh_if_due, store_secret
 
+    if _login(cfg) == "facebook":
+        print("facebook mode: the Page token does not expire, nothing to refresh")
+        return 0
     token = os.environ.get("IG_ACCESS_TOKEN")
     if not token:
         print("no IG_ACCESS_TOKEN configured — skipping token refresh (fine during dry-run setup)")
@@ -124,10 +185,13 @@ def main(argv=None) -> int:
     pb.add_argument("pending", help="path to out/pending.json")
     pb.add_argument("--base-url", required=True, help="public URL where out/site is served (GitHub Pages)")
     sub.add_parser("refresh-token", help="refresh the Instagram token if 7+ days old and save it to GitHub secrets")
+    sub.add_parser("check-instagram", help="read-only check of the Instagram token, account and publishing permission")
+    sub.add_parser("facebook-setup", help="one-time: save the Facebook Page token and IG_USER_ID to GitHub secrets")
     args = p.parse_args(argv)
     cfg = load_config()
     return {"candidates": cmd_candidates, "sample-render": cmd_sample_render, "run": cmd_run,
-            "publish": cmd_publish, "refresh-token": cmd_refresh_token}[args.cmd](args, cfg)
+            "publish": cmd_publish, "refresh-token": cmd_refresh_token,
+            "check-instagram": cmd_check_instagram, "facebook-setup": cmd_facebook_setup}[args.cmd](args, cfg)
 
 
 if __name__ == "__main__":
