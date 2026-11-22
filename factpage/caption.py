@@ -28,7 +28,7 @@ _display = display_topic
 def topic_label(trend, angle) -> str | None:
     """The subject name shown on images and in the caption. Feed headlines are never shown (unverified claims)."""
     if angle is not None and angle.name:
-        return angle.name
+        return _display(angle.name)  # 'a24' -> 'A24': lowercase search terms get proper capitals
     return None if trend.source == "feed" else _display(trend.title)
 
 

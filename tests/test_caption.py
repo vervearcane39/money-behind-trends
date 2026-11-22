@@ -53,6 +53,14 @@ def test_list_of_pages_get_a_clean_label_and_no_giant_hashtag():
     assert all(len(w) <= 21 for w in cap.split() if w.startswith("#"))
 
 
+def test_lowercase_search_term_gets_proper_capitals_so_on_topic_works():
+    """Live bug: trend 'a24' kept a lowercase name, so 'A24's first film...' failed the case-sensitive check."""
+    from factpage.verify import on_topic
+    label = topic_label(Trend("a24", "google_trends", "US", [], 1), Angle(9, "box office", "cinema", [], "a24"))
+    assert label == "A24"
+    assert on_topic("In 2026, Kane Parsons' Backrooms became A24's first film to pass $200 million.", label)
+
+
 def test_copy_rules():
     assert not copy_ok("Did you know this?", CFG)[0]
     assert not copy_ok("Wow!! big", CFG)[0]
