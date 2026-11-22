@@ -1,0 +1,413 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Trendonomics — all settings live here. Edit on GitHub, commit, done.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# KILL SWITCH. false = dry-run only (images + reports, nothing posted).
+# Flip to true only after you have reviewed at least 20 dry-run posts.
+publishing_enabled: false
+
+# Your Instagram handle, shown in each image footer (e.g. "@moneybehindtrends").
+# Live publishing refuses to run while this is empty.
+handle: "@trendonomics.in"
+
+# Posting slots (India time). Change these AND the cron lines in
+# .github/workflows/post.yml together. Minute :07 avoids GitHub's busy top-of-hour.
+timezone: Asia/Kolkata
+slots: ["09:07", "13:07", "18:07", "21:07"]
+
+# Where trends come from.
+geos:
+  IN: India
+  US: the US
+# How many of English Wikipedia's most-read articles (yesterday) to consider. 0 = off.
+wikipedia_top: 25
+# Business-section RSS feeds of established outlets. Each was checked against the
+# outlet's robots.txt on 2026-11-18; re-check before adding new ones.
+# Dropped: Business Standard (403 to bots), Google News (robots.txt forbids /rss), The Hindu Business and
+# Deadline (articles marked subscriber-only, so skipped as paywalled), NDTV Profit (robots.txt disallows).
+# limit = newest N headlines taken from each feed per run.
+feeds:
+  - {name: BBC Business, url: "https://feeds.bbci.co.uk/news/business/rss.xml", limit: 5}
+  - {name: Moneycontrol Business, url: "https://www.moneycontrol.com/rss/business.xml", limit: 5}
+  - {name: BusinessLine, url: "https://www.thehindubusinessline.com/feeder/default.rss", limit: 5}
+  - {name: Mint Companies, url: "https://www.livemint.com/rss/companies", limit: 5}
+  - {name: ET Industry, url: "https://economictimes.indiatimes.com/industry/rssfeeds/13352306.cms", limit: 5}
+  - {name: CNBC Business, url: "https://www.cnbc.com/id/10001147/device/rss/rss.html", limit: 5}
+  - {name: Guardian Business, url: "https://www.theguardian.com/uk/business/rss", limit: 5}
+  - {name: Indian Express Business, url: "https://indianexpress.com/section/business/feed/", limit: 5}
+  - {name: HT Business, url: "https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml", limit: 5}
+  - {name: Variety Biz, url: "https://variety.com/v/biz/feed/", limit: 5}
+  - {name: Times of India Business, url: "https://timesofindia.indiatimes.com/rssfeeds/1898055.cms", limit: 5}
+  - {name: TechCrunch, url: "https://techcrunch.com/feed/", limit: 5}
+# Feed items older than this many days are ignored (some feeds carry stale archive items).
+feed_max_age_days: 2
+# At most this many candidates are sent to the AI per run (keeps within free-tier token limits).
+max_candidates: 60
+
+# If this many slots in a row are skipped (12 = 3 days), the run fails so GitHub emails you.
+alert_after_skipped_runs: 12
+
+# Second-source rule. false = one allowlisted NEWS site is enough for a fact (your decision, 2026-11-19).
+# true = every fact also needs a second, different news site with the same figures.
+# Either way, a fact taken only from Wikipedia is never enough on its own.
+require_second_source: false
+
+# How many days before a topic may be used again. Facts are never repeated.
+topic_cooldown_days: 7
+# Freshness: facts must be about this year or the previous N years (1 = 2025-2026 in 2026).
+# A fact with no year needs a source article published in that window. Remove the line to turn off.
+max_fact_age_years: 1
+
+# A topic where no fact passed verification rests this long, so the next slot tries something else.
+failed_topic_rest_hours: 24
+# A topic needs at least this business-angle score (0-10) to be used.
+min_angle_score: 6
+# Used at most once per day when nothing trending has a clear money angle.
+evergreen_topics:
+  - Panama Canal
+  - Suez Canal
+  - Burj Khalifa
+  - Indian Railways
+  - Tata Group
+  - The Lego Group
+  - IKEA
+  - Amul
+  - Indian Premier League
+  - FIFA World Cup
+  - Rolex
+  - Airbus A380
+  - Concorde
+  - Infosys
+  - Maruti Suzuki
+  - Netflix
+  - Coca-Cola
+  - Eiffel Tower
+
+# ── Safety ──────────────────────────────────────────────────────────────────
+# A topic is skipped if its title contains any of these words (whole-word,
+# case-insensitive) OR the AI classifier says UNSAFE/UNSURE.
+blocklist:
+  # death / harm
+  - death
+  - dead
+  - dies
+  - died
+  - killed
+  - kills
+  - murder
+  - suicide
+  - funeral
+  - obituary
+  - passes away
+  - passed away
+  - rip
+  - accident
+  - crash
+  - collision
+  - derail
+  - derailment
+  - stampede
+  - injured
+  - injury
+  - injuries
+  # disaster
+  - earthquake
+  - flood
+  - floods
+  - cyclone
+  - hurricane
+  - tsunami
+  - wildfire
+  - landslide
+  - explosion
+  - blast
+  - fire
+  # violence / crime / terror / war
+  - attack
+  - shooting
+  - shot
+  - gun
+  - stabbing
+  - assault
+  - rape
+  - abuse
+  - kidnap
+  - kidnapping
+  - arrest
+  - arrested
+  - police
+  - crime
+  - fraud
+  - scam
+  - terror
+  - terrorist
+  - terrorism
+  - bomb
+  - war
+  - military
+  - army
+  - missile
+  - airstrike
+  - ceasefire
+  - hostage
+  - riot
+  - protest
+  # politics / elections
+  - election
+  - elections
+  - vote
+  - voting
+  - poll
+  - polls
+  - bjp
+  - congress
+  - aap
+  - tmc
+  - democrat
+  - democrats
+  - republican
+  - republicans
+  - modi
+  - trump
+  - biden
+  - harris
+  - rahul gandhi
+  - minister
+  - president
+  - prime minister
+  - parliament
+  - senate
+  - mla
+  - mp
+  - government
+  - pakistan
+  - israel
+  - gaza
+  - ukraine
+  - russia
+  - iran
+  # religion / communal / caste
+  - temple
+  - mosque
+  - church
+  - hindu
+  - muslim
+  - christian
+  - sikh
+  - religion
+  - religious
+  - caste
+  - dalit
+  - communal
+  # gambling (Instagram restricts gambling promotion; remove these lines if you disagree)
+  - lottery
+  - lotto
+  - jackpot
+  - mega millions
+  - powerball
+  - betting
+  - bet
+  - casino
+  - gambling
+  - satta
+  - dream11
+  # health / medical
+  - covid
+  - virus
+  - vaccine
+  - cancer
+  - disease
+  - outbreak
+  - hospital
+  - health
+  - medical
+  - drug
+  - drugs
+  # adult / minors
+  - sex
+  - porn
+  - nude
+  - onlyfans
+  - xxx
+  - child
+  - children
+  - minor
+  - teen
+  - school
+  - student
+  # legal
+  - court
+  - lawsuit
+  - verdict
+  - trial
+  - bail
+  - case
+  - fir
+  - judge
+  - supreme court
+  - high court
+
+# ── Sources ─────────────────────────────────────────────────────────────────
+# Only pages on these domains (or their subdomains) are ever read.
+# Format: domain: Display name used in the image footer and caption.
+sources:
+  allow:
+    # wire services
+    reuters.com: Reuters
+    apnews.com: AP
+    afp.com: AFP
+    ptinews.com: PTI
+    # established news (India)
+    thehindu.com: The Hindu
+    thehindubusinessline.com: BusinessLine
+    indianexpress.com: The Indian Express
+    hindustantimes.com: Hindustan Times
+    livemint.com: Mint
+    economictimes.indiatimes.com: The Economic Times
+    timesofindia.indiatimes.com: The Times of India
+    business-standard.com: Business Standard
+    moneycontrol.com: Moneycontrol
+    ndtv.com: NDTV
+    ndtvprofit.com: NDTV Profit
+    financialexpress.com: Financial Express
+    deccanherald.com: Deccan Herald
+    espncricinfo.com: ESPNcricinfo
+    # established news (international)
+    bbc.com: BBC
+    bbc.co.uk: BBC
+    theguardian.com: The Guardian
+    cnbc.com: CNBC
+    cnn.com: CNN
+    npr.org: NPR
+    aljazeera.com: Al Jazeera
+    variety.com: Variety
+    hollywoodreporter.com: The Hollywood Reporter
+    deadline.com: Deadline
+    techcrunch.com: TechCrunch
+    theverge.com: The Verge
+    arstechnica.com: Ars Technica
+    espn.com: ESPN
+    the-numbers.com: The Numbers
+    # reference (never enough on its own for a number)
+    wikipedia.org: Wikipedia
+    # regulators / official
+    sec.gov: US SEC
+    sebi.gov.in: SEBI
+    rbi.org.in: RBI
+    pib.gov.in: PIB
+    bseindia.com: BSE
+    nseindia.com: NSE
+  # Any domain ending in one of these is treated as official government.
+  allow_suffixes: [".gov", ".gov.in", ".nic.in", ".gov.uk", ".europa.eu"]
+  # Never read, even if listed above by mistake.
+  deny:
+    - news.google.com
+    - msn.com
+    - yahoo.com
+    - medium.com
+    - substack.com
+    - quora.com
+    - reddit.com
+    - facebook.com
+    - instagram.com
+    - x.com
+    - twitter.com
+    - youtube.com
+    - tiktok.com
+    - linkedin.com
+    - pinterest.com
+    - wikihow.com
+    - thefactsite.com
+    - factretriever.com
+    - ranker.com
+    - listverse.com
+    - boredpanda.com
+    - buzzfeed.com
+    - forbes.com          # contributor network mixes unvetted posts with reporting
+  # Paywalled — skipped. Matched against "host/path" prefixes.
+  paywall:
+    - nytimes.com
+    - wsj.com
+    - ft.com
+    - bloomberg.com
+    - economist.com
+    - washingtonpost.com
+    - barrons.com
+    - theinformation.com
+    - businessinsider.com
+    - economictimes.indiatimes.com/prime
+    - livemint.com/premium
+    - the-ken.com
+
+# ── AI ──────────────────────────────────────────────────────────────────────
+# Any OpenAI-compatible provider works: change base_url/model/key_env.
+# `extra` is passed straight to the provider. Groq notes (tested 2026-11-18):
+# - hidden "reasoning" tokens count toward the answer budget; with default effort, gpt-oss ran out
+#   mid-answer, so effort is set low and the budget explicit.
+# - qwen3.8-27b has only 1,000 output tokens/minute on the free plan: the classifier runs with reasoning
+#   off (labels only); the verifier keeps low reasoning and simply waits when limited.
+llm:
+  classifier: {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY,
+               extra: {reasoning_effort: none, max_completion_tokens: 2000}}
+  angle:      {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 3000}}
+  extractor:  {base_url: "https://api.groq.com/openai/v1", model: "openai/gpt-oss-120b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 2500}}
+  verifier:   {base_url: "https://api.groq.com/openai/v1", model: "qwen/qwen3.8-27b", key_env: GROQ_API_KEY,
+               extra: {include_reasoning: false, reasoning_effort: low, max_completion_tokens: 1000}}
+  max_retries: 6
+
+# ── Images ──────────────────────────────────────────────────────────────────
+images:
+  avoid_faces: true
+  # Photos whose tags/description mention these are rejected (logo risk).
+  reject_tags: [logo, brand, sign, signage, billboard, advertisement, poster]
+  commons_licences: ["public domain", "pd", "cc0", "cc by"]   # "cc by" = CC BY x.x only (no SA/NC/ND)
+
+# ── Brand ───────────────────────────────────────────────────────────────────
+brand:
+  headline_font: Archivo
+  body_font: Inter
+  accent: "#FFB020"
+  text: "#FFFFFF"
+  background: "#111418"     # used when no licensed photo is found
+  margin_px: 72
+  headlines:                 # hook headline templates; {topic} is filled in; ≤8 words, no digits
+    - "The money behind {topic}"
+    - "{topic}, by the numbers"
+    - "Behind the numbers"
+
+# ── Writing rules (checked in code) ─────────────────────────────────────────
+copy:
+  max_headline_words: 8
+  max_fact_words: 25
+  max_facts: 3
+  max_emoji: 1
+  banned_phrases:
+    - did you know
+    - fun fact
+    - mind-blowing
+    - mind blowing
+    - you won't believe
+    - "🤯"
+    - "!!"
+    # hype words: state the figure plainly
+    - whopping
+    - chunky
+    - staggering
+    - massive
+    - mind-boggling
+    - jaw-dropping
+    - eye-popping
+  banned_time_words: [currently, now, today, this year, latest, recently, so far, right now, at present]
+  # No predictions, forecasts or investment advice in any fact.
+  banned_claim_words: [will, expected to, forecast, forecasts, projected, predicts, predicted, should,
+                       buy, sell, target price, price target, invest, investors should, could, might]
+  base_hashtags: ["#trendonomics", "#business", "#money"]
+  max_hashtags: 5
+
+# Contact info Wikimedia requires in the User-Agent.
+user_agent: "Trendonomics/0.1 (https://github.com/vervearcane39)"
+
+instagram:
+  api_version: v27.0   # latest Graph API version per Meta changelog, checked 2026-11-18

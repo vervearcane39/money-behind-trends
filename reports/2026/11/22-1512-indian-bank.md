@@ -1,0 +1,77 @@
+# Indian Bank — 20261122-1512
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-22T09:42:36.048390+00:00
+- **Trend:** "Indian Bank to raise ₹3000 crore through AT1/Tier 2 bonds" via feed
+- **Angle:** ₹3000 cr bond issuance
+
+## Sources fetched
+- Wikipedia (1402 words): https://en.wikipedia.org/w/index.php?title=Indian%20Bank&oldid=1385611001
+- The Times of India (538 words): https://timesofindia.indiatimes.com/business/india-business/government-unveils-mega-bank-mergers-to-revive-growth-from-5-year-low/articleshow/70911359.cms
+- Mint (554 words): https://www.livemint.com/news/india/pnb-obc-and-united-bank-to-be-merged-nirmala-sitharaman-1567158678718.html
+- Mint (513 words): https://www.livemint.com/market/stock-market-news/two-anchor-banks-pnb-union-bank-of-india-disclose-merger-ratios-11583413469591.html
+- The Times of India (archived) (613 words): https://web.archive.org/web/20190830131147/https://timesofindia.indiatimes.com/business/india-business/government-unveils-mega-bank-mergers-to-revive-growth-from-5-year-low/articleshow/70911359.cms
+- Mint (archived) (553 words): https://web.archive.org/web/20190830122322/https://www.livemint.com/news/india/pnb-obc-and-united-bank-to-be-merged-nirmala-sitharaman-1567158678718.html
+
+## Topic decisions
+- drop — Riemann hypothesis — safety: UNSURE (Academic topic, unclear business angle.)
+- drop — Ramayana: Part 1 — angle score 4 < 6
+- drop — The Hunger Games: Sunrise on the Reaping — angle score 5 < 6
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths, explicitly prohibited.)
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Ansel Adams — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Robert Pattinson — safety: UNSAFE (Person on their own, prohibited.)
+- drop — The Body (TV series) — angle score 5 < 6
+- drop — Levent Alpöge — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Nikhil Chaudhary (cricketer) — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Jeff Bezos — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Joseph Zada — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Person on their own, prohibited.)
+- drop — John Madden — safety: UNSAFE (Person on their own, prohibited.)
+- drop — The Odyssey (2026 film) — angle score 5 < 6
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, likely a film or book, insufficient context.)
+- drop — zimbabwe vs ireland — angle score 3 < 6
+- drop — zimbabwe women's national cricket team vs ireland women's national cricket team match scorecard — angle score 3 < 6
+- drop — jitesh sharma — safety: UNSAFE (Topic is a person on their own.)
+- drop — the body netflix — angle score 4 < 6
+- drop — alexander haskin — safety: UNSAFE (Person involved in death and crime headlines.)
+- drop — travel — angle score 2 < 6
+- drop — skip bayless — safety: UNSAFE (Topic is a person on their own.)
+- drop — sam houser — safety: UNSAFE (Topic is a person on their own.)
+- drop — nancy guthrie — safety: UNSAFE (Private individual involved in missing person case.)
+- drop — unemployment — safety: UNSAFE (Headlines involve crime and fraud schemes.)
+- drop — jfk — safety: UNSAFE (Involves politicians and assassination/disaster.)
+- drop — how to auto drive gta 6 — angle score 2 < 6
+- drop — gta 6 money glitch — angle score 2 < 6
+- drop — Employers are being asked to give interview feedback - here's what applicants want — angle score 1 < 6
+- drop — Can AI really help spot Black Friday deals? We put it to the test — angle score 2 < 6
+- drop — Tech stock sell-off drags markets down as Anthropic shares slide — no business angle returned
+- drop — Faisal Islam: This cost-cutting UK-EU deal doesn't mean lower prices will follow — safety: UNSAFE (Involves politicians and political parties.)
+- drop — Indian passport weakens, slips to 84th rank on Henley’s Passport Index — safety: UNSAFE (Involves government and political entities.)
+- drop — Index Outlook: Momentum holds firm — angle score 0 < 6
+- drop — Nvidia shareholder writes open letter to board, calls for newly elected board leaders to decide on Jensen Huang's return — angle score 4 < 6
+- drop — Maharashtra FDA suspends 38 eateries during two-day crackdown; 17 in Pune | Here’s what they found — safety: UNSAFE (Involves health and medical claims.)
+- drop — More trouble for Nvidia? California issues subpoena, probe to look at potential criminal law violations: What we know — safety: UNSAFE (Involves crime and ongoing legal probes.)
+- drop — Amazon eyes $7.5 billion Decart deal to boost AI chip efficiency, challenge Nvidia | 5 things to know — no verifiable fact in the last 24 h; resting
+- drop — Aditya Birla Real Estate aims Rs 15,000 crore annual pre-sales in three years — no business angle returned
+- drop — Johnnie Walker-owner overtakes Pernod Ricard as India's largest alco-bev firm; Radico Khaitan in 3rd place — no business angle returned
+- drop — Grid constraints, slower project awards may weigh on solar capacity growth beyond FY28: Report — angle score 5 < 6
+- drop — Non-coal mining projects spread up to 500 hectares now to be appraised at state level — safety: UNSAFE (Involves government policy and regulation.)
+- drop — International first class is over for U.S. airlines. Enter the mega business-class cabin — no business angle returned
+- drop — Ex-GM CEO on Mary Barra succession planning: 'It's going to be tough' — safety: UNSAFE (Topic is a person on their own.)
+- drop — Rejecting cheap fabrics, higher prices: Why shoppers are asking for better clothes — angle score 2 < 6
+- drop — Gap names new Athleta CEO, says Old Navy turnaround is seeing signs of progress — angle score 3 < 6
+- drop — Climate talks stall as countries mull showdown with Saudi Arabia over fossil fuel phaseout — safety: UNSAFE (Involves politicians and international politics.)
+- KEEP — Indian Bank to raise ₹3000 crore through AT1/Tier 2 bonds — PICKED: score 8, ₹3000 cr bond issuance
+- KEEP — mahanadi coalfields — runner-up: score 7, IPO valuation and dividend yield
+- KEEP — a24 — runner-up: score 7, box office returns and streaming deals
+- KEEP — Shree Cement to cross 100 mt capacity in 3-4 years, says Chairman Hari Mohan Bangur — runner-up: score 7, 100 mt capacity target
+- KEEP — A24 is having a great year at the box office. That could give HBO Max a streaming edge — runner-up: score 7, A24 box‑office success
+- KEEP — nordvpn — runner-up: score 6, subscription pricing and subscriber base
+- KEEP — Grand Theft Auto VI — runner-up: score 9, record-breaking launch revenue
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, all‑time Indian box office totals
+- KEEP — Grand Theft Auto — runner-up: score 8, lifetime sales and microtransactions
+- KEEP — Rockstar Games — runner-up: score 8, annual revenue and game franchise earnings
+- KEEP — UFC Fight Night: Procházka vs. Stirling — runner-up: score 7, pay‑per‑view buys and gate revenue
+- KEEP — Survivor Series: WarGames (2026) — runner-up: score 6, ticket sales and WWE network earnings
