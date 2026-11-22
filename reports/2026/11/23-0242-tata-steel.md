@@ -1,0 +1,105 @@
+# Tata Steel — 20261123-0242
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-22T21:12:40.116710+00:00
+- **Trend:** "Tata Steel to sell tubes, pipes business and Tata Steel Colors to APL Apollo for Rs 28,000 crore" via feed
+- **Angle:** Steel tubes sale seals massive ₹28,000 cr deal
+
+## Every candidate fact and its checks
+- **The tubes business reported revenue of around ₹11,375 crore in fiscal year 2026 (FY26).**
+  - source: https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - FAIL `g_on_topic` — fact does not name the topic 'Tata Steel'
+- **The tubes business had a net worth of ₹3,274 crore in fiscal year 2026 (FY26).**
+  - source: https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - FAIL `g_on_topic` — fact does not name the topic 'Tata Steel'
+- **Tata Steel Colors reported revenue of around ₹4,680 crore in fiscal year 2026 (FY26).**
+  - source: https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - PASS `a_quote_verbatim` — https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - FAIL `b_claim_in_quote` — numbers not in quote: ['2026']
+- **Tata Steel Colors had a net worth of ₹1,016 crore in fiscal year 2026 (FY26).**
+  - source: https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - PASS `a_quote_verbatim` — https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+  - FAIL `b_claim_in_quote` — numbers not in quote: ['2026']
+- **In May 2025, the company opened a new facility in Odisha, expanding Kalinganagar's annual capacity from 3 million to 8 million tonnes following a ₹27,000 crore investment.**
+  - source: https://en.wikipedia.org/w/index.php?title=Tata%20Steel&oldid=1386919606
+  - FAIL `g_on_topic` — fact does not name the topic 'Tata Steel'
+- **On 25 February 2025, Tata Steel Limited invested $1,238 million (₹10,727 crore) to acquire 788.5 crore additional shares of its subsidiary, T Steel Holdings Pte. Ltd., maintaining its 100% ownership.**
+  - source: https://en.wikipedia.org/w/index.php?title=Tata%20Steel&oldid=1386919606
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Tata%20Steel&oldid=1386919606
+  - PASS `b_claim_in_quote` — all numbers, names and superlatives found in quote
+  - PASS `e_dated` — dated
+  - PASS `f_fresh` — from 2025
+  - FAIL `style` — claim longer than 25 words
+
+## Sources fetched
+- Wikipedia (2923 words): https://en.wikipedia.org/w/index.php?title=Tata%20Steel&oldid=1386919606
+- The Economic Times (279 words): https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/tata-steel-to-sell-tubes-pipes-business-and-tata-steel-colors-to-apl-apollo-for-rs-28000-crore/articleshow/136078094.cms
+- Mint (699 words): https://www.livemint.com/companies/news/tata-steel-s-28-000-crore-deal-with-apl-apollo-is-part-of-a-two-stage-transaction-11795360468769.html
+- BBC (archived) (954 words): https://web.archive.org/web/20130726032200/http://news.bbc.co.uk/2/hi/business/6944461.stm
+- BBC (archived) (721 words): https://web.archive.org/web/20131214083630/http://news.bbc.co.uk/2/hi/business/6068244.stm
+- The Guardian (542 words): https://www.theguardian.com/business/2020/jun/24/uk-government-and-tata-steel-close-to-rescue-deal-saving-8000-jobs
+- The Economic Times (565 words): https://economictimes.indiatimes.com/tatas-bail-out-tayo-rolls-rights-issue-too/articleshow/3825513.cms
+- The Times of India (489 words): https://timesofindia.indiatimes.com/business/india-business/tata-steel-calls-off-sale-of-se-asian-biz/articleshow/82417411.cms
+
+## Topic decisions
+- drop — Riemann hypothesis — safety: UNSURE (Academic topic, unclear business angle.)
+- drop — Ramayana: Part 1 — angle score 4 < 6
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths, explicitly prohibited.)
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Ansel Adams — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Robert Pattinson — safety: UNSAFE (Person on their own, prohibited.)
+- drop — The Body (TV series) — angle score 3 < 6
+- drop — Levent Alpöge — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Nikhil Chaudhary (cricketer) — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Jeff Bezos — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Joseph Zada — safety: UNSAFE (Person on their own, prohibited.)
+- drop — Survivor Series: WarGames (2026) — angle score 5 < 6
+- drop — Elizabeth Holmes — safety: UNSAFE (Person on their own, prohibited.)
+- drop — John Madden — safety: UNSAFE (Person on their own, prohibited.)
+- drop — The Odyssey (2026 film) — angle score 5 < 6
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, could be film or person, insufficient context.)
+- drop — jordyn tyson — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — jalen hurts — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — mathematics riemann hypothesis — angle score 1 < 6
+- drop — salvon ahmed — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — tony pollard — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — cincinnati vs nashville — angle score 5 < 6
+- drop — jaylen warren — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — rockstar games gta vi — angle score 4 < 6
+- drop — ryan flournoy — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — justin barron — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — jake elliott — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — javokhir sindarov — safety: UNSAFE (Individual athlete, not a company or team.)
+- drop — atletico madrid — angle score 5 < 6
+- drop — marseille vs le mans — angle score 4 < 6
+- drop — triumph — angle score 3 < 6
+- drop — troy — safety: UNSAFE (Refers to individual athlete Troy Aikman, not a team.)
+- drop — michael kors — angle score 2 < 6
+- drop — off duty — safety: UNSAFE (Headlines involve shooting, violence, and death.)
+- drop — Centrica boss says he is 'hugely concerned' over impact of soaring energy bills — safety: UNSAFE (Topic is a specific private individual.)
+- drop — Employers are being asked to give interview feedback - here's what applicants want — angle score 0 < 6
+- drop — Can AI really help spot Black Friday deals? We put it to the test — angle score 2 < 6
+- drop — Tech stock sell-off drags markets down as Anthropic shares slide — angle score 3 < 6
+- drop — From cotton mills to cityscapes – How the Singhanias are unlocking legacy land — safety: UNSAFE (Focuses on a specific private family.)
+- drop — FSSAI sanctions prosecution action against companies over unsafe samples — safety: UNSAFE (Involves legal prosecution and regulatory action.)
+- drop — Letters to the Editor dated November 22, 2026 — safety: UNSURE (Content unknown, could contain sensitive topics.)
+- drop — Editorial. GiANT move — safety: UNSURE (Ambiguous title, context unclear.)
+- drop — Tata Steel’s  ₹28,000 crore deal with APL Apollo is part of a two-stage takeover transaction — no verifiable fact in the last 24 h; resting
+- drop — Who is Prerna Jha? Former Zee5 executive returns to Jio Studios as AVP – Marketing; what did she say? — safety: UNSAFE (Topic is a specific private individual.)
+- drop — Who is Rajnish K Kaushik? Courtyard by Marriott Ranchi appoints hospitality veteran as executive chef — safety: UNSAFE (Topic is a specific private individual.)
+- drop — SpiceJet's troubles deepen: DGCA issues show cause notice over grounded planes, flight disruptions and unpaid penalties — safety: UNSAFE (Involves regulatory legal action and penalties.)
+- drop — Marico fines independent director Bhaskar Bhat Rs 3 lakh over spouse's share purchase — safety: UNSAFE (Involves specific private individual and legal fine.)
+- drop — Pilots' body seeks urgent financial, safety audit of crisis-hit SpiceJet — angle score 2 < 6
+- drop — Petrol, diesel prices rose 7% in India vs 50-70% globally over four years: Hardeep Puri — safety: UNSAFE (Topic is a specific private individual.)
+- KEEP — Tata Steel to sell tubes, pipes business and Tata Steel Colors to APL Apollo for Rs 28,000 crore — PICKED: score 9, Steel tubes sale seals massive ₹28,000 cr deal
+- KEEP — hunger games — runner-up: score 8, $225M opening, franchise earnings
+- KEEP — JK Urbanscapes to invest Rs 1,000 cr to build 6 hotels, plans Rs 4,500-cr housing projects — runner-up: score 8, JK Urbanscapes pours ₹1,000 cr into hotels
+- KEEP — JK Urbanscapes plans six hotels beyond metros to tap rising demand — runner-up: score 7, JK Urbanscapes expands hotel footprint
+- KEEP — chiefs game today — runner-up: score 6, NFL ticket sales and ad revenue
+- KEEP — Grand Theft Auto VI — runner-up: score 9, record-breaking launch revenue
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 8, $225M worldwide opening
+- KEEP — Grand Theft Auto — runner-up: score 8, lifetime franchise sales
+- KEEP — List of highest-grossing Indian films — runner-up: score 7, top Indian box‑office figures
+- KEEP — Rockstar Games — runner-up: score 7, company valuation and game sales
+- KEEP — UFC Fight Night: Procházka vs. Stirling — runner-up: score 6, pay‑per‑view buy rate
