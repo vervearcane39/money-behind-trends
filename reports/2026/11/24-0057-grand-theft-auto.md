@@ -1,0 +1,87 @@
+# Grand Theft Auto — 20261124-0057
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-23T19:27:06.603746+00:00
+- **Trend:** "grand theft auto" via google_trends (US)
+- **Angle:** Day‑one retail revenue record
+
+## Every candidate fact and its checks
+- **As of 2026, the series consists of eight standalone titles and four expansion packs.**
+  - source: https://en.wikipedia.org/w/index.php?title=Grand%20Theft%20Auto&oldid=1387169576
+  - FAIL `g_on_topic` — fact does not name the topic 'Grand Theft Auto'
+- **The game released on 19 November 2026.**
+  - source: https://en.wikipedia.org/w/index.php?title=Grand%20Theft%20Auto&oldid=1387169576
+  - FAIL `g_on_topic` — fact does not name the topic 'Grand Theft Auto'
+
+## Sources fetched
+- Wikipedia (7495 words): https://en.wikipedia.org/w/index.php?title=Grand%20Theft%20Auto&oldid=1387169576
+- The Guardian (2046 words): https://www.theguardian.com/games/2026/nov/18/grand-theft-auto-vi-gta-6-review-playstation-rockstar
+- CNN (archived) (581 words): https://web.archive.org/web/20060625114709/http://www.cnn.com/2003/LAW/10/22/videogame.lawsuit.ap/index.html
+- BBC (513 words): https://www.bbc.co.uk/mediacentre/proginfo/2015/37/gamechangers
+- BBC (1478 words): https://www.bbc.co.uk/pressoffice/pressreleases/stories/2006/01_january/27/culture.shtml
+- BBC (archived) (513 words): https://web.archive.org/web/20150905043443/http://www.bbc.co.uk/mediacentre/proginfo/2015/37/gamechangers
+- BBC (archived) (223 words): https://web.archive.org/web/20140703005145/http://www.bbc.co.uk/newsbeat/28129505
+- BBC (archived) (449 words): https://web.archive.org/web/20170903170528/http://news.bbc.co.uk/1/hi/england/4814088.stm
+
+## Topic decisions
+- drop — Ramayana: Part 1 — angle score 5 < 6
+- drop — Tom Jackson (American football, born 1951) — safety: UNSAFE (Topic is a specific individual person.)
+- drop — The Hunger Games: Sunrise on the Reaping — angle score 4 < 6
+- drop — Riemann hypothesis — angle score 0 < 6
+- drop — Miley Cyrus — safety: UNSAFE (Topic is a specific individual person.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths, explicitly prohibited.)
+- drop — The Body (TV series) — angle score 3 < 6
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Ansel Adams — safety: UNSAFE (Topic is a specific individual person.)
+- drop — S Club — angle score 4 < 6
+- drop — Joseph Zada — safety: UNSAFE (Topic is a specific individual person.)
+- drop — Robert Pattinson — safety: UNSAFE (Topic is a specific individual person.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Topic is a specific individual person.)
+- drop — Mckenna Grace — safety: UNSAFE (Topic is a specific individual person.)
+- drop — You Can See Everything — angle score 1 < 6
+- drop — Sunrise on the Reaping — angle score 4 < 6
+- drop — Mauricio Pochettino — safety: UNSAFE (Topic is a specific individual person.)
+- drop — John Madden — safety: UNSAFE (Topic is a person on their own.)
+- drop — brandon aiyuk — safety: UNSAFE (Topic is a person on their own.)
+- drop — cruise ship — safety: UNSAFE (Headlines involve disaster, death, and crime.)
+- drop — monza vs fiorentina — angle score 3 < 6
+- drop — vanity fair taylor swift — safety: UNSAFE (Involves a private individual (celebrity).)
+- drop — iowa women's basketball — angle score 2 < 6
+- drop — levante - elche c. f. — angle score 2 < 6
+- drop — levante vs elche — angle score 2 < 6
+- drop — brentford vs everton — angle score 5 < 6
+- drop — kerry titheradge — safety: UNSAFE (Topic is a person on their own.)
+- drop — from — safety: UNSAFE (Headlines involve political controversy and politicians.)
+- drop — shimron hetmyer — safety: UNSAFE (Topic is a person on their own.)
+- drop — motor city — angle score 4 < 6
+- drop — hbo harry potter — angle score 1 < 6
+- drop — Nvidia shares up nearly 33% and tech stocks rally after Jensen Huang returns — angle score 0 < 6
+- drop — How important are Nvidia and Jensen Huang to the US economy? — safety: UNSAFE (Involves a specific private individual (Jensen Huang).)
+- drop — The rise and fall and rise again of Jensen Huang — safety: UNSAFE (Topic is a person on their own.)
+- drop — NSEL investors get ₹1,950 crore after waiting for 14 years — safety: UNSAFE (Involves ongoing court cases and financial fraud.)
+- drop — Tata Steel says direct APL Apollo buyout was costlier, less efficient; Targets 15.5 mt downstream platform — angle score 5 < 6
+- drop — Sarvam launches AI-powered dictation API for English, 22 Indian languages — angle score 2 < 6
+- drop — Held up whisky consignment to be released following due procedure — safety: UNSURE (Unclear if regulatory dispute or criminal seizure.)
+- drop — Zscaler’s Chaudhrys to Reap $14.5 Billion From CrowdStrike Deal — safety: UNSAFE (Focuses on private individuals (Chaudhrys) receiving money.)
+- drop — Who is Ankur Singla? Meet Brew TV Founder - Firm launched to fix India’s indie film distribution with 80% filmmaker pay — safety: UNSAFE (Topic is a person on their own.)
+- drop — Amazon is 32, but Jeff Bezos once predicted it would go bankrupt. What his 30-year rule means for businesses today — safety: UNSAFE (Focuses on a specific private individual (Bezos).)
+- drop — Who is Artemis Patrick? Meet Sephora CEO as she reveals why she once refused to work at the beauty company — safety: UNSAFE (Topic is a person on their own.)
+- drop — Tata Steel aims to maintain Rs 15,000 per tonne Ebitda with APL Apollo acquisition — no verifiable fact in the last 24 h; resting
+- drop — SpiceJet difficulties raise concerns about flight safety, employee welfare, regulatory oversight: ALPA India — safety: UNSAFE (Involves safety concerns and potential accidents.)
+- drop — Deepak Parekh flags missing housing starts data in India's economic indicators — safety: UNSAFE (Focuses on a specific private individual.)
+- drop — Railways passenger traffic may touch 800 crore in FY27, says Vaishnaw — safety: UNSAFE (Involves a politician (Vaishnaw).)
+- drop — Bisleri under FSSAI scanner: What the water tests found and what's next — safety: UNSAFE (Involves health and medical claims (water safety).)
+- drop — ESPN, NFL to show Super Bowl 61 in Imax theaters — angle score 4 < 6
+- drop — Pizza chains are under pressure. GLP-1 use is only one part of the problem — safety: UNSAFE (Involves health and medical claims (GLP-1).)
+- drop — Nvidia shares surge more than 30% on Jensen Huang‘s return, adding $1tn to company value – business live — safety: UNSAFE (Involves a specific private individual (Jensen Huang).)
+- drop — Flagship UK gigafactory plan in turmoil after it loses second builder in five months — safety: UNSURE (Unclear specific company or project context.)
+- KEEP — grand theft auto — PICKED: score 9, Day‑one retail revenue record
+- KEEP — CrowdStrike snaps up Zscaler in $44 billion deal as cyber threats mount — runner-up: score 9, $44B cybersecurity merger
+- KEEP — ucl — runner-up: score 8, Champions League prize pool
+- KEEP — nasa voyager 1 — runner-up: score 7, Mission cost and scientific value
+- KEEP — mufg ipo allotment status — runner-up: score 7, IPO raises 136 crore rupees
+- KEEP — black friday sale — runner-up: score 6, Discount‑driven revenue surge
+- KEEP — Grand Theft Auto VI — runner-up: score 9, Day‑one retail revenue record
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, Box office rankings Indian cinema
+- KEEP — The Odyssey (2026 film) — runner-up: score 6, Production budget and release earnings
