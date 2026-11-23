@@ -1,0 +1,73 @@
+# Zscaler — 20261123-1905
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-23T13:35:00.627361+00:00
+- **Trend:** "zscaler" via google_trends (IN)
+- **Angle:** $44 billion acquisition by CrowdStrike
+
+## Sources fetched
+- Wikipedia (392 words): https://en.wikipedia.org/w/index.php?title=Zscaler&oldid=1387325395
+- The Economic Times (401 words): https://economictimes.indiatimes.com/tech/startups/zscaler-acquires-mumbai-based-cybersecurity-startup-smokescreen-technologies/articleshow/82968427.cms?from=mdr
+
+## Topic decisions
+- drop — Tom Jackson (American football, born 1951) — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Riemann hypothesis — angle score 0 < 6
+- drop — Miley Cyrus — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths, explicitly prohibited topic.)
+- drop — The Body (TV series) — angle score 4 < 6
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Ansel Adams — safety: UNSAFE (Individual person, not a company or product.)
+- drop — S Club — safety: UNSAFE (Music group consisting of individuals, not a company.)
+- drop — Joseph Zada — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Robert Pattinson — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Mckenna Grace — safety: UNSAFE (Individual person, not a company or product.)
+- drop — You Can See Everything — angle score 1 < 6
+- drop — Mauricio Pochettino — safety: UNSAFE (Individual person, not a company or product.)
+- drop — John Madden — safety: UNSAFE (Topic is a person on their own.)
+- drop — thanksgiving — safety: UNSAFE (Headlines mention storms and flooding disasters.)
+- drop — neftchi fergana vs al-hilal — angle score 5 < 6
+- drop — gwyneth paltrow — safety: UNSAFE (Topic is a person on their own.)
+- drop — leonida — safety: UNSURE (Unclear if person or product; headlines about GTA.)
+- drop — real kashmir vs dempo sc — angle score 3 < 6
+- drop — zorawar singh ahluwalia — safety: UNSAFE (Topic is a person on their own.)
+- drop — allen — safety: UNSAFE (Topic is a person on their own.)
+- drop — strait of hormuz shipping blockade — safety: UNSAFE (Involves geopolitical conflict and naval blockade.)
+- drop — musk foundation — safety: UNSAFE (Involves a private individual (Elon Musk).)
+- drop — the rookie — angle score 4 < 6
+- drop — kim jong un meets ambassadors — safety: UNSAFE (Involves a politician and political event.)
+- drop — bangladesh — angle score 5 < 6
+- drop — west bengal — safety: UNSAFE (Involves politicians and political party actions.)
+- drop — Energy bills will soar - here's how you can ease the pain — angle score 5 < 6
+- drop — Some US banks tighten AI-agent controls on concern about models escaping safeguards — angle score 3 < 6
+- drop — IMD update: Heavy rain for Tamil Nadu, Chennai, Puducherry, Kerala for 2 days — safety: UNSAFE (Weather event involving potential disaster or accident risk.)
+- drop — India announces $1.63 billion package for Nepal, marking PM Balen Shah’s visit — safety: UNSAFE (Involves politicians and international diplomatic relations.)
+- drop — 72% of India’s tech workers willing to switch careers if pay stays the same: Blind survey — angle score 2 < 6
+- drop — RINL teams win three gold awards at ICQCC 2026 in Bangladesh; here's what their projects involved — angle score 1 < 6
+- drop — Who is Baba Kalyani? Meet the industrialist facing a bitter family battle over  ₹1 lakh crore wealth — safety: UNSAFE (Private individual involved in ongoing legal dispute.)
+- drop — Who is Sugandha Hiremath? Meet businesswoman at centre of Kalyani family’s  ₹1 lakh crore ancestral wealth dispute — safety: UNSAFE (Private individual involved in ongoing legal dispute.)
+- drop — Microsoft employee of 24 years gets ‘High Priority’ Teams invite mid-AI training, then gets laid off: What happened — safety: UNSAFE (Focuses on a specific private individual's experience.)
+- drop — Bisleri, PepsiCo and Red Bull under FSSAI scanner: What has put India's beverage giants in the spotlight? — angle score 5 < 6
+- drop — Bisleri under FSSAI scanner: What the water tests found and what's next — angle score 4 < 6
+- drop — FSSAI tests samples of major water brands, warns of action against violators — angle score 4 < 6
+- drop — Pizza chains are under pressure. GLP-1 use is only one part of the problem — angle score 5 < 6
+- drop — Next reassures customers their data has not been accessed after ‘cyber incident’ at supplier – business live — angle score 3 < 6
+- drop — Falling markets: will I lose money, and is there anything I can do? — angle score 2 < 6
+- KEEP — zscaler — PICKED: score 10, $44 billion acquisition by CrowdStrike
+- KEEP — price of gold — runner-up: score 9, daily spot price fluctuations and market volume
+- KEEP — India's pharma exports may touch $33 billion in FY27, growth seen at 5-6%: Pharmexcil — runner-up: score 8, export revenue forecast
+- KEEP — India's pharma GCCs generate USD 10.5 billion in GVA, employ 120,000: Report — runner-up: score 8, gross value added and employment
+- KEEP — India's textile sector needs over 10% annual growth to hit $350 billion target by FY31: BCG-CII report — runner-up: score 7, sector growth target valuation
+- KEEP — Flagship UK gigafactory plan in turmoil after it loses second builder in five months — runner-up: score 7, construction delays and cost overruns
+- KEEP — Capita shares plunge 70% as boss quits after civil service pensions failure — runner-up: score 6, market valuation drop after pension loss
+- KEEP — Catering giant to switch main share listing to US in further blow to UK — runner-up: score 6, listing move and resulting market cap shift
+- KEEP — Poundland is facing collapse - what's gone wrong? — runner-up: score 6, store closures and debt levels
+- KEEP — NHS caterer Compass ‘plans stock market switch’ in blow to London — runner-up: score 6, potential IPO valuation
+- KEEP — Grand Theft Auto VI — runner-up: score 9, development cost and launch sales forecast
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, total worldwide box‑office totals
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 7, production budget and franchise earnings
+- KEEP — Grand Theft Auto — runner-up: score 7, cumulative sales and revenue since launch
+- KEEP — Sunrise on the Reaping — runner-up: score 7, budget and expected franchise earnings
+- KEEP — Ramayana: Part 1 — runner-up: score 6, budget vs box office expectations
+- KEEP — The Odyssey (2026 film) — runner-up: score 6, projected production budget and release window
