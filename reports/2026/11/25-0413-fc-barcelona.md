@@ -1,0 +1,79 @@
+# Fc Barcelona — 20261125-0413
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-24T22:43:56.182398+00:00
+- **Trend:** "fc barcelona" via google_trends (IN)
+- **Angle:** club valuation and wage bill
+
+## Sources fetched
+- Wikipedia (11616 words): https://en.wikipedia.org/w/index.php?title=FC%20Barcelona&oldid=1386716225
+- CNN (archived) (808 words): https://web.archive.org/web/20171030184012/http://worldsport.blogs.cnn.com/2011/12/23/is-this-barcelona-team-the-best-of-all-time/
+- The Guardian (1330 words): https://www.theguardian.com/football/blog/2013/may/24/great-european-cup-teams-barcelona
+- The Guardian (archived) (1330 words): https://web.archive.org/web/20180915085801/https://www.theguardian.com/football/blog/2013/may/24/great-european-cup-teams-barcelona
+- The Guardian (1701 words): https://www.theguardian.com/football/blog/2016/sep/17/ronaldo-40-birthday-brazil-greatest-ever-striker
+- The Guardian (archived) (1701 words): https://web.archive.org/web/20180907161434/https://www.theguardian.com/football/blog/2016/sep/17/ronaldo-40-birthday-brazil-greatest-ever-striker
+- The Guardian (1482 words): https://www.theguardian.com/football/2008/jun/19/barcelona.brazil
+- The Guardian (archived) (1482 words): https://web.archive.org/web/20190327145422/https://www.theguardian.com/football/2008/jun/19/barcelona.brazil
+
+## Topic decisions
+- drop — Jensen Huang — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Blood — safety: UNSURE (Ambiguous title, could refer to medical or violent content.)
+- drop — Riemann hypothesis — angle score 0 < 6
+- drop — Experience machine — angle score 0 < 6
+- drop — Deaths in 2026 — safety: UNSAFE (Explicitly involves deaths, which is a prohibited topic.)
+- drop — Tom Jackson (American football, born 1951) — safety: UNSAFE (Individual person, not a team or league.)
+- drop — Russian corvette Merkury — safety: UNSAFE (Military vessel, associated with war and defense.)
+- drop — Miley Cyrus — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Molly Meldrum — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Mariella Frostrup — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Fred Warner (American football) — safety: UNSAFE (Individual person, not a team or league.)
+- drop — The Body (TV series) — angle score 5 < 6
+- drop — O.M: Operation Mole — angle score 3 < 6
+- drop — Nvidia — no verifiable fact in the last 24 h; resting
+- drop — Ansel Adams — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Joseph Zada — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Sam Bankman-Fried — safety: UNSAFE (Individual person, not a company or product.)
+- drop — dow jones industrial average — angle score 4 < 6
+- drop — como 1907 vs aek athens f.c. standings — angle score 4 < 6
+- drop — dólar estadounidense — angle score 4 < 6
+- drop — travis scott — safety: UNSAFE (Individual person, not a company or product.)
+- drop — iowa state basketball — angle score 4 < 6
+- drop — friendsgiving — angle score 2 < 6
+- drop — vinícius júnior — safety: UNSAFE (Individual person, not a company or product.)
+- drop — cucho hernández — safety: UNSAFE (Individual person, not a company or product.)
+- drop — wolverhampton wanderers f.c. vs derby county standings — angle score 3 < 6
+- drop — michigan vs creighton prediction — angle score 3 < 6
+- drop — classement real madrid – psv eindhoven — angle score 4 < 6
+- drop — uconn vs south carolina — angle score 5 < 6
+- drop — brahim díaz — safety: UNSAFE (Individual person, not a company or product.)
+- drop — erling haaland — safety: UNSAFE (Individual person, not a company or product.)
+- drop — yeh prem mol liya — angle score 4 < 6
+- drop — ayyoub bouaddi — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Faisal Islam: Fears over the AI boom haven't gone away — safety: UNSAFE (Topic is a person on their own.)
+- drop — US attorney general dodges questions about Nvidia investigation — safety: UNSAFE (Involves politicians and ongoing court cases.)
+- drop — Huawei found guilty of stealing trade secrets but acquitted of racketeering — safety: UNSAFE (Involves crime and ongoing court cases.)
+- drop — Will I get the £100 energy payment and when will I receive it? — safety: UNSAFE (Involves government political policy and elections.)
+- drop — US weighs new import duties on India, China and 14 other trading partners — safety: UNSAFE (Involves politicians and political parties.)
+- drop — Tamil Nadu to announce 70 investment deals worth over ₹50,000 crore — safety: UNSAFE (Involves politicians and political parties.)
+- drop — VinGroup plans aggressive expansion in real estate, hospitality businesses in India — angle score 3 < 6
+- drop — Microsoft declares Code Red after 24-hour outage disrupts Outlook, Teams and other services — angle score 2 < 6
+- drop — Sarvam AI launches document extraction API, supports files up to 500 pages — angle score 2 < 6
+- drop — HPE shares tumble as shrinking AI margins overshadow upbeat forecast — angle score 5 < 6
+- drop — Sanofi’s $41 Billion Insmed Deal Shows Cost of a Patent Cliff — no verifiable fact in the last 24 h; resting
+- drop — Can Amazon’s Trainium chips reduce its dependence on Nvidia? The Decart technology acquisition offers clues — angle score 4 < 6
+- drop — Anant Ambani’s Vantara signs 10-year wildlife conservation agreement with Madagascar — safety: UNSAFE (Involves a private individual.)
+- drop — JSW Motors reveals new logo, prepares to enter India's passenger vehicle market — angle score 3 < 6
+- drop — Alliance Air to begin flight operations between Silchar, Imphal from November end: Assam CM — safety: UNSAFE (Involves politicians and political parties.)
+- drop — Some U.S. food banks see demand top pandemic levels — safety: UNSAFE (Involves health and medical claims.)
+- KEEP — fc barcelona — PICKED: score 9, club valuation and wage bill
+- KEEP — paris saint-germain f.c. — runner-up: score 9, transfer spending and sponsorship
+- KEEP — Best Buy reports comparable sales growth of 6.1%, highest in five years — runner-up: score 8, 6.1% comparable sales rise
+- KEEP — ESPN, NFL to show Super Bowl 61 in Imax theaters — runner-up: score 7, IMAX ticket revenue for Super Bowl
+- KEEP — Volkswagen seeks 2-year pay freeze for 120,000 workers as union threatens strikes from Jan 1 — runner-up: score 6, Pay freeze affecting payroll
+- KEEP — Retail turnarounds are taking hold just in time for the holiday season — runner-up: score 6, Holiday sales rebound
+- KEEP — Grand Theft Auto VI — runner-up: score 9, record-breaking launch revenue
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, top Indian box office records
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs box office expectations
+- KEEP — Avengers: Doomsday — runner-up: score 7, budget and franchise revenue
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 6, production cost vs franchise earnings
