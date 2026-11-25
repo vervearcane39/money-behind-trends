@@ -1,0 +1,72 @@
+# Karnataka clears Pixxel’s — 20261125-0534
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-25T00:04:48.548444+00:00
+- **Trend:** "Karnataka clears Pixxel’s ₹350-crore satellite manufacturing project" via feed
+- **Angle:** Government funding and projected revenue
+
+## Sources fetched
+- BusinessLine (238 words): https://www.thehindubusinessline.com/news/national/karnataka-clears-pixxels-350-crore-satellite-manufacturing-project/article71740209.ece
+
+## Topic decisions
+- drop — Ramayana: Part 1 — angle score 2 < 6
+- drop — Jensen Huang — safety: UNSAFE (Individual person, not a company or product.)
+- drop — The Hunger Games: Sunrise on the Reaping — angle score 3 < 6
+- drop — Blood — safety: UNSAFE (Ambiguous, likely medical or violent content.)
+- drop — Riemann hypothesis — safety: UNSAFE (Academic topic, not a business or money fact.)
+- drop — Experience machine — safety: UNSAFE (Philosophical concept, not a business or money fact.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths, explicitly prohibited.)
+- drop — Tom Jackson (American football, born 1951) — safety: UNSAFE (Individual person, not a team or league.)
+- drop — Russian corvette Merkury — safety: UNSAFE (Military vessel, relates to war and defense.)
+- drop — Miley Cyrus — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Avengers: Doomsday — angle score 4 < 6
+- drop — Molly Meldrum — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Mariella Frostrup — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Fred Warner (American football) — safety: UNSAFE (Individual person, not a team or league.)
+- drop — The Body (TV series) — angle score 3 < 6
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Nvidia — no verifiable fact in the last 24 h; resting
+- drop — Ansel Adams — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Joseph Zada — safety: UNSAFE (Topic is a private individual.)
+- drop — Sam Bankman-Fried — safety: UNSAFE (Topic is a private individual.)
+- drop — nebraska volleyball — angle score 5 < 6
+- drop — thomas markle — safety: UNSAFE (Involves crime and private individual.)
+- drop — ohio state basketball — angle score 5 < 6
+- drop — cooper flagg stats — safety: UNSAFE (Topic is a private individual.)
+- drop — rutgers basketball — angle score 4 < 6
+- drop — iowa men's basketball — angle score 4 < 6
+- drop — david muir — safety: UNSAFE (Topic is a private individual.)
+- drop — is cade cunningham playing — safety: UNSAFE (Topic is a private individual.)
+- drop — treasury — safety: UNSAFE (Involves government and political entity.)
+- drop — Faisal Islam: Fears over the AI boom haven't gone away — safety: UNSAFE (Topic is a private individual.)
+- drop — US attorney general dodges questions about Nvidia investigation — safety: UNSAFE (Involves politicians and ongoing investigation.)
+- drop — Huawei found guilty of stealing trade secrets but acquitted of racketeering — safety: UNSAFE (Involves crime and court case.)
+- drop — Will I get the £100 energy payment and when will I receive it? — safety: UNSAFE (Involves government policy and politics.)
+- drop — CIA’s open-source intelligence system breached in cyberattack; no classified data involved — safety: UNSAFE (Involves government agency and security breach.)
+- drop — Sanofi’s $41 Billion Insmed Deal Shows Cost of a Patent Cliff — no verifiable fact in the last 24 h; resting
+- drop — Anant Ambani’s Vantara signs 10-year wildlife conservation agreement with Madagascar — angle score 1 < 6
+- drop — JSW Motors reveals new logo, prepares to enter India's passenger vehicle market — angle score 3 < 6
+- drop — Alliance Air to begin flight operations between Silchar, Imphal from November end: Assam CM — angle score 2 < 6
+- drop — Retail turnarounds are taking hold just in time for the holiday season — angle score 4 < 6
+- drop — Some U.S. food banks see demand top pandemic levels — safety: UNSAFE (Involves health, medical, and social welfare issues.)
+- drop — NHS caterer Compass confirms plan to ditch main London listing for New York — angle score 5 < 6
+- drop — Irish plan offers Burnham breakthrough on Made in Europe — safety: UNSAFE (Involves politicians and political policy discussions.)
+- drop — Standard owner Lord Lebedev cuts £5m off price of London mansion — safety: UNSAFE (Involves a private individual and personal asset.)
+- drop — Channel 4 hit as Unilever switches from TV to influencer marketing — angle score 4 < 6
+- drop — Your Money: How to make most of rising interest rates — angle score 2 < 6
+- drop — Centre lists 6 ways for pensioners to complete Annual Life Certificate submission process by Nov 30 — safety: UNSAFE (Involves government administration and political entity.)
+- drop — Audi India to hike vehicle prices by 2% in second revision this year, new prices effective from Jan 1, 2027 — angle score 3 < 6
+- drop — Tech Tonic | India’s not-so-super app dream — angle score 2 < 6
+- KEEP — Karnataka clears Pixxel’s ₹350-crore satellite manufacturing project — PICKED: score 8, Government funding and projected revenue
+- KEEP — Can Amazon’s Trainium chips reduce its dependence on Nvidia? The Decart technology acquisition offers clues — runner-up: score 8, Acquisition cost versus projected savings
+- KEEP — Tesla merger could make Elon Musk's SpaceX eligible for S&P 500, trigger passive buying: JP Morgan — runner-up: score 8, Potential index inclusion and market cap boost
+- KEEP — Zydus Lifesciences sets up wholly owned subsidiary in Australia — runner-up: score 7, Investment amount and Australian market entry
+- KEEP — HPE shares tumble as shrinking AI margins overshadow upbeat forecast — runner-up: score 7, Quarterly AI margin decline and stock impact
+- KEEP — Volkswagen seeks 2-year pay freeze for 120,000 workers as union threatens strikes from Jan 1 — runner-up: score 7, Labor cost savings and production impact
+- KEEP — Best Buy reports comparable sales growth of 6.1%, highest in five years — runner-up: score 7, Comparable sales surge and earnings outlook
+- KEEP — miss universe pageant — runner-up: score 6, Sponsorship deals and broadcast rights
+- KEEP — JSW Motors unveils brand identity ahead of December 3 launch — runner-up: score 6, Launch budget and expected sales volume
+- KEEP — ESPN, NFL to show Super Bowl 61 in Imax theaters — runner-up: score 6, Ticket pricing and box‑office tie‑in
+- KEEP — Grand Theft Auto VI — runner-up: score 9, Pre‑order revenue and development cost
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, Box‑office totals and market share
