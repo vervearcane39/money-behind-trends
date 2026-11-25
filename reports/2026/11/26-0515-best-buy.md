@@ -1,0 +1,79 @@
+# Best Buy — 20261126-0515
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-25T23:45:59.537986+00:00
+- **Trend:** "Best Buy reports comparable sales growth of 6.1%, highest in five years" via feed
+- **Angle:** Best Buy sales surge 6.1%
+
+## Sources fetched
+- Wikipedia (4169 words): https://en.wikipedia.org/w/index.php?title=Best%20Buy&oldid=1386802738
+- CNBC (541 words): https://www.cnbc.com/2026/11/24/best-buy-bby-q3-2027-earnings.html
+- CNBC (archived) (180 words): https://web.archive.org/web/20170907213636/https://www.cnbc.com/2016/08/17/best-buy-celebrates-50-years-with-50-hours-of-discounts.html
+- The Verge (archived) (270 words): https://web.archive.org/web/20180301161440/https://www.theverge.com/2018/3/1/17066232/best-buy-close-all-mobile-stores-may-us
+- CNN (archived) (387 words): https://web.archive.org/web/20210309152131/https://www.cnn.com/2021/02/25/business/best-buy-store-closures-workers/index.html
+- CNBC (archived) (403 words): https://web.archive.org/web/20220812200637/https://www.cnbc.com/2022/08/12/best-buy-cuts-hundreds-of-store-jobs-as-sales-soften-according-to-report.html
+- NPR (archived) (668 words): https://web.archive.org/web/20190821174049/https://www.npr.org/sections/thetwo-way/2018/03/07/591698708/fbi-used-paid-informants-on-best-buys-geek-squad-to-flag-child-pornography
+- CNBC (180 words): https://www.cnbc.com/2016/08/17/best-buy-celebrates-50-years-with-50-hours-of-discounts.html
+
+## Topic decisions
+- drop — Jensen Huang — safety: UNSAFE (Individual person, not a company.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths.)
+- drop — Avengers: Doomsday — angle score 5 < 6
+- drop — Riemann hypothesis — angle score 0 < 6
+- drop — Soham murders — safety: UNSAFE (Involves crime and deaths.)
+- drop — The Body (TV series) — angle score 4 < 6
+- drop — Miley Cyrus — safety: UNSAFE (Individual person.)
+- drop — Mariella Frostrup — safety: UNSAFE (Individual person.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person.)
+- drop — Anthony Russell (murderer) — safety: UNSAFE (Individual person involved in crime.)
+- drop — Ansel Adams — safety: UNSAFE (Individual person.)
+- drop — Blood — safety: UNSAFE (Ambiguous, likely medical or violent.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, unclear context.)
+- drop — O.M: Operation Mole — safety: UNSURE (Ambiguous title, unclear context.)
+- drop — Sam Bankman-Fried — safety: UNSURE (classifier gave no answer)
+- drop — gold — safety: UNSURE (classifier gave no answer)
+- drop — moon tonight — safety: UNSURE (classifier gave no answer)
+- drop — hurricanes vs lightning — safety: UNSURE (classifier gave no answer)
+- drop — jets vs bruins — safety: UNSURE (classifier gave no answer)
+- drop — tariff — safety: UNSURE (classifier gave no answer)
+- drop — live law — safety: UNSURE (classifier gave no answer)
+- drop — kevin gausman — safety: UNSURE (classifier gave no answer)
+- drop — flames vs penguins — safety: UNSURE (classifier gave no answer)
+- drop — devils vs blue jackets — safety: UNSURE (classifier gave no answer)
+- drop — barcelona sc - independiente del valle — safety: UNSURE (classifier gave no answer)
+- drop — timberwolves vs thunder — safety: UNSURE (classifier gave no answer)
+- drop — foster griffin — safety: UNSURE (classifier gave no answer)
+- drop — tewolde gebremariam — safety: UNSURE (classifier gave no answer)
+- drop — pj haggerty — safety: UNSURE (classifier gave no answer)
+- drop — Poundland collapses putting 11,000 jobs at risk — safety: UNSURE (classifier gave no answer)
+- drop — What's gone wrong at Poundland? — safety: UNSURE (classifier gave no answer)
+- drop — US announces new tariffs on host of countries including China — safety: UNSURE (classifier gave no answer)
+- drop — US stocks fall further as fears over AI intensify — safety: UNSURE (classifier gave no answer)
+- drop — Energy bills to rise by 26% from January after gas prices surge — safety: UNSURE (classifier gave no answer)
+- drop — Wall Street rebounds from day’s lows as bargain hunters step in; Dow gains, Nasdaq falls — angle score 3 < 6
+- drop — S&P puts Nvidia’s credit rating on downgrade watch over governance concerns — angle score 5 < 6
+- drop — Tariff Turmoil: US links lower 17% tariff for India to reciprocal trade deal, proposes up to 25% otherwise — angle score 4 < 6
+- drop — India says it has no structural excess capacity, remains committed to early US trade deal — angle score 3 < 6
+- drop — Industrial parks, renewables, automotive and engineering lead Tamil Nadu’s ₹58,214 crore investment commitments — tried: no clean topic name for a news headline
+- drop — BNP Paribas moves up global systemic bank list, capital buffer rises — angle score 5 < 6
+- drop — LIC names third CFO this year amid senior management churn — angle score 2 < 6
+- drop — FSSAI collects packaged drinking water samples for quality checks; action not for creating panic: CEO — safety: UNSAFE (Involves health and medical safety claims.)
+- drop — FSSAI tells states to step up sampling, enforcement against packaged water firms — safety: UNSAFE (Involves health and food safety regulation.)
+- drop — Airtel plans to set up three data centres in Assam with Rs 1,200 crore investment — no verifiable fact in the last 24 h; resting
+- drop — Regional Air Connectivity Fund gets income-tax exemption for four years till FY30 — angle score 4 < 6
+- drop — Macy's postpones Thanksgiving Day Parade due to severe weather — angle score 3 < 6
+- drop — Retail turnarounds are taking hold just in time for the holiday season — angle score 5 < 6
+- drop — Some U.S. food banks see demand top pandemic levels — safety: UNSAFE (Involves pandemic and public health crisis.)
+- drop — Poundland collapses, putting more than 10,000 jobs at risk — angle score 5 < 6
+- drop — UK food inflation could hit 5% next year, Bank of England says — angle score 4 < 6
+- KEEP — Best Buy reports comparable sales growth of 6.1%, highest in five years — PICKED: score 8, Best Buy sales surge 6.1%
+- KEEP — IPO on agenda: Tata Sons board to discuss listing plan at Monday's meeting — runner-up: score 7, potential listing valuation
+- KEEP — Toyota replaces Innova Hycross strong hybrid with flex-fuel version, prices start at Rs 19.99 lakh — runner-up: score 6, price point and hybrid market
+- KEEP — Secondhand shopping is going mainstream this holiday season as consumers seek value — runner-up: score 6, resale market reaches billions
+- KEEP — List of highest-grossing Indian films — runner-up: score 9, top grossers and net profits
+- KEEP — Nvidia — runner-up: score 9, market cap and AI revenue
+- KEEP — Grand Theft Auto VI — runner-up: score 8, development cost and launch revenue
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs opening weekend
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 6, production budget and franchise earnings
+- KEEP — Survivor Series: WarGames (2026) — runner-up: score 6, pay‑per‑view buys and ticket revenue
