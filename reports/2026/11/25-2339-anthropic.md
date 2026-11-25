@@ -1,0 +1,110 @@
+# Anthropic — 20261125-2339
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-25T18:09:34.968085+00:00
+- **Trend:** "Anthropic made record $81.3bn in IPO, but where the money is going? why public shareholders have little say?" via feed
+- **Angle:** massive IPO valuation and fund allocation
+
+## Every candidate fact and its checks
+- **In 2025 Anthropic settled a copyright infringement lawsuit for $1.5 billion.**
+  - source: https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - FAIL `b_claim_in_quote` — names not in quote: ['anthropic']
+- **In July 2025 Anthropic signed a two‑year contract with the US Department of Defense for $200 million.**
+  - source: https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - PASS `b_claim_in_quote` — all numbers, names and superlatives found in quote
+  - PASS `e_dated` — dated
+  - PASS `f_fresh` — from 2025
+  - PASS `style` — ok
+  - FAIL `c_corroborated` — no second non-Wikipedia domain contains the same figures, names and year
+- **In November 2025 Nvidia and Microsoft were expected to invest up to $15 billion in Anthropic.**
+  - source: https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - FAIL `a_quote_verbatim` — quote not found verbatim in https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+- **In August 2026 Anthropic agreed to a cloud‑computing agreement valued at approximately $45 billion.**
+  - source: https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - PASS `b_claim_in_quote` — all numbers, names and superlatives found in quote
+  - PASS `e_dated` — dated
+  - PASS `f_fresh` — from 2026
+  - PASS `style` — ok
+  - FAIL `c_corroborated` — no second non-Wikipedia domain contains the same figures, names and year
+- **In November 2026 Anthropic offered 980 million Class A shares at $83 each, raising $26 billion through a concurrent private placement.**
+  - source: https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+  - FAIL `a_quote_verbatim` — quote not found verbatim in https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+
+## Sources fetched
+- Wikipedia (4386 words): https://en.wikipedia.org/w/index.php?title=Anthropic&oldid=1387524814
+- Mint (875 words): https://www.livemint.com/companies/anthropic-made-record-81-3bn-in-ipo-but-where-the-money-is-going-why-public-shareholders-have-little-say-11795606790039.html
+- The Guardian (archived) (624 words): https://web.archive.org/web/20231108182005/https://www.theguardian.com/technology/2023/jul/12/claude-2-anthropic-launches-chatbot-rival-chatgpt
+- The Guardian (624 words): https://www.theguardian.com/technology/2023/jul/12/claude-2-anthropic-launches-chatbot-rival-chatgpt
+- Ars Technica (200 words): https://arstechnica.com/tech-policy/2023/10/universal-music-sues-ai-start-up-anthropic-for-scraping-song-lyrics/
+- CNBC (572 words): https://www.cnbc.com/2024/03/25/ftx-estate-sells-majority-stake-in-startup-anthropic-for-884-million.html
+- CNBC (886 words): https://www.cnbc.com/2024/05/01/anthropic-iphone-ai-app-business-plan-to-compete-with-openai-announced.html
+- TechCrunch (413 words): https://techcrunch.com/2024/05/15/anthropic-hires-instagram-co-founder-as-head-of-product/
+- Ars Technica (262 words): https://arstechnica.com/tech-policy/2025/07/groks-mechahitler-meltdown-didnt-stop-xai-from-winning-200m-military-deal/
+- Ars Technica (archived) (262 words): https://web.archive.org/web/20250716044148id_/https://arstechnica.com/tech-policy/2025/07/groks-mechahitler-meltdown-didnt-stop-xai-from-winning-200m-military-deal/
+- CNBC (229 words): https://www.cnbc.com/2026/08/26/anthropic-and-nscale-strike-45-billion-cloud-deal-sources-say.html
+
+## Topic decisions
+- drop — Ramayana: Part 1 — angle score 3 < 6
+- drop — Jensen Huang — safety: UNSAFE (Individual person, not a company.)
+- drop — The Hunger Games: Sunrise on the Reaping — angle score 4 < 6
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths.)
+- drop — Riemann hypothesis — angle score 0 < 6
+- drop — Soham murders — safety: UNSAFE (Involves crime and deaths.)
+- drop — The Body (TV series) — angle score 5 < 6
+- drop — Miley Cyrus — safety: UNSAFE (Individual person.)
+- drop — Mariella Frostrup — safety: UNSAFE (Individual person.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person.)
+- drop — Anthony Russell (murderer) — safety: UNSAFE (Individual person involved in crime.)
+- drop — Ansel Adams — safety: UNSAFE (Individual person.)
+- drop — Blood — safety: UNSURE (Ambiguous title, could be medical or film.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, likely film but uncertain.)
+- drop — O.M: Operation Mole — angle score 2 < 6
+- drop — Sam Bankman-Fried — safety: UNSAFE (Private individual involved in ongoing court cases.)
+- drop — fc barcelona — no verifiable fact in the last 24 h; resting
+- drop — marquette vs virginia — angle score 5 < 6
+- drop — lakshmi venu tvs — safety: UNSAFE (Private individual involved in ongoing court cases.)
+- drop — sophie cunningham maxim photos — safety: UNSAFE (Private individual involved in adult content controversy.)
+- drop — gavi — safety: UNSAFE (Person on their own (athlete).)
+- drop — azerbaijan — safety: UNSAFE (Political entity involved in international political disputes.)
+- drop — yale basketball — angle score 3 < 6
+- drop — pope francis diary — safety: UNSAFE (Religious figure and religious claims/controversy.)
+- drop — pedri — safety: UNSAFE (Person on their own (athlete).)
+- drop — fermín lópez — safety: UNSAFE (Person on their own (athlete).)
+- drop — nikhil kamath — safety: UNSAFE (Person on their own (executive).)
+- drop — frenkie de jong — safety: UNSAFE (Person on their own (athlete).)
+- drop — villarreal — angle score 5 < 6
+- drop — chris paul — safety: UNSAFE (Person on their own (athlete).)
+- drop — chipotle bogo today — angle score 4 < 6
+- drop — US stocks fall further as fears over AI intensify — angle score 4 < 6
+- drop — Why tiny cars are taking off across Europe — angle score 5 < 6
+- drop — India rejects US claim of excess capacity, remains committed to early trade deal — safety: UNSAFE (Involves government trade policy and international relations.)
+- drop — Tariff Turmoil: US links lower 17% tariff for India to reciprocal trade deal, proposes up to 25% otherwise — safety: UNSAFE (Involves government trade policy and international relations.)
+- drop — Industrial parks, renewables, automotive and engineering lead Tamil Nadu’s ₹58,214 crore investment commitments — safety: UNSAFE (Involves state government investment announcements.)
+- drop — Rupee-led imports surge five-fold to ₹2.73 lakh crore in the H1FY27 — tried: only 0 usable news source(s)
+- drop — LIC names third CFO this year amid senior management churn — angle score 3 < 6
+- drop — FSSAI collects packaged drinking water samples for quality checks; action not for creating panic: CEO — safety: UNSAFE (Involves regulatory body and health/food safety.)
+- drop — FSSAI tells states to step up sampling, enforcement against packaged water firms — safety: UNSAFE (Involves regulatory body and health/food safety.)
+- drop — Regional Air Connectivity Fund gets income-tax exemption for four years till FY30 — safety: UNSAFE (Involves government tax policy.)
+- KEEP — Anthropic made record $81.3bn in IPO, but where the money is going? why public shareholders have little say? — PICKED: score 9, massive IPO valuation and fund allocation
+- KEEP — barca — runner-up: score 8, Champions League prize money and TV rights
+- KEEP — barcelona match — runner-up: score 8, Champions League earnings and disciplinary fines
+- KEEP — cognizant s&p global — runner-up: score 8, Acquisition cost and data‑service revenue boost
+- KEEP — Energy bills to rise by 26% from January after gas prices surge — runner-up: score 8, regulatory price caps and wholesale costs
+- KEEP — IPO on agenda: Tata Sons board to discuss listing plan at Monday's meeting — runner-up: score 8, potential valuation and share allocation
+- KEEP — Airtel plans to set up three data centres in Assam with Rs 1,200 crore investment — runner-up: score 8, capital expenditure on regional infrastructure
+- KEEP — barca game — runner-up: score 7, Matchday revenue and player market value impact
+- KEEP — fenerbahçe — runner-up: score 7, Turkish league TV rights and sponsorship deals
+- KEEP — Poundland collapses putting 11,000 jobs at risk — runner-up: score 7, store closures and lease liabilities
+- KEEP — Tata Steel open to revisiting APL Apollo deal structure after investor backlash — runner-up: score 7, deal renegotiation and valuation impact
+- KEEP — Energy bills will soar - here's how you can ease the pain — runner-up: score 6, consumer savings strategies for higher tariffs
+- KEEP — Precious metals plunge in Indian markets on global cues, strong currencies — runner-up: score 6, price drop linked to dollar strength
+- KEEP — Toyota replaces Innova Hycross strong hybrid with flex-fuel version, prices start at Rs 19.99 lakh — runner-up: score 6, pricing strategy for new powertrain
+- KEEP — Grand Theft Auto VI — runner-up: score 9, Development cost and launch revenue forecast
+- KEEP — Nvidia — runner-up: score 9, Revenue growth and AI chip market valuation
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, Box‑office totals and market share
+- KEEP — Avengers: Doomsday — runner-up: score 7, Budget, merchandising and global ticket sales
+- KEEP — Survivor Series: WarGames (2026) — runner-up: score 6, Pay‑per‑view buys and ticket revenue
