@@ -1,0 +1,97 @@
+# Walmart — 20261126-2322
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-26T17:52:27.518711+00:00
+- **Trend:** "walmart" via google_trends (IN)
+- **Angle:** holiday sales volume and discounts
+
+## Every candidate fact and its checks
+- **Walmart became the first traditional retailer to be valued at over $1 trillion in February 2026.**
+  - source: https://en.wikipedia.org/w/index.php?title=Walmart&oldid=1388018104
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Walmart&oldid=1388018104
+  - PASS `b_claim_in_quote` — all numbers, names and superlatives found in quote
+  - PASS `e_dated` — dated
+  - PASS `f_fresh` — from 2026
+  - PASS `style` — ok
+  - FAIL `c_corroborated` — no second non-Wikipedia domain contains the same figures, names and year
+- **As of early 2026, Walmart holds a global portfolio of 8,841 total patent filings.**
+  - source: https://en.wikipedia.org/w/index.php?title=Walmart&oldid=1388018104
+  - PASS `a_quote_verbatim` — https://en.wikipedia.org/w/index.php?title=Walmart&oldid=1388018104
+  - PASS `b_claim_in_quote` — all numbers, names and superlatives found in quote
+  - PASS `e_dated` — dated
+  - PASS `f_fresh` — from 2026
+  - PASS `style` — ok
+  - FAIL `c_corroborated` — no second non-Wikipedia domain contains the same figures, names and year
+
+## Sources fetched
+- Wikipedia (16564 words): https://en.wikipedia.org/w/index.php?title=Walmart&oldid=1388018104
+- The Times of India (252 words): https://timesofindia.indiatimes.com/business/india-business/walmart-completes-deal-to-acquire-77-stake-in-flipkart-to-invest-2-billion/articleshow/65454382.cms
+- BBC (archived) (293 words): https://web.archive.org/web/20090115081000/http://news.bbc.co.uk/1/hi/business/5223432.stm
+- CNBC (477 words): https://www.cnbc.com/2018/05/09/walmart-agrees-deal-to-buy-a-majority-stake-in-indias-flipkart.html
+- BBC (343 words): https://www.bbc.com/news/business-44050180
+- The Economic Times (721 words): https://economictimes.indiatimes.com/small-biz/startups/newsbuzz/walmart-acquires-flipkart-for-16-bn-worlds-largest-ecommerce-deal/articleshow/64095145.cms
+- CNN (archived) (1098 words): https://web.archive.org/web/20140205051508/http://religion.blogs.cnn.com/2012/07/24/7-religious-companies-besides-chick-fil-a/
+- TechCrunch (841 words): https://techcrunch.com/2012/08/30/in-battle-with-amazon-walmart-unveils-polaris-a-semantic-search-engine-for-products/
+
+## Topic decisions
+- drop — Ezra Frech — safety: UNSAFE (Topic is a private individual.)
+- drop — Dancing with the Stars (American TV series) season 35 — angle score 5 < 6
+- drop — Jennifer Barreto — safety: UNSAFE (Topic is a private individual.)
+- drop — Deaths in 2026 — safety: UNSAFE (Topic involves deaths.)
+- drop — Andy Taylor (guitarist) — safety: UNSAFE (Topic is a person on their own.)
+- drop — Mike McCarthy — safety: UNSAFE (Topic is a person on their own.)
+- drop — Aaron Rodgers — safety: UNSAFE (Topic is a person on their own.)
+- drop — Lead(II) azide — safety: UNSAFE (Chemical compound involves safety and potential harm.)
+- drop — Martha Firestone Ford — safety: UNSAFE (Topic is a person on their own.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Topic is a person on their own.)
+- drop — Jensen Huang — safety: UNSAFE (Topic is a person on their own.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, could be person or product.)
+- drop — Miss International 2026 — angle score 5 < 6
+- drop — Daniella Karagach — safety: UNSAFE (Topic is a person on their own.)
+- drop — Ansel Adams — safety: UNSAFE (Topic is a person on their own.)
+- drop — Iowa lead azide detonation — safety: UNSAFE (Involves accident and explosion.)
+- drop — Tatyana Ali — safety: UNSAFE (Topic is a person on their own.)
+- drop — Ade Adepitan — safety: UNSAFE (Topic is a person on their own.)
+- drop — youtube tv — angle score 4 < 6
+- drop — brighton vs craiova — angle score 4 < 6
+- drop — dan campbell — safety: UNSAFE (Topic is a person on their own.)
+- drop — john o'hurley — safety: UNSAFE (Topic is a person on their own.)
+- drop — cbs — angle score 2 < 6
+- drop — russell wilson — safety: UNSAFE (Topic is a person on their own.)
+- drop — jj watt — safety: UNSAFE (Topic is a person on their own.)
+- drop — beşiktaş vs h. beer-sheva — safety: UNSAFE (Headline mentions political/communal incident.)
+- drop — kim jong un — safety: UNSAFE (Politician and nuclear weapons.)
+- drop — europa conference league — angle score 5 < 6
+- drop — saburtalo vs getafe — angle score 3 < 6
+- drop — dinamo zagreb vs leverkusen — angle score 4 < 6
+- drop — hearts vs monaco — angle score 3 < 6
+- drop — viktoria plzeň vs benfica — angle score 4 < 6
+- drop — ajax vs thun — angle score 3 < 6
+- drop — nfl weather — angle score 2 < 6
+- drop — marseille vs levski sofia — angle score 5 < 6
+- drop — Simon Jack: Is Poundland's US owner to blame for its collapse? — safety: UNSAFE (Title focuses on a specific private individual.)
+- drop — When will Poundland shops close? Five key questions answered — angle score 4 < 6
+- drop — Drivers over 70 face eye tests every three years under new plans — safety: UNSAFE (Involves health and medical claims/testing.)
+- drop — Telangana to fill 25,000 vacancies soon, targets one lakh jobs in three years — safety: UNSAFE (Government employment policy and political administration.)
+- drop — SAP weighs 10,000 job cuts as Europe’s top software company pushes AI strategy — angle score 5 < 6
+- drop — Share of power sector in coal supply hits 13-month high in October — angle score 4 < 6
+- drop — India needs $500 billion per year to achieve net zero by 2070: Report — angle score 5 < 6
+- drop — Can charity money be used to fight Tata Sons listing? Vijay Singh seeks urgent probe — safety: UNSAFE (Involves a private individual and legal probe.)
+- drop — Explained: What is ‘Starmind’? SpaceX gets FCC nod for 1 million space-based data centres - Full details — angle score 5 < 6
+- drop — JioStar faces fresh workforce changes as sale of 7 TV channels gathers pace, says report; what happens to employees? — angle score 4 < 6
+- drop — Raymond taps Jaideep Ahlawat as ‘Friend of the Brand’ to revive retro Bollywood fashion: All you need to know — safety: UNSAFE (Title focuses on a specific private individual.)
+- drop — Will conduct tests, develop full ecosystem before increasing ethanol blending beyond E20: Hardeep Singh Puri — safety: UNSAFE (Title focuses on a specific politician.)
+- KEEP — walmart — PICKED: score 7, holiday sales volume and discounts
+- KEEP — Norse Atlantic suspends all flights as it faces potential collapse — runner-up: score 7, Norse Atlantic debt and cash crunch
+- KEEP — NLMC eyes Rs 1,300 crore fresh asset monetisation from BSNL, MTNL — runner-up: score 7, NLMC asset monetisation plan
+- KEEP — olympiacos vs milan — runner-up: score 6, UEFA TV rights and match revenue
+- KEEP — Millions of people to see average monthly mortgage payments rise by £100 — runner-up: score 6, mortgage payment increase impact
+- KEEP — JioStar enters US streaming market with 7 Indian channels on Fubo; here’s how much it costs for Hindi entertainment — runner-up: score 6, JioStar US subscription pricing
+- KEEP — Grand Theft Auto VI — runner-up: score 9, development cost and projected sales
+- KEEP — Avengers: Doomsday — runner-up: score 9, budget and global box office forecast
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, cumulative box office records
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs opening weekend earnings
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 7, franchise budget and expected revenue
+- KEEP — Miss Universe 2026 — runner-up: score 6, global broadcast rights and prize pool
+- KEEP — Blade Runner 2099 — runner-up: score 6, production cost and streaming deal
