@@ -1,0 +1,72 @@
+# Millions — 20261127-0323
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-26T21:53:32.687430+00:00
+- **Trend:** "Millions of people to see average monthly mortgage payments rise by £100" via feed
+- **Angle:** national mortgage payment increase
+
+## Sources fetched
+- BBC (604 words): https://www.bbc.co.uk/news/articles/cwg5r02zel9qo?at_medium=RSS&at_campaign=rss
+
+## Topic decisions
+- drop — Ezra Frech — safety: UNSAFE (Topic is a private individual.)
+- drop — Dancing with the Stars (American TV series) season 35 — angle score 5 < 6
+- drop — Jennifer Barreto — safety: UNSAFE (Topic is a private individual.)
+- drop — Deaths in 2026 — safety: UNSAFE (Topic involves deaths.)
+- drop — Andy Taylor (guitarist) — safety: UNSAFE (Topic is a person on their own.)
+- drop — Mike McCarthy — safety: UNSAFE (Topic is a person on their own.)
+- drop — Aaron Rodgers — safety: UNSAFE (Topic is a person on their own.)
+- drop — Lead(II) azide — safety: UNSAFE (Chemical compound involves safety and potential harm.)
+- drop — Martha Firestone Ford — safety: UNSAFE (Topic is a person on their own.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Topic is a person on their own.)
+- drop — Jensen Huang — safety: UNSAFE (Topic is a person on their own.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, could be person or product.)
+- drop — Miss International 2026 — angle score 5 < 6
+- drop — Daniella Karagach — safety: UNSAFE (Topic is a person on their own.)
+- drop — Ansel Adams — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Iowa lead azide detonation — safety: UNSAFE (Involves accident, explosion, and potential disaster.)
+- drop — Tatyana Ali — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Ade Adepitan — safety: UNSAFE (Individual person, not a company or product.)
+- drop — olympiacos f.c. vs ac milan standings — angle score 5 < 6
+- drop — mahira khan — safety: UNSAFE (Individual person, not a company or product.)
+- drop — michigan basketball — angle score 5 < 6
+- drop — william, prince of wales — safety: UNSAFE (Individual person, political/royal figure.)
+- drop — fox — safety: UNSAFE (Headlines involve war, missiles, and geopolitics.)
+- drop — who is singing the national anthem at the cowboys game today — angle score 4 < 6
+- drop — dar e nijaat — safety: UNSAFE (Headlines involve communal backlash and controversy.)
+- drop — cooper dejean — safety: UNSAFE (Individual person, not a company or product.)
+- drop — nfl mvp odds — angle score 4 < 6
+- drop — usc basketball — angle score 5 < 6
+- drop — eagles qb today — angle score 3 < 6
+- drop — history — safety: UNSURE (Ambiguous title, headlines about parade and band.)
+- drop — borac vs atalanta — angle score 5 < 6
+- drop — cska sofia vs trabzonspor — angle score 5 < 6
+- drop — anupam kher — safety: UNSAFE (Person on their own; headlines involve religious content.)
+- drop — uefa — safety: UNSAFE (Headlines mention politicians and political statements.)
+- drop — Simon Jack: Is Poundland's US owner to blame for its collapse? — safety: UNSAFE (Focuses on a specific private individual.)
+- drop — New boss appointed to lead Travelodge — safety: UNSAFE (Focuses on a specific private individual.)
+- drop — When will Poundland shops close? Five key questions answered — angle score 2 < 6
+- drop — Telangana to fill 25,000 vacancies soon, targets one lakh jobs in three years — safety: UNSAFE (Government policy and political administration.)
+- drop — SAP weighs 10,000 job cuts as Europe’s top software company pushes AI strategy — angle score 4 < 6
+- drop — Share of power sector in coal supply hits 13-month high in October — angle score 3 < 6
+- drop — Sleeping With a Subordinate Gets CEOs Fired. Except for Jensen Huang. — safety: UNSAFE (Focuses on a specific private individual.)
+- drop — JioStar enters US streaming market with 7 Indian channels on Fubo; here’s how much it costs for Hindi entertainment — angle score 5 < 6
+- drop — Can charity money be used to fight Tata Sons listing? Vijay Singh seeks urgent probe — safety: UNSAFE (Involves a private individual and legal probe.)
+- drop — Explained: What is ‘Starmind’? SpaceX gets FCC nod for 1 million space-based data centres - Full details — angle score 4 < 6
+- drop — JioStar faces fresh workforce changes as sale of 7 TV channels gathers pace, says report; what happens to employees? — angle score 5 < 6
+- drop — SC asks HDFC Bank, three others to ok staff prosecution — safety: UNSAFE (Involves ongoing court cases and prosecution.)
+- drop — Will conduct tests, develop full ecosystem before increasing ethanol blending beyond E20: Hardeep Singh Puri — safety: UNSAFE (Statement by a specific politician.)
+- KEEP — Millions of people to see average monthly mortgage payments rise by £100 — PICKED: score 8, national mortgage payment increase
+- KEEP — SBI's renewable energy loan book at Rs 1.24 lakh crore; financed 60 GW capacity: MD — runner-up: score 8, 1.24 lakh crore renewable loan portfolio
+- KEEP — NLMC eyes Rs 1,300 crore fresh asset monetisation from BSNL, MTNL — runner-up: score 7, 1,300 crore asset monetisation plan
+- KEEP — madden movie — runner-up: score 6, production budget and box office
+- KEEP — nfc north standings — runner-up: score 6, playoff bonuses and broadcast fees
+- KEEP — India needs $500 billion per year to achieve net zero by 2070: Report — runner-up: score 6, annual funding gap for net zero
+- KEEP — Grand Theft Auto VI — runner-up: score 9, pre‑order sales and development cost
+- KEEP — Avengers: Doomsday — runner-up: score 9, budget vs global box office
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, total worldwide grosses
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs opening weekend
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 7, production budget and expected revenue
+- KEEP — Miss Universe 2026 — runner-up: score 6, prize money and broadcast rights
+- KEEP — Blade Runner 2099 — runner-up: score 6, production cost and streaming deal
