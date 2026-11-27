@@ -1,0 +1,67 @@
+# Skipped slot — 20261128-0305
+
+- **Status:** skipped — not enough usable news source for the top 3 topics
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-27T21:35:52.919527+00:00
+
+## Topic decisions
+- drop — Andy Taylor (guitarist) — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Aaron Rodgers — safety: UNSAFE (Individual athlete, not a team or league.)
+- drop — Mike McCarthy — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Duran Duran — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Wu-Tang Clan — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths and mortality statistics.)
+- drop — Ezra Frech — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person involved in legal controversy.)
+- drop — John Tuggle — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Thanksgiving — safety: UNSAFE (Religious and cultural festival, potential controversy.)
+- drop — Miranda Lambert — safety: UNSAFE (Individual person, not a company or product.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — Martha Firestone Ford — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Iowa lead azide detonation — safety: UNSAFE (Involves accident, explosion, and potential violence.)
+- drop — Zyri — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — Veruschka — safety: UNSAFE (Person on their own.)
+- drop — Thanksgiving (United States) — safety: UNSAFE (Religious holiday and cultural practice.)
+- drop — Joe Milton — safety: UNSAFE (Person on their own.)
+- drop — dk metcalf — safety: UNSAFE (Person on their own.)
+- drop — jalen ramsey — safety: UNSAFE (Person on their own.)
+- drop — michael pittman — safety: UNSAFE (Person on their own.)
+- drop — igor jesus — safety: UNSAFE (Person on their own.)
+- drop — loki — angle score 5 < 6
+- drop — kristen bell — safety: UNSAFE (Person on their own.)
+- drop — kona takahashi — safety: UNSAFE (Person on their own.)
+- drop — jadan baugh — safety: UNSAFE (Person on their own.)
+- drop — fsu score — angle score 4 < 6
+- drop — ar-pine bluff vs missouri — angle score 3 < 6
+- drop — tim tebow — safety: UNSAFE (Person on their own.)
+- drop — ohio college football standings — angle score 4 < 6
+- drop — maryborough meteorite — angle score 2 < 6
+- drop — werder vs mönchengladbach — angle score 4 < 6
+- drop — from — safety: UNSAFE (Headline involves minors and trafficking.)
+- drop — watch — angle score 5 < 6
+- drop — valencia gp motogp — angle score 5 < 6
+- drop — car dekho — tried: only 0 usable news source(s)
+- drop — laura samson — safety: UNSAFE (Topic is a specific individual person.)
+- drop — From £250 job to £9,000 bill: Inside the rogue trader networks scamming customers at scale — safety: UNSAFE (Involves crime and financial scams.)
+- drop — UK to pay 'participation' fee to deliver EU deals — safety: UNSAFE (Involves politicians and political parties.)
+- drop — My self-care ritual is a meal at a fancy restaurant - on my own — angle score 0 < 6
+- drop — With no HC relief for Tata Trusts, Tata Sons board to meet on Monday — safety: UNSAFE (Involves ongoing court cases.)
+- drop — Rare and hidden cultural treasures of Kashi come into the light — safety: UNSURE (classifier gave no answer)
+- drop — Japanese electronics maker Leo Electronics to invest ₹500 crore in Karnataka, create 800 jobs — tried: no clean topic name for a news headline
+- drop — SC cites regulatory reforms, declines to order creation of unified portal for unclaimed financial assets — safety: UNSAFE (Involves ongoing court cases.)
+- drop — Indian retail investors post $353 million in gains from global stocks: Vested report — no verifiable fact in the last 24 h; resting
+- drop — Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says — tried: no clean topic name for a news headline
+- drop — What is Talkie? Chinese-developed AI chatbot removed from Apple App store — why has tech giant taken this decision? — angle score 2 < 6
+- drop — IBM ends US visa and green card sponsorship for most consulting jobs: What happens to Indian tech workers? — angle score 1 < 6
+- drop — No HDFC bank SMS alerts for UPI payments up to  ₹500 from 1st January 2027 - here's why; what customers should know — angle score 3 < 6
+- drop — TRAI mandates telcos with 30% market share to publish inter-connection rates with transparency — angle score 4 < 6
+- drop — COAI bats for consent validation by telco whose subscriber receives call — angle score 2 < 6
+- drop — TRAI extends 1601-series to e-commerce, hospitals, airlines, aggregators — no business angle returned
+- KEEP — Armani heirs consider buying small slice of fashion house in stake sale, sources say — PICKED: score 6, potential stake purchase in Armani
+- KEEP — GAIL, GNFC join hands to explore downstream petrochemical projects — runner-up: score 6, Joint venture investment valuation
+- KEEP — Avengers: Doomsday — runner-up: score 9, box office and Disney streaming views
+- KEEP — Grand Theft Auto VI — runner-up: score 8, development cost and launch revenue
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs box office
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 7, production budget and franchise earnings
+- KEEP — List of highest-grossing Indian films — runner-up: score 6, all-time Indian box office
+- KEEP — Blade Runner 2099 — runner-up: score 6, streaming rights and production cost
