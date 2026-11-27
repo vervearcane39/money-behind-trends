@@ -1,0 +1,72 @@
+# Tata Steel-APL Apollo — 20261127-1832
+
+- **Status:** skipped — no fact passed verification
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-27T13:02:46.314713+00:00
+- **Trend:** "India markets regulator examining Tata Steel-APL Apollo deal, sources say" via feed
+- **Angle:** steel merger valuation scrutiny
+
+## Sources fetched
+- The Economic Times (455 words): https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/india-markets-regulator-examining-tata-steel-apl-apollo-deal-sources-say/articleshow/136218356.cms
+
+## Topic decisions
+- drop — Andy Taylor (guitarist) — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Aaron Rodgers — safety: UNSAFE (Individual athlete, not a team or league.)
+- drop — Mike McCarthy — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Duran Duran — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Wu-Tang Clan — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths and mortality statistics.)
+- drop — Ezra Frech — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person involved in legal controversies.)
+- drop — John Tuggle — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Thanksgiving — safety: UNSAFE (Religious and cultural holiday, potential controversy.)
+- drop — Miranda Lambert — safety: UNSAFE (Individual person, not a company or product.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — Martha Firestone Ford — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Iowa lead azide detonation — safety: UNSAFE (Involves accident, explosion, and potential disaster.)
+- drop — Zyri — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — Blade Runner 2099 — angle score 5 < 6
+- drop — Veruschka — safety: UNSAFE (Person on their own.)
+- drop — Thanksgiving (United States) — safety: UNSAFE (Religious festival and cultural practice.)
+- drop — Joe Milton — safety: UNSAFE (Person on their own.)
+- drop — courtney cronin — safety: UNSAFE (Person on their own.)
+- drop — nicola carey — safety: UNSAFE (Person on their own.)
+- drop — sheesh mahal — safety: UNSAFE (Political controversy and election context.)
+- drop — ibps po mains scorecard 2026 — angle score 1 < 6
+- drop — ibps po mains — angle score 1 < 6
+- drop — ritabrata banerjee — safety: UNSAFE (Politician and political party controversy.)
+- drop — us air force cloud one breach — safety: UNSAFE (Cybercrime and national security incident.)
+- drop — kassoum ouattara — safety: UNSAFE (Person on their own.)
+- drop — baseer ali — safety: UNSAFE (Person on their own.)
+- drop — erling haaland — safety: UNSAFE (Person on their own.)
+- drop — apple tv 4k — angle score 5 < 6
+- drop — apple stock price — angle score 3 < 6
+- drop — home goods black friday — angle score 5 < 6
+- drop — macbook neo black friday deals — angle score 5 < 6
+- drop — natalie harp — safety: UNSAFE (Person on their own.)
+- drop — From £250 job to £9,000 bill: Inside the rogue trader networks scamming customers at scale — safety: UNSAFE (Involves crime and scams.)
+- drop — UK to pay 'participation' fee to deliver EU deals — safety: UNSAFE (Involves politicians and political deals.)
+- drop — My self-care ritual is a meal at a fancy restaurant - on my own — safety: UNSAFE (Involves a private individual.)
+- drop — Sensex sheds 989 points as crude, rupee end four-week Nifty rally — angle score 2 < 6
+- drop — Air India urges pilots to improve fuel efficiency amid cost-saving push — angle score 4 < 6
+- drop — TRAI extends 1601-series numbers to e-commerce, hospitals, airlines and other sectors — safety: UNSAFE (Involves hospitals and health sector.)
+- drop — CII to establish artisan development centre in Varanasi, to support 75,000 artisans over 5 years — angle score 3 < 6
+- drop — HSBC’s AI-led restructuring: Finance employees in Hyderabad, Pune asked to relocate to three other cities — angle score 4 < 6
+- drop — Casio launches new G-Shock pilot watch with unusual Kevlar, nylon and metal strap, priced at £920 in the UK — angle score 4 < 6
+- drop — Noel Tata, Tata Trusts file caveat before Maharashtra Charity Commissioner ahead of HC hearing, says report — safety: UNSAFE (Involves ongoing court case.)
+- drop — Who is Diipa Khosla? Founder of ayurveda-inspired beauty brand Indē Wild, which received investment from Nikhil Kamath — safety: UNSAFE (Topic is a person on their own.)
+- drop — Urban Company forays into AC market, announces the launch of two new air conditioners under 'Native' brand: Here's why — angle score 5 < 6
+- drop — CAG among five global audit entities to examine adoption, risks of AI in compliance auditing — angle score 2 < 6
+- drop — Volkswagen drags rivals Mercedes, BMW into $1.2 billion tax fight — safety: UNSAFE (Involves ongoing legal dispute.)
+- drop — Thinking about investing abroad? Start with the decisions that matter — angle score 2 < 6
+- drop — Microdrama apps chase profits as Hollywood moves into short-form, vertical video — angle score 5 < 6
+- drop — Macy's postpones Thanksgiving Day Parade due to severe weather — safety: UNSAFE (Involves disaster and severe weather.)
+- KEEP — India markets regulator examining Tata Steel-APL Apollo deal, sources say — PICKED: score 8, steel merger valuation scrutiny
+- KEEP — Inflation has shoppers hunting for value. That bodes well for Black Friday — runner-up: score 7, record Black Friday sales forecast
+- KEEP — le creuset black friday — runner-up: score 6, discounted sales volume
+- KEEP — Best low fee crypto exchanges in 2026: Maker vs taker VIP 1 pricing across 6 platforms — runner-up: score 6, fee comparison across platforms
+- KEEP — List of highest-grossing Indian films — runner-up: score 9, record Indian box office totals
+- KEEP — Grand Theft Auto VI — runner-up: score 8, development cost and launch revenue
+- KEEP — Avengers: Doomsday — runner-up: score 8, budget vs global box office
+- KEEP — Ramayana: Part 1 — runner-up: score 7, budget vs expected box office
+- KEEP — The Hunger Games: Sunrise on the Reaping — runner-up: score 6, production budget and franchise earnings
