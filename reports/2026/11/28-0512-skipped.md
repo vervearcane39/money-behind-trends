@@ -1,0 +1,67 @@
+# Skipped slot — 20261128-0512
+
+- **Status:** skipped — not enough usable news source for the top 3 topics
+- **Mode:** dry_run
+- **Time (UTC):** 2026-11-27T23:42:26.090588+00:00
+
+## Topic decisions
+- drop — Andy Taylor (guitarist) — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Aaron Rodgers — safety: UNSAFE (Individual athlete, not a team or league.)
+- drop — Mike McCarthy — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Duran Duran — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Wu-Tang Clan — safety: UNSAFE (Individual band members, not a corporate entity.)
+- drop — Deaths in 2026 — safety: UNSAFE (Involves deaths and mortality statistics.)
+- drop — Ezra Frech — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Elizabeth Holmes — safety: UNSAFE (Individual person involved in legal controversy.)
+- drop — John Tuggle — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Thanksgiving — safety: UNSAFE (Religious and cultural festival, potential controversy.)
+- drop — Miranda Lambert — safety: UNSAFE (Individual person, not a company or product.)
+- drop — You Can See Everything — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — The Hunger Games: Sunrise on the Reaping — angle score 5 < 6
+- drop — Martha Firestone Ford — safety: UNSAFE (Individual person, not a company or product.)
+- drop — Iowa lead azide detonation — safety: UNSAFE (Involves accident, explosion, and potential violence.)
+- drop — Zyri — safety: UNSURE (Ambiguous title, unclear if product or person.)
+- drop — Blade Runner 2099 — angle score 5 < 6
+- drop — Veruschka — safety: UNSAFE (Person on their own.)
+- drop — Thanksgiving (United States) — safety: UNSAFE (Religious festival and practice.)
+- drop — Joe Milton — safety: UNSAFE (Person on their own.)
+- drop — tom blundell — safety: UNSAFE (Person on their own.)
+- drop — heat vs knicks — tried: only 0 usable news source(s)
+- drop — bowling green vs indiana — angle score 4 < 6
+- drop — cody schrader — safety: UNSAFE (Person on their own.)
+- drop — deportivo cali - bucaramanga — angle score 3 < 6
+- drop — channing tatum — safety: UNSAFE (Person on their own.)
+- drop — drummer — safety: UNSAFE (Headline involves death.)
+- drop — mike norvell — safety: UNSAFE (Person on their own.)
+- drop — strait of hormuz — safety: UNSAFE (War and violence.)
+- drop — thanksgiving storm weather forecast — safety: UNSAFE (Disaster and accidents.)
+- drop — brahmos — safety: UNSAFE (War and military conflict.)
+- drop — From £250 job to £9,000 bill: Inside the rogue trader networks scamming customers at scale — safety: UNSAFE (Crime and fraud.)
+- drop — UK to pay 'participation' fee to deliver EU deals — safety: UNSAFE (Political parties and politicians.)
+- drop — My self-care ritual is a meal at a fancy restaurant - on my own — angle score 0 < 6
+- drop — With no HC relief for Tata Trusts, Tata Sons board to meet on Monday — safety: UNSAFE (Involves ongoing court case and legal dispute.)
+- drop — Rare and hidden cultural treasures of Kashi come into the light — safety: UNSURE (classifier gave no answer)
+- drop — Japanese electronics maker Leo Electronics to invest ₹500 crore in Karnataka, create 800 jobs — tried: no clean topic name for a news headline
+- drop — SC cites regulatory reforms, declines to order creation of unified portal for unclaimed financial assets — safety: UNSAFE (Involves Supreme Court ruling and legal proceedings.)
+- drop — Indian retail investors post $353 million in gains from global stocks: Vested report — no verifiable fact in the last 24 h; resting
+- drop — Armani heirs consider buying small slice of fashion house in stake sale, sources say — angle score 5 < 6
+- drop — Verizon in Talks to Buy Fidium in $6 Billion Deal, FT Says — tried: no clean topic name for a news headline
+- drop — What is Talkie? Chinese-developed AI chatbot removed from Apple App store — why has tech giant taken this decision? — angle score 2 < 6
+- drop — IBM ends US visa and green card sponsorship for most consulting jobs: What happens to Indian tech workers? — angle score 2 < 6
+- drop — No HDFC bank SMS alerts for UPI payments up to  ₹500 from 1st January 2027 - here's why; what customers should know — angle score 1 < 6
+- drop — TRAI mandates telcos with 30% market share to publish inter-connection rates with transparency — angle score 4 < 6
+- drop — COAI bats for consent validation by telco whose subscriber receives call — angle score 3 < 6
+- drop — TRAI extends 1601-series to e-commerce, hospitals, airlines, aggregators — angle score 3 < 6
+- drop — Fertiliser subsidy set to overshoot Budget Estimate of Rs 1.71 lakh crore on costlier imports: Secretary — safety: UNSAFE (Government budget and policy, political context.)
+- drop — Microdrama apps chase profits as Hollywood moves into short-form, vertical video — angle score 5 < 6
+- drop — Labour row over Rosebank deepens as dozens of MPs warn PM not to block oilfield — safety: UNSAFE (Political controversy involving MPs and PM.)
+- KEEP — big ten football championship game — PICKED: score 7, College football media rights
+- KEEP — hindi movie — runner-up: score 7, Highest‑grossing Hindi production
+- KEEP — GAIL, GNFC join hands to explore downstream petrochemical projects — runner-up: score 7, downstream petrochemical joint venture
+- KEEP — chicago blackhawks — runner-up: score 6, NHL salary cap impact
+- KEEP — Inflation has shoppers hunting for value. That bodes well for Black Friday — runner-up: score 6, Black Friday sales surge
+- KEEP — Norse Atlantic Airways files for bankruptcy and cancels all future flights — runner-up: score 6, airline bankruptcy filing
+- KEEP — List of highest-grossing Indian films — runner-up: score 8, All-time Indian box office
+- KEEP — Ramayana: Part 1 — runner-up: score 7, Box office vs budget
+- KEEP — Grand Theft Auto VI — runner-up: score 6, Development cost and expected revenue
+- KEEP — Avengers: Doomsday — runner-up: score 6, Marvel franchise box office
